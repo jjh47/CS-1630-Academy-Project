@@ -14,7 +14,7 @@ Git Workflow
 3. Navigate to a place in your file system where you want to store code locally
 4. Clone your fork url (git clone ssh://git@github.com:[your-username]/[project-name].git)
 5. cd into the newly created directory (cd [project-name])
-6. Add a remote tracking branch (we typically call this “upstream”) (git remote add upstream ssh://git@github.com:rafecolton/CS-1630-Academy-Project.git && git fetch upstream)
+6. Add a remote tracking branch (we typically call this “upstream”) (git remote add upstream git@github.com:rafecolton/CS-1630-Academy-Project.git && git fetch upstream)
 7. Create topic branch per story ("story" will be the name of your branch with this command) (git checkout -b story && git push origin story)
 
 /***** Making Changes *****/
