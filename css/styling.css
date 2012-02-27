@@ -1,0 +1,83 @@
+/*---------------------------------------------------
+    LESS Elements 0.6
+  ---------------------------------------------------
+    A set of useful LESS mixins by Dmitry Fadeyev
+    Special thanks for mixin suggestions to:
+      Kris Van Herzeele,
+      Benoit Adam,
+      Portenart Emile-Victor,
+      Ryan Faerman
+
+    More info at: http://lesselements.com
+-----------------------------------------------------*/
+.clearfix {
+  zoom: 1;
+  /* for IE < 8 */
+
+}
+.clearfix:before, .clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  overflow: hidden;
+}
+.clearfix:after {
+  clear: both;
+}
+/*
+ *  Variables
+ */
+/*
+ *  Mixins
+ */
+body {
+  font-family: "Trebuchet MS", sans-serif;
+  background-color: #d2d2d2;
+}
+#lock-inner-contents {
+  margin: 0 auto;
+  width: 960px;
+}
+#lock-inner-contents #lock-wrapper {
+  margin: 0 auto;
+  width: 300px;
+  background-color: white;
+  padding: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-shadow: 10px 10px 5px #888888;
+  -moz-box-shadow: 10px 10px 5px #888888;
+  box-shadow: 10px 10px 5px #888888;
+  margin-top: 100px;
+}
+#lock-inner-contents #lock-wrapper #login-title {
+  line-height: 30px;
+  height: 30px;
+  margin-left: 40px;
+  margin-top: -33px;
+}
+#lock-inner-contents #lock-wrapper input:not(.button) {
+  width: 260px;
+  margin: 0 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 10px;
+  border: 2px groove #d2d2d2;
+}
+#lock-inner-contents #lock-wrapper input.button {
+  margin-left: 10px;
+}
+#inner-content {
+  margin: 0 auto;
+  width: 960px;
+  height: 800px;
+  background-color: white;
+}

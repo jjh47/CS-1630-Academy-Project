@@ -1,0 +1,50 @@
+@import "elements";
+@import "variables";
+@import "mixins";
+
+body{
+	font-family: @font;
+	background-color: @light-grey;
+}
+
+#lock-inner-contents{
+	margin: 0 auto;
+	width: 960px;
+	
+	#lock-wrapper{
+		margin: 0 auto;
+		width: 300px;
+		background-color: white;
+		padding: 10px;
+		.rounded(10px);
+		.box-shadow(10px 10px 5px #888);
+		margin-top: 100px;
+
+		#login-title{
+			line-height: 30px;
+			height: 30px;
+			margin-left: 40px;
+			margin-top: -33px;
+		}
+
+		input:not(.button){
+			width: 260px;
+			margin: 0 10px;
+			.rounded(5px);
+			padding: 10px;
+			border: 2px groove @light-grey;
+		}
+
+		input.button{
+			margin-left: 10px;
+		}
+	}
+
+}
+
+#inner-content{
+	margin: 0 auto;
+	width: 960px;
+	height: 800px; //for now
+	background-color: white;
+}

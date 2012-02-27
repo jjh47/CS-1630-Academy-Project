@@ -1,0 +1,32 @@
+Documentation for glue.php:
+
+Treat glue.php like a black-box and DO NOT MODIFY THIS FILE.  Please set up your files in the following way:
+
+	•	Please use the following function in ALL of your files
+		⁃	require("glue.php");
+		⁃	init(arg);
+			•	options for arg
+				⁃	"page" - default (also, no arg) (example: index.php)
+				⁃	"script" - secures page against invalid access (example: logout.php)
+				⁃	"form_process" - secures page against invalid access and checks for required form token (example: process_login)
+			•	ensures session is started, 
+			•	ensures database is connected and selected (this part is commented out right now)
+		⁃	(optional) enqueue_script(filename)
+			•	enqueues a JavaScript file to be included in the header of that particular page	
+			•	JavaScript file must be placed in js folder
+			•	must be called before header function
+		⁃	get_header()
+			•	prints script links and page headers for standardized look (needs design)
+			•	includes "locking" mechanism to display login page if user is not logged in
+			•	required before all page content
+		⁃	get_footer()
+			•	concludes any wrappers and body/html
+			•	required after all page content
+	•	other functions
+		⁃	add_token()
+			•	adds the security token to any form
+			•	required for all forms
+	•	globals
+		⁃	$_SESSION["logged_in"] - boolean, whether or not user is logged in
+		⁃	$_SESSION["username"]  - username of currently logged in user
+		⁃	$_SESSION["usertype"] - the type of the user (i.e. student/teacher)
