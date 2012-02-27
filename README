@@ -1,0 +1,42 @@
+/*
+ * CS 1630 Academy Project
+ * README
+ * Project Workbook: http://vis.cs.pitt.edu/teaching/cs1630/Spring2012/Wiki/pmwiki.php?n=Site.AcademyProjectWorkbook
+ *
+ */
+
+Git Workflow
+
+/***** Initial Setup *****/
+
+1. Create a GitHub account if you don't have one already.
+2. (On github.com) Fork the main repo into your personal account using the "Fork" button at the top.
+3. Navigate to a place in your file system where you want to store code locally
+4. Clone your fork url (git clone ssh://git@github.com:[your-username]/[project-name].git)
+5. cd into the newly created directory (cd [project-name])
+6. Add a remote tracking branch (we typically call this “upstream”) (git remote add upstream ssh://git@github.com:rafecolton/CS-1630-Academy-Project.git && git fetch upstream)
+7. Create topic branch per story ("story" will be the name of your branch with this command) (git checkout -b story && git push origin story)
+
+/***** Making Changes *****/
+
+1. Make changes to files
+2. Add changes to git staging area (git add .)
+3. Commit changes to local git repo (git commit -m “Commit message”)
+4. Push changes to your github account (git push origin story)
+5. Repeat
+
+/***** Saving Your Changes *****/
+
+1. Pull in all new changes - pulls in changes from the upstream branch "master" and automatically tries to merge them with your local master branch (git pull upstream master)
+2. Switch to master (git checkout master)
+3. Merge changes to master (git merge story )
+4. Push changes to master on your github account (git push origin master)
+5. Send to upstream repo rafecolton/CS-1630-Academy-Project.git (git push upstream master)
+6. Switch back to your branch for editing (git checkout story)
+
+/***** Cleaning Up *****/
+
+1. Once finished, delete the local branch (git branch -d story)
+2. Purge the branch from origin (git push origin :story)
+(note, if you wish to do further editing after performing these steps, you must recreate your branch with step 7 in Initial Setup)
+
