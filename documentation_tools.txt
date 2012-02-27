@@ -30,3 +30,16 @@ Treat glue.php like a black-box and DO NOT MODIFY THIS FILE.  Please set up your
 		⁃	$_SESSION["logged_in"] - boolean, whether or not user is logged in
 		⁃	$_SESSION["username"]  - username of currently logged in user
 		⁃	$_SESSION["usertype"] - the type of the user (i.e. student/teacher)
+
+
+Resources:
+
+	•	XAMPP - http://www.apachefriends.org/en/xampp.html
+		⁃	or MAMP / MAMP PRO for Mac
+		⁃	for local testing
+	•	SequelPro (Mac ONLY)
+		⁃	for working with your database - I find it easier to use than phpMyAdmin
+	•	Sublime Text 2 - http://www.sublimetext.com/2
+		⁃	phenomenal text editor for both Mac and PC
+	•	LESS Compiler - http://wearekiss.com/simpless (or http://incident57.com/less/ for mac)
+		⁃	Learn about LESS: http://lesscss.org/
