@@ -9,6 +9,4 @@
 
 	$_SESSION["logged_in"] = true;
 	echo "authenticated";
-
-	return_to();
 ?>

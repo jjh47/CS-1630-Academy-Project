@@ -1,9 +1,8 @@
 <?
-	require("glue.php");
+	require("../../../glue.php");
 	init("page");
 	//enqueue_script($filename)
 	get_header();
-?>
 
 
 /* PLEASE CAREFULLY READ THESE COMMENTS!
@@ -22,6 +21,6 @@
  *
  */
 
-
+?>
 
 <? get_footer(); ?>

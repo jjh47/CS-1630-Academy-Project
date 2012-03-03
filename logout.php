@@ -11,5 +11,4 @@
 	unset($_SESSION["private_token"]);	
 
 	echo "success";
-	return_to();
 ?>

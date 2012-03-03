@@ -1,5 +1,5 @@
 <?
-	require("glue.php");
+	require("../../glue.php");
 	init("form_process");
 
 /* PLEASE CAREFULLY READ THESE COMMENTS!

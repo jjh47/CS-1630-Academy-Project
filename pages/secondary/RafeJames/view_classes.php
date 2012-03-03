@@ -1,9 +1,9 @@
 <?
-	require("glue.php");
+	require("../../../glue.php");
 	init("page");
 	//enqueue_script($filename)
 	get_header();
-?>
+
 
 
 /* PLEASE CAREFULLY READ THESE COMMENTS!
@@ -21,7 +21,7 @@
  * FINALLY: don't forget to check if things exist?  Use the (bool ? A : B) notation to accomplish this.  For example.  $result = ((isset($var) && !empty($var)) ? $var : "" )
  *
  */
-
+?>
 
 
 <? get_footer(); ?>

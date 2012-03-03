@@ -1,13 +1,11 @@
 <?
+session_start();
 
 require("includes/defines.php");
 include("includes/Browser.php");
 
-session_start();
-
-/**
-initialize $db database handle here
-**/
+$db = new SQLiteDatabase(DB_PATH, 0666, $dberror);
+$_SESSION["db"] = $db;
 
 if (!isset($_SESSION["tokens_set"]))
 {
@@ -16,27 +14,12 @@ if (!isset($_SESSION["tokens_set"]))
 
 function init($type = "page")
 {
-	session_start();
 
 	if (!isset($_SESSION["script_list"]))
 	{
 		$_SESSION["script_list"][] = "jquery.js";
 		$_SESSION["script_list"][] = "functions.js";
 	}
-	
-	/*$con = mysql_connect(DB_HOST, DB_USERNAME, DB_PASSWORD);	
-	
-	if (!$con)
-	{
-		die('Could not connect: ' . mysql_error());
-	}
-	
-	$db_selected = mysql_select_db(DB_NAME, $con);
-
-	if (!$db_selected)
-	{
-  		die ("Can\'t use test_db : " . mysql_error());
-	}*/
 
 	switch($type)
 	{
@@ -194,8 +177,8 @@ function set_tokens()
 {
 	$characters = "abcdefghijklmnopqrstuvwxyz0123456789";
 	$length = strlen($characters);
-	if (isset($public_token)): unset($public_token); endif;
-	if (isset($private_token)): unset($private_token); endif;
+	if (isset($public_token)): $public_token = ""; endif;
+	if (isset($private_token)): $private_token = ""; endif;
 
 	for ($x=0; $x<50; $x++)
 	{
