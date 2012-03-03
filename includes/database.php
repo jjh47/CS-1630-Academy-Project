@@ -4,7 +4,7 @@ $db = $_SESSION["db"];
 
 if ($db)
 {
-    /*drop_tables();
+    /*$db->queryExec("drop table User; drop table Class; drop table Assignment; drop table Enrollment; drop table Log;");
     query("
             create table 'User' (
                 'user_id' int not null,
@@ -57,7 +57,9 @@ if ($db)
                 'assignment_id' int not null,
                 'course_id' int not null,
                 'user_id' int not null,
+                'user_name' text not null,
                 'submission_time' text not null,
+                'successful' int(1) not null,
                 'comment' text,
                 unique ('assignment_id','course_id','user_id','submission_time')
             )
@@ -81,12 +83,6 @@ function query($query)
     {
         return true;
     }
-}
-
-function drop_tables()
-{
-    //global $db;
-    //$db->queryExec("drop table User; drop table Class; drop table Assignment; drop table Enrollment; drop table Log;");
 }
 
 ?>

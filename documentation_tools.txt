@@ -34,6 +34,8 @@ Treat glue.php like a black-box and DO NOT MODIFY THIS FILE.  Please set up your
 		⁃	$_SESSION["logged_in"] - boolean, whether or not user is logged in
 		⁃	$_SESSION["username"]  - username of currently logged in user
 		⁃	$_SESSION["usertype"] - the type of the user (i.e. student/teacher)
+		-	$_SESSION["email"] - the user's email
+		-	$_SESSION["user_id"] - the user's unique user id
 		-	$db - the SQLiteDatabase PHP resource
 
 
