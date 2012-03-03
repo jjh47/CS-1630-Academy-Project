@@ -11,7 +11,7 @@ Treat glue.php like a black-box and DO NOT MODIFY THIS FILE.  Please set up your
 				⁃	"form_process" - secures page against invalid access and checks for required form token (example: process_login)
 			•	ensures session is started, 
 			•	ensures database is connected and selected (this part is commented out right now)
-		⁃	(optional) enqueue_script(filename)
+		⁃	(optional) enqueue_script($filename)
 			•	enqueues a JavaScript file to be included in the header of that particular page	
 			•	JavaScript file must be placed in js folder
 			•	must be called before header function
@@ -22,6 +22,10 @@ Treat glue.php like a black-box and DO NOT MODIFY THIS FILE.  Please set up your
 		⁃	get_footer()
 			•	concludes any wrappers and body/html
 			•	required after all page content
+		-	return_to($pagename)
+			•	@param pagename: the full name of the page to which to return (i.e. "view_asignment.php") (default is index.php)
+			•	returns to a given page name
+			• 	required after all "form_process" pages - will usually be the name of the page that called it
 	•	other functions
 		⁃	add_token()
 			•	adds the security token to any form
@@ -30,6 +34,7 @@ Treat glue.php like a black-box and DO NOT MODIFY THIS FILE.  Please set up your
 		⁃	$_SESSION["logged_in"] - boolean, whether or not user is logged in
 		⁃	$_SESSION["username"]  - username of currently logged in user
 		⁃	$_SESSION["usertype"] - the type of the user (i.e. student/teacher)
+		-	$db - the SQLiteDatabase PHP resource
 
 
 Resources:
@@ -43,3 +48,5 @@ Resources:
 		⁃	phenomenal text editor for both Mac and PC
 	•	LESS Compiler - http://wearekiss.com/simpless (or http://incident57.com/less/ for mac)
 		⁃	Learn about LESS: http://lesscss.org/
+
+		

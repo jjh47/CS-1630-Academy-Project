@@ -11,5 +11,5 @@
 	unset($_SESSION["private_token"]);	
 
 	echo "success";
-	header("Location: index.php");
+	return_to();
 ?>

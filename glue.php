@@ -5,6 +5,10 @@ include("includes/Browser.php");
 
 session_start();
 
+/**
+initialize $db database handle here
+**/
+
 if (!isset($_SESSION["tokens_set"]))
 {
 	set_tokens();
@@ -49,6 +53,11 @@ function init($type = "page")
 		default:
 			break;
 	}
+}
+
+function return_to($pagename = "/")
+{
+	header("Location: $pagename");
 }
 
 function secure_script()
