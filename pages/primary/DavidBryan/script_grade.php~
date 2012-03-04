@@ -30,12 +30,19 @@ if($args[1] == "-c"){
 	//as long as the java file name that should be compiled exists
 	if($args[2] != null){
 		$javaFile = $args[2];
+<<<<<<< HEAD
 		if(substr($javaFile, -3)==".py"){$python = true;}
 		$folders = scandir($dir);
 		//for each student folder in the assignment folder
 		foreach($folders as $folder){
 			if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
-
+=======
+		if(substr($javaFile, -3)==.py){$python = true;}
+		$folders = scandir($dir);
+		//for each student folder in the assignment folder
+		foreach($folders as $folder){
+			if($folder != ".." && $folder != "." && $folder != "script_grade.php"){
+>>>>>>> a1995241e772b82044f2b91228671485682bc979
 				//change directory to a student's submission folder
 				$return = chdir($folder);
 				if($return == false){
@@ -75,9 +82,11 @@ if($args[1] == "-d"){
 	if($args[2] == "all"){
 		$folders = scandir($dir);
 		foreach($folders as $folder){
-
+<<<<<<< HEAD
 			if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
-
+=======
+			if($folder != ".." && $folder != "." && $folder != "script_grade.php"){
+>>>>>>> a1995241e772b82044f2b91228671485682bc979
 				//navigate to student's submission folder
 				$return = chdir($folder);
 				if($return == false){print("unable to change directory into ".$folder."\n");}
@@ -101,7 +110,7 @@ if($args[1] == "-d"){
 }	
 
 if($args[1] == "-t"){
-
+<<<<<<< HEAD
 	if($args[2] != null){
 		if($args[3] == "-f"){
 			//if the teacher wants to run the files with command line arguments she would do this:
@@ -165,7 +174,13 @@ if($args[1] == "-t"){
 	}
 	else{print("please indicate the name of the compiled project file to be run");}
 	
-
+=======
+	if($args[3] == "-f"){
+		
+		
+	}
+	else{print("Please use the -f flag with test file name\n");}
+>>>>>>> a1995241e772b82044f2b91228671485682bc979
 
 }
 
