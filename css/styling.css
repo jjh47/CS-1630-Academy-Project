@@ -78,6 +78,6 @@ body {
 #inner-content {
   margin: 0 auto;
   width: 960px;
-  height: 800px;
+  height: 100%;
   background-color: white;
 }
