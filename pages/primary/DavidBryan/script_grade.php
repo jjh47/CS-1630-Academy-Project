@@ -35,7 +35,6 @@ if($args[1] == "-c"){
 		//for each student folder in the assignment folder
 		foreach($folders as $folder){
 			if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
-
 				//change directory to a student's submission folder
 				$return = chdir($folder);
 				if($return == false){
@@ -75,9 +74,7 @@ if($args[1] == "-d"){
 	if($args[2] == "all"){
 		$folders = scandir($dir);
 		foreach($folders as $folder){
-
 			if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
-
 				//navigate to student's submission folder
 				$return = chdir($folder);
 				if($return == false){print("unable to change directory into ".$folder."\n");}
@@ -101,7 +98,6 @@ if($args[1] == "-d"){
 }	
 
 if($args[1] == "-t"){
-
 	if($args[2] != null){
 		if($args[3] == "-f"){
 			//if the teacher wants to run the files with command line arguments she would do this:
@@ -140,6 +136,8 @@ if($args[1] == "-t"){
 						else{
 							$process = proc_open('python '.$className, $Spec, $handles);
 						}
+
+
 						stream_set_blocking($handles[0], 0);
 						if (is_resource($process)) {
 							foreach ($inputLines as $line){
@@ -158,13 +156,36 @@ if($args[1] == "-t"){
 				}
 
 			}
-			else{print("you forgot to include the name of the test file");}
+			//if the teacher wants to run the projects without a test file and record the output.
+			else{print("When using the -f flag you must specify a test file to use");}
 			
 		}
-		else{print("Please use the -f flag with a test file name\n");}
+		else{
+		$className = $args[2];
+				$folders = scandir($dir);
+				if(substr($className, -3)==".py"){$python = true;}
+
+				foreach($folders as $folder){
+					if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
+						chdir($folder);
+						$fp = fopen("Results.txt", 'a+');
+						fwrite($fp, "\nOutput of running ".$testFile."\n--------------------------------------------------\n\n");
+						fclose($fp);
+						if($python == false){
+							$output = shell_exec("javac ".$className." 2>&1 1> /dev/null");
+						}
+						else{
+							$output = shell_exec("python ".$className." 2>&1 1> /dev/null");
+						}
+						$fp = fopen('Results.txt', 'a+');
+						fwrite($fp, $output);
+						fclose($fp);
+					}
+				}
+			}
 	}
 	else{print("please indicate the name of the compiled project file to be run");}
-
+	
 
 }
 
