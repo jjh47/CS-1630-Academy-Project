@@ -1,6 +1,6 @@
 <?
-	require("../../../glue.php");
-	init("script");
+	//require("../../../glue.php");
+	//init("script");
 
 /* PLEASE CAREFULLY READ THESE COMMENTS!
  * 
@@ -14,7 +14,97 @@
  *
  *
  */
+//$db_handle = sqlite_open();
+//$user_name = $_SESSION["username"];
 
 
-	return_to(); //don't forget to specify a page
+//$user_type = sqlite_array_query($db_handle, "select user_type from users where user_name = '".$username."'");
+//$user_type = $user_type[1];
+
+//$num_args = func_num_args();
+$args = $argv;
+$dir = getcwd();
+$python = false;
+//if the user wants to compile all student projects
+if($args[1] == "-c"){
+	//as long as the java file name that should be compiled exists
+	if($args[2] != null){
+		$javaFile = $args[2];
+		if(substr($javaFile, -3)==.py){$python = true;}
+		$folders = scandir($dir);
+		//for each student folder in the assignment folder
+		foreach($folders as $folder){
+			if($folder != ".." && $folder != "." && $folder != "script_grade.php"){
+				//change directory to a student's submission folder
+				$return = chdir($folder);
+				if($return == false){
+					print("unable to change directory into ".$folder."\n");
+				}
+
+				//compile the java program and record output
+				if($python == false){
+					//The suffix on this command is so that the output of each of these compilations are not displayed on the console
+					$output = shell_exec("javac ".$javaFile." 2>&1 1> /dev/null");
+				}
+				//took this out because if it compiles correctly the variable is null.
+				//if($output == null){
+				//	print("an error occured while compiling ".$folder."'s project");
+				//}
+
+				//open/create the results file and write the output to it.
+				$fp = fopen('Results.txt', 'a+');
+				if($fp == false){
+					print("error occured while opening/creating ".$folder."'s Results.txt\n");
+				}
+				$return = fwrite($fp, "Compilation of ".$javaFile."\n--------------------------------------------------\n\n");
+				$return = fwrite($fp, $output."\n\n");
+
+				if($return == false){
+					print("unable to write to ".$folder."'s results.txt\n");
+				}
+				fclose($fp);
+				chdir("..");
+			}
+		}
+	}
+	else{print("please specify the name of the java file that should be compiled\n");}
+}
+
+if($args[1] == "-d"){
+	if($args[2] == "all"){
+		$folders = scandir($dir);
+		foreach($folders as $folder){
+			if($folder != ".." && $folder != "." && $folder != "script_grade.php"){
+				//navigate to student's submission folder
+				$return = chdir($folder);
+				if($return == false){print("unable to change directory into ".$folder."\n");}
+				//delete the Results.txt file
+				$return = unlink("Results.txt");
+				if($return == false){print("unable to delete ".$folder."'s Results.txt\n");}
+				//change directory back to assignment folder
+				chdir("..");		
+			}	
+		}
+		
+	}
+	//delete a single student's results.txt file
+	else if($args[2] != null){
+		$return = chdir($args[2]);
+		if($return == false){print("unable to change directory into ".$args[2]."\n");}
+		$return = unlink("Results.txt");
+		if($return == false){print("unable to delete ".$args[2]."'s Results.txt\n");}
+	}
+	else{print("please specify which results files you would like to delete, 'all' or a specific user name\n");}
+}	
+
+if($args[1] == "-t"){
+	if($args[3] == "-f"){
+		
+		
+	}
+	else{print("Please use the -f flag with test file name\n");}
+
+}
+
+	
 ?>
