@@ -164,7 +164,6 @@ if($args[1] == "-t"){
 		else{print("Please use the -f flag with a test file name\n");}
 	}
 	else{print("please indicate the name of the compiled project file to be run");}
-	
 
 
 }
