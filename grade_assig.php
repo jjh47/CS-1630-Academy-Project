@@ -114,6 +114,72 @@ else{
 		}
 		echo "</pre>";
 	}
+	?>
+	<script>
+	function calculateTotal(){
+		var test = 0;
+		for(i = 1; i <= 8; i++){
+			if(isNaN(parseInt($('#gr'+i).val()))) continue;
+			test += parseInt($('#gr'+i).val());
+		}
+		var oChild = document.getElementById("total");
+		var oNewChild = document.createElement('a');
+		oNewChild.id = oChild.id;
+		oNewChild.innerHTML = test;
+		oChild.parentNode.replaceChild(oNewChild,oChild)
+	}
+	function reset_grading_form(){
+		for(i = 1; i <= 8; i++){
+			$('#gr'+i).val("");
+		}
+		var oChild = document.getElementById("total");
+		var oNewChild = document.createElement('a');
+		oNewChild.id = oChild.id;
+		oNewChild.innerHTML = 0;
+		oChild.parentNode.replaceChild(oNewChild,oChild)
+	}
+	function submit_grading_form(){
+		//TODO
+		alert('not yet implement');
+	}
+	</script>
+	<b>Grading Rubric: </b>
+	<form id="grading_rubric" method="post">
+		<table>
+		<tr>
+		<td>
+		Program Execution:<br/>
+		Program Specification:<br/>
+		Readability:<br/>
+		Reusability:<br/>
+		Documentation:<br/>
+		Accountable use of class time:<br/>
+		Lab Report:<br/>
+		Timeliness:<br/>
+		Total:<br/>
+		</td>
+		<td>
+		<input type="text" name="gr1" id="gr1" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<input type="text" name="gr2" id="gr2" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<input type="text" name="gr3" id="gr3" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<input type="text" name="gr4" id="gr4" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<input type="text" name="gr5" id="gr5" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<input type="text" name="gr6" id="gr6" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<input type="text" name="gr7" id="gr7" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<input type="text" name="gr8" id="gr8" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<a id="total">0</a><br/>
+		</td>
+		<tr>
+		<td>
+		<input type="button" class="button" value="Submit" id ="submit_grading_rubric" onclick = "submit_grading_form()">&nbsp
+		<input type="button" class="button" value="Reset" id="reset_grading_rubric" onclick="reset_grading_form()" ><br/>
+		</td>
+		</tr>
+		</table>
+		<? add_token(); ?>
+	</form>
+	<?
+	
 }
 
 ?>
