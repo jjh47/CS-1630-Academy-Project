@@ -24,7 +24,7 @@
 
  
 //TODO - the usertype hasn't been set yet after the login
-if($_SESSION["usertype"] != "teacher" || $_SESSION["usertype"] != "admin"){
+if($_SESSION["usertype"] != "teacher" && $_SESSION["usertype"] != "admin"){
 	//return_to("index.php");
 }
 if(isset($_GET['class_id']) && isset($_GET['assignment_id']) && isset($_GET['student_id'])){
@@ -53,20 +53,38 @@ elseif(!is_dir("$class_id/$assignment_id/$student_id")){
 }
 else{
 	$list = scandir("$class_id/$assignment_id/$student_id");
-	$count = count($list) - 2;
-	echo "Number of Files: $count <br/>";
+	$count = count($list) - 2; // minus the "." and ".."
+	$late = LATE_FILE_NAME;
+	if(in_array($late, $list)){
+		$count--;
+	}
+	if(in_array("Results.txt", $list)){
+		$count--;
+	}
+	echo "Total Files Submitted: $count <br/>";
 	if($count > 0){
-		echo "Files:";
 		echo "<ul>";
 		foreach($list as $file){
-			if($file != "." && $file != ".."){
+			if($file != "." && $file != ".." && $file != $late && $file != "Results.txt"){
 				echo "<li>$file</li>";
 			}
 		}
 		echo "</ul>";
+		echo "Late Submission:";
+		if(in_array($late, $list)){
+			echo "<ul>";
+			$handle = file("$class_id/$assignment_id/$student_id/$late");
+			foreach ($handle as $line_num => $line) {
+				echo "<li>$line</li>";
+			}
+			echo "</ul>";
+		}
+		else{
+			echo "-- <br/>";
+		}
 		echo "<b>Source Code<br/></b>";
 		foreach($list as $file){
-			if($file != "." && $file != ".."){
+			if($file != "." && $file != ".." && $file != $late && $file != "Results.txt"){
 				echo "$file";
 				echo "<pre>";
 				if(!file_exists("$class_id/$assignment_id/$student_id/$file")){
@@ -75,12 +93,26 @@ else{
 				else{
 					$handle = file("$class_id/$assignment_id/$student_id/$file");
 					foreach ($handle as $line_num => $line) {
-						echo "Line #<b>{$line_num}</b> : " . $line;
+						echo "Line # " . ($line_num + 1) ." : " . $line;
 					}
 				}
 				echo "</pre>";
 			}
 		}
+		echo "<b>Result:</b>";
+		echo "<pre>";
+		if(in_array("Results.txt", $list)){
+			
+			$handle = file("$class_id/$assignment_id/$student_id/Results.txt");
+			foreach ($handle as $line_num => $line) {
+				echo "$line";
+			}
+			
+		}
+		else{
+			echo "Results.txt not found <br/>";
+		}
+		echo "</pre>";
 	}
 }
 
