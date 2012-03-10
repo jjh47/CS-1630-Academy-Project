@@ -159,20 +159,20 @@ else{
 		Total:<br/>
 		</td>
 		<td>
-		<input type="text" name="gr1" id="gr1" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
-		<input type="text" name="gr2" id="gr2" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
-		<input type="text" name="gr3" id="gr3" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
-		<input type="text" name="gr4" id="gr4" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
-		<input type="text" name="gr5" id="gr5" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
-		<input type="text" name="gr6" id="gr6" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
-		<input type="text" name="gr7" id="gr7" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
-		<input type="text" name="gr8" id="gr8" onkeyup="calculateTotal()" size="2" maxlength="2"><br/>
+		<input type="text" name="gr1" id="gr1" onkeyup="calculateTotal()" size="2" maxlength="2" /><br/>
+		<input type="text" name="gr2" id="gr2" onkeyup="calculateTotal()" size="2" maxlength="2" /><br/>
+		<input type="text" name="gr3" id="gr3" onkeyup="calculateTotal()" size="2" maxlength="2" /><br/>
+		<input type="text" name="gr4" id="gr4" onkeyup="calculateTotal()" size="2" maxlength="2" /><br/>
+		<input type="text" name="gr5" id="gr5" onkeyup="calculateTotal()" size="2" maxlength="2" /><br/>
+		<input type="text" name="gr6" id="gr6" onkeyup="calculateTotal()" size="2" maxlength="2" /><br/>
+		<input type="text" name="gr7" id="gr7" onkeyup="calculateTotal()" size="2" maxlength="2" /><br/>
+		<input type="text" name="gr8" id="gr8" onkeyup="calculateTotal()" size="2" maxlength="2" /><br/>
 		<a id="total">0</a><br/>
 		</td>
 		<tr>
 		<td>
-		<input type="button" class="button" value="Submit" id ="submit_grading_rubric" onclick = "submit_grading_form()">&nbsp
-		<input type="button" class="button" value="Reset" id="reset_grading_rubric" onclick="reset_grading_form()" ><br/>
+		<input type="button" class="button" value="Submit" id ="submit_grading_rubric" onclick = "submit_grading_form()" />&nbsp
+		<input type="button" class="button" value="Reset" id="reset_grading_rubric" onclick="reset_grading_form()" /><br/>
 		</td>
 		</tr>
 		</table>
@@ -185,3 +185,14 @@ else{
 ?>
 
 <? get_footer(); ?>
+
+
+
+
+
+
+
+
+
+
+
