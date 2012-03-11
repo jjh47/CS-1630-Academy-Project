@@ -1,6 +1,6 @@
 <?
 	require("../../../glue.php");
-	init("script");
+	init("offline_script");
 
 /* PLEASE CAREFULLY READ THESE COMMENTS!
  * 

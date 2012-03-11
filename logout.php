@@ -2,13 +2,12 @@
 	require("glue.php");
 	init("script");
 
-	$_SESSION["logged_in"] = false;
+	foreach ($_SESSION as $key => $value)
+	{
+		unset($_SESSION[$key]);
+	}
 
-	unset($_SESSION["username"]);
-	unset($_SESSION["usertype"]);
-	unset($_SESSION["tokens_set"]);
-	unset($_SESSION["public_token"]);
-	unset($_SESSION["private_token"]);	
+	$_SESSION["logged_in"] = false;
 
 	echo "success";
 ?>

@@ -1,3 +1,7 @@
+/*
+DO NOT CHANGE .CSS FILE.  ONLY CHANGE .LESS FILES.  
+OTHERWISE, YOUR CHANGES MAY DISAPPEAR.
+*/
 /*---------------------------------------------------
     LESS Elements 0.6
   ---------------------------------------------------
@@ -78,6 +82,10 @@ body {
 #inner-content {
   margin: 0 auto;
   width: 960px;
-  height: 100%;
+  height: 800px;
+  padding: 20px;
   background-color: white;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }

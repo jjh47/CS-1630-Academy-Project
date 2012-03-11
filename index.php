@@ -2,10 +2,10 @@
 	require("glue.php");
 	init("page");
 	get_header();
-	include("includes/database.php");
 ?>
 This is the homepage.
-<br><a id='logout-anchor' style="margin: 20px;" href='javascript:logout()'>Logout</a><br><br>
+<br><a href="pages/view_classes.php">View Classes</a><br>
+<br><a id='logout-anchor' href='javascript:logout()'>Logout</a><br><br>
 
 <? get_footer(); ?>
 
