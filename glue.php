@@ -83,12 +83,13 @@ function get_header()
 	<!doctype html>
 		<html>
 		<head>
+			<title>Pittsburgh Science & Technology Academy | Homework Submission Page</title>
 			<? print_links(); ?>
 		</head>	
 		<body>
 			<div id="inner-content">
 				<a href="<?= HOME_DIR ?>">Home</a> | 
-				Other Nav
+				<a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a>
 				<br><br>
 	<?
 }
@@ -104,12 +105,12 @@ function get_footer()
 
 function add_token()
 {
-	?> <input type="hidden" name="token" id="token" value="<?= $_SESSION['public_token'] ?>"> <?
+	?> <input type='hidden' name='token' id='token' value='<?= $_SESSION['public_token'] ?>'> <?
 }
 
 function lock()
 {
-	$validation_url = "process_login.php";
+	$validation_url = HOME_DIR."process_login.php";
 
 	//if not logged in
 	if (!isset($_SESSION["logged_in"]) || empty($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false)
@@ -118,6 +119,7 @@ function lock()
 		<!doctype html>
 		<html>
 		<head>
+			<title>Pittsburgh Science & Technology Academy | Homework Submission Page</title>
 			<? print_links(); ?>
 		</head>	
 		<body class='lock'>
@@ -153,7 +155,7 @@ function lock()
 						post('<?= $validation_url ?>', $formdata, function(){
 							var $data = arguments[0];
 							if ($data.indexOf("authenticated") != -1){
-								window.location.href = window.location.href;
+								window.location.href = "<?= HOME_DIR ?>";
 							}
 							else{
 								$('#error-message').html($data);	

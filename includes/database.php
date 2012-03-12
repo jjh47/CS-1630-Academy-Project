@@ -37,6 +37,7 @@ if ($db)
                 'description' text,
                 'due_date' text not null,
                 'late_due_date' text not null,
+                'is_open' int(1) default 1,
                 'num_files_required' int,
                 primary key ('assignment_id'),
                 foreign key ('class_id') references 'Class' ('class_id') on delete cascade
@@ -53,11 +54,11 @@ if ($db)
         ");
     query("
             create table 'Log' (
-                'submission_id' int not null primary key,
+                'submission_id' integer primary key,
                 'assignment_id' int not null,
                 'course_id' int not null,
                 'user_id' int not null,
-                'user_name' text not null,
+                'username' text not null,
                 'submission_time' text not null,
                 'successful' int(1) not null,
                 'comment' text,
@@ -66,6 +67,7 @@ if ($db)
         ");
     insert_users();
     insert_classes();
+    insert_assignments();
     enroll();  
 }
 else
@@ -75,7 +77,7 @@ else
 
 function drop_tables()
 {
-    query("drop table User; drop table Class; drop table Assignment; drop table Enrollment; drop table Log;");
+   query("drop table User; drop table Class; drop table Assignment; drop table Enrollment; drop table Log;");
 }
 
 function insert_users()
@@ -103,6 +105,17 @@ function insert_classes()
         insert into Class values (2, 'Class Two', 12, 'rhc8@pitt.edu', '102', 'Description of class two.');
         insert into Class values (3, 'Class Three', 13, 'rhc8@pitt.edu', '103', 'Description of class three.');
         insert into Class values (4, 'Class Four', 14, 'rhc8@pitt.edu', '104', 'Description of class four.');
+        ");
+}
+
+function insert_assignments()
+{
+    query("
+        insert into Assignment values (0, 0, 'Assignment 0 for Class 0', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
+        insert into Assignment values (1, 1, 'Assignment 1 for Class 1', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
+        insert into Assignment values (2, 2, 'Assignment 2 for Class 2', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
+        insert into Assignment values (3, 3, 'Assignment 3 for Class 3', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
+        insert into Assignment values (4, 4, 'Assignment 4 for Class 4', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
         ");
 }
 
