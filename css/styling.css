@@ -38,6 +38,10 @@ body {
   font-family: "Trebuchet MS", sans-serif;
   background-color: #d2d2d2;
 }
+.message.warning {
+  color: red;
+  font-weight: bold;
+}
 #lock-inner-contents {
   margin: 0 auto;
   width: 960px;
