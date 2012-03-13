@@ -1,4 +1,4 @@
-<?
+ <?
 
 $db = $_SESSION["db"];
 
@@ -111,7 +111,7 @@ function insert_classes()
 function insert_assignments()
 {
     query("
-        insert into Assignment values (0, 0, 'Assignment 0 for Class 0', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
+        insert into Assignment values (0, 0, 'Assignment 0 for Class 0', '3/11/2012', 'no description', '1332243000', '1332243000', 1, 3);
         insert into Assignment values (1, 1, 'Assignment 1 for Class 1', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
         insert into Assignment values (2, 2, 'Assignment 2 for Class 2', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
         insert into Assignment values (3, 3, 'Assignment 3 for Class 3', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
