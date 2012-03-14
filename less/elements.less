@@ -107,6 +107,12 @@
   -moz-box-shadow: @arguments;
   box-shadow: @arguments;
 }
+
+.box-sizing(@type){
+  box-sizing: @type;
+  -moz-box-sizing: @type;
+  -webkit-box-sizing: @type;
+}
 .columns(@colwidth: 250px, @colcount: 0, @colgap: 50px, @columnRuleColor: #EEE, @columnRuleStyle: solid, @columnRuleWidth: 1px) {
   -moz-column-width: @colwidth;
   -moz-column-count: @colcount;
