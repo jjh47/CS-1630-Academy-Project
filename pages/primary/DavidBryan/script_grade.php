@@ -57,10 +57,13 @@ if($args[1] == "-c"){
 					print("error occured while opening/creating ".$folder."'s Results.txt\n");
 				}
 				$return = fwrite($fp, "Compilation of ".$javaFile."\n--------------------------------------------------\n\n");
+				if($return == false){	
+					print("Unable to write to ".$folder."'s Results.txt");	
+				}
 				$return = fwrite($fp, $output."\n\n");
 
-				if($return == false){
-					print("unable to write to ".$folder."'s results.txt\n");
+				if($return == false){	
+					print("Unable to write to ".$folder."'s Results.txt");	
 				}
 				fclose($fp);
 				chdir("..");
@@ -142,7 +145,10 @@ if($args[1] == "-t"){
 						if (is_resource($process)) {
 							foreach ($inputLines as $line){
 								
-								fwrite($handles[0], $line);
+								$return = fwrite($handles[0], $line);
+								if($return == false){	
+									print("Unable to write to ".$folder."'s Results.txt");	
+								}		
 								fflush($handles[0]);
 							}
 
@@ -169,7 +175,10 @@ if($args[1] == "-t"){
 					if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
 						chdir($folder);
 						$fp = fopen("Results.txt", 'a+');
-						fwrite($fp, "\nOutput of running ".$testFile."\n--------------------------------------------------\n\n");
+						$return = fwrite($fp, "\nOutput of running ".$testFile."\n--------------------------------------------------\n\n");
+						if($return == false){	
+							print("Unable to write to ".$folder."'s Results.txt");	
+						}
 						fclose($fp);
 						if($python == false){
 							$output = shell_exec("javac ".$className." 2>&1 1> /dev/null");
@@ -178,8 +187,13 @@ if($args[1] == "-t"){
 							$output = shell_exec("python ".$className." 2>&1 1> /dev/null");
 						}
 						$fp = fopen('Results.txt', 'a+');
-						fwrite($fp, $output);
-						fclose($fp);
+						
+						$return = fwrite($fp, $output);
+						if($return == false){	
+							print("Unable to write to ".$folder."'s Results.txt");	
+						}
+
+						$return = fclose($fp);
 					}
 				}
 			}
