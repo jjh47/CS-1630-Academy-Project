@@ -1,6 +1,8 @@
 <?
+
 	//require("../../../glue.php");
 	//init("script");
+
 
 /* PLEASE CAREFULLY READ THESE COMMENTS!
  * 

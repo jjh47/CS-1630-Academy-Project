@@ -7,6 +7,8 @@ include("includes/Browser.php");
 $db = new SQLiteDatabase(DB_PATH, 0666, $dberror);
 $_SESSION["db"] = $db;
 
+if (MODE == "dev"): include("includes/database.php"); endif;
+
 if (!isset($_SESSION["tokens_set"]))
 {
 	set_tokens();
@@ -23,13 +25,17 @@ function init($type = "page")
 
 	switch($type)
 	{
-		case "script":
-			secure_script();
+		case "offline_script":
+			check_env();
 			break;
 
-		case "form-process";
-			secure_script();
-			secure_post();
+		case "script":
+			check_private_token();
+			break;
+
+		case "form_process":
+			check_private_token();
+			check_public_token();
 			break;
 
 		case "page":
@@ -43,7 +49,16 @@ function return_to($pagename = "/")
 	header("Location: $pagename");
 }
 
-function secure_script()
+function check_env()
+{
+	if (empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']))
+	{
+		header("Location: /");
+		die;
+	}
+}
+
+function check_private_token()
 {
 	if (!isset($_SESSION["private_token"]) || !isset($_SESSION["public_token"]))
 	{
@@ -52,7 +67,7 @@ function secure_script()
 	}
 }
 
-function secure_post()
+function check_public_token()
 {
 	if (!isset($_POST["token"]) || $_POST["token"] != $_SESSION["public_token"])
 	{
@@ -68,10 +83,14 @@ function get_header()
 	<!doctype html>
 		<html>
 		<head>
+			<title>Pittsburgh Science & Technology Academy | Homework Submission Page</title>
 			<? print_links(); ?>
 		</head>	
 		<body>
 			<div id="inner-content">
+				<a href="<?= HOME_DIR ?>">Home</a> | 
+				<a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a>
+				<br><br>
 	<?
 }
 
@@ -86,12 +105,12 @@ function get_footer()
 
 function add_token()
 {
-	?> <input type="hidden" name="token" id="token" value="<?= $_SESSION['public_token'] ?>"> <?
+	?> <input type='hidden' name='token' id='token' value='<?= $_SESSION['public_token'] ?>'> <?
 }
 
 function lock()
 {
-	$validation_url = "process_login.php";
+	$validation_url = HOME_DIR."process_login.php";
 
 	//if not logged in
 	if (!isset($_SESSION["logged_in"]) || empty($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false)
@@ -100,6 +119,7 @@ function lock()
 		<!doctype html>
 		<html>
 		<head>
+			<title>Pittsburgh Science & Technology Academy | Homework Submission Page</title>
 			<? print_links(); ?>
 		</head>	
 		<body class='lock'>
@@ -107,11 +127,11 @@ function lock()
 				<div id="lock-wrapper">
 					<form id="login_form" method="post">
 						<img src="/images/psta-logo.png"> <div id="login-title">CS 1630 Academy Project</div><br>
-						Username<br>
-						<input type="text" name="username" id="username" onkeypress="eval_form(event,'#login-submitbutton')"><br>
+						Email<br>
+						<input type="email" name="email" id="email" value="rafael.colton+one@gmail.com" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
 						Password<br>
-						<input type="password" name="password" id="password" onkeypress="eval_form(event,'#login-submitbutton')"><br>
+						<input type="password" name="password" id="password" value="asdf" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
 						<input type="button" class="button" value="Submit" id = "login-submitbutton" onclick = "submit_unlock_request()">&nbsp;
 						<input type="button" class="button" id="login-resetbutton" onclick="reset_form()" value="Reset"><br>
@@ -134,8 +154,8 @@ function lock()
 						var $formdata = $("#login_form").serialize();
 						post('<?= $validation_url ?>', $formdata, function(){
 							var $data = arguments[0];
-							if ($data == "authenticated"){
-								window.location.href = window.location.href;
+							if ($data.indexOf("authenticated") != -1){
+								window.location.href = "<?= HOME_DIR ?>";
 							}
 							else{
 								$('#error-message').html($data);	
@@ -160,15 +180,15 @@ function enqueue_script($filename)
 function print_links()
 {
 	#css
-	echo "<link type='text/css' href='css/styling.css' rel='stylesheet'>\n";
+	echo "<link type='text/css' href='".HOME_DIR."css/styling.css' rel='stylesheet'>\n";
 
 	#other
-	echo "<link rel='shortcut icon' href='images/psta-logo.png'>\n";
+	echo "<link rel='shortcut icon' href='".HOME_DIR."images/psta-logo.png'>\n";
 
 	#javascript
 	foreach ($_SESSION["script_list"] as $filename)
 	{
-		echo "<script src='js/$filename'></script>\n";
+		echo "<script src='".HOME_DIR."js/$filename'></script>\n";
 	}
 }
 
@@ -177,8 +197,8 @@ function set_tokens()
 {
 	$characters = "abcdefghijklmnopqrstuvwxyz0123456789";
 	$length = strlen($characters);
-	if (isset($public_token)): $public_token = ""; endif;
-	if (isset($private_token)): $private_token = ""; endif;
+	$public_token = "";
+	$private_token = "";
 
 	for ($x=0; $x<50; $x++)
 	{
