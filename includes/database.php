@@ -61,8 +61,7 @@ if ($db)
                 'username' text not null,
                 'submission_time' text not null,
                 'successful' int(1) not null,
-                'comment' text,
-                unique ('assignment_id','course_id','user_id','submission_time')
+                'comment' text
             )
         ");
     insert_users();
