@@ -1,4 +1,5 @@
 <?
+putenv("LD_LIBRARY_PATH=/usr/local/oracle/product/9.2.0/lib");
 session_start();
 
 require("includes/defines.php");

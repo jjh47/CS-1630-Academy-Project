@@ -86,7 +86,7 @@ body {
 #inner-content {
   margin: 0 auto;
   width: 960px;
-  height: 800px;
+  min-height: 800px;
   padding: 20px;
   background-color: white;
   box-sizing: border-box;

@@ -61,8 +61,7 @@ if ($db)
                 'username' text not null,
                 'submission_time' text not null,
                 'successful' int(1) not null,
-                'comment' text,
-                unique ('assignment_id','course_id','user_id','submission_time')
+                'comment' text
             )
         ");
     insert_users();
@@ -111,11 +110,11 @@ function insert_classes()
 function insert_assignments()
 {
     query("
-        insert into Assignment values (0, 0, 'Assignment 0 for Class 0', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
-        insert into Assignment values (1, 1, 'Assignment 1 for Class 1', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
-        insert into Assignment values (2, 2, 'Assignment 2 for Class 2', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
-        insert into Assignment values (3, 3, 'Assignment 3 for Class 3', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
-        insert into Assignment values (4, 4, 'Assignment 4 for Class 4', '3/11/2012', 'no description', '1331595000', '1331595900', 1, 3);
+        insert into Assignment values (0, 0, 'Assignment 0 for Class 0', '3/11/2012', 'no description', '1331976944', '1331977944', 1, 3);
+        insert into Assignment values (1, 1, 'Assignment 1 for Class 1', '3/11/2012', 'no description', '1331976944', '1331977944', 1, 3);
+        insert into Assignment values (2, 2, 'Assignment 2 for Class 2', '3/11/2012', 'no description', '1331976944', '1331977944', 1, 3);
+        insert into Assignment values (3, 3, 'Assignment 3 for Class 3', '3/11/2012', 'no description', '1331976944', '1331977944', 1, 3);
+        insert into Assignment values (4, 4, 'Assignment 4 for Class 4', '3/11/2012', 'no description', '1331976944', '1331977944', 1, 3);
         ");
 }
 
