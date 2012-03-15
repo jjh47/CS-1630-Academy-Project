@@ -87,6 +87,11 @@ function get_header()
 			<? print_links(); ?>
 		</head>	
 		<body>
+			<div id="title-bar">
+				<div id='title'>Pittsburgh Science and Technology Academy</div>
+				<div id='subtitle'>Homework Grading and Submission System</div>
+				<img src="/images/PSTAlogo.png">
+			</div>	
 			<div id="inner-content">
 				<a href="<?= HOME_DIR ?>">Home</a> | 
 				<a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a>
@@ -98,6 +103,7 @@ function get_footer()
 {
 	?>
 		</div>
+		<div id='bottom-bar'><a id='logout-anchor' href='javascript:logout()'>Logout</a></div>
 	</body>
 	</html>
 	<?
@@ -124,20 +130,33 @@ function lock()
 		</head>	
 		<body class='lock'>
 			<div id="lock-inner-contents">
+				<div id="login-title">
+					<div id='title'>Pittsburgh Science and Technology Academy</div>
+					<div id='subtitle'>Homework Grading and Submission System</div>
+					<img src="/images/PSTAlogo.png">
+				</div>
 				<div id="lock-wrapper">
 					<form id="login_form" method="post">
-						<img src="/images/psta-logo.png"> <div id="login-title">CS 1630 Academy Project</div><br>
-						Email<br>
+						<big><strong>Student &amp; Teacher Login</strong></big>
+						<br><br><br>
+						<div id='lables'>
+							Email
+							<br><br><br>
+							Password
+						</div>
 						<input type="email" name="email" id="email" value="rafael.colton+one@gmail.com" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
-						Password<br>
 						<input type="password" name="password" id="password" value="asdf" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
-						<input type="button" class="button" value="Submit" id = "login-submitbutton" onclick = "submit_unlock_request()">&nbsp;
-						<input type="button" class="button" id="login-resetbutton" onclick="reset_form()" value="Reset"><br>
+						<div id='buttons'>
+							<input type="button" class="button" value="Submit" id = "login-submitbutton" onclick = "submit_unlock_request()">&nbsp;
+							<input type="button" class="button" id="login-resetbutton" onclick="reset_form()" value="Reset"><br>
+						</div>
+						<br>
 						<? add_token(); ?>
 					</form>
-					<div id="error-message" style="color:red"></div>
+					<div id="error-message" style="color:red"></div><br>
+					<small><em>Please contact your system administrator with any issues regarding login.</em></small>
 				</div>
 				<script>
 				function reset_form(){
@@ -164,6 +183,7 @@ function lock()
 					}
 				}
 				</script>
+			<div id='bottom-bar'></div>
 			</div>
 		</body>
 		</html>
