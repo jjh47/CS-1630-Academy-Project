@@ -11,6 +11,11 @@ body{
 	background-color: @light-grey;
 }
 
+html, body, head{
+	margin: 0;
+	padding: 0;
+}
+
 .message{
 	&.warning{
 		color: red;
@@ -21,22 +26,52 @@ body{
 #lock-inner-contents{
 	margin: 0 auto;
 	width: 960px;
+	background-color: @light-blue;
+	.box-sizing(border-box);
+	margin-top: 50px;
+
+	#login-title{
+		width: 100%;
+		height: 100px;
+		background-color: @red;
+		color: white;
+		margin-bottom: 100px;
+		
+		#title{
+			font-size: 30px;
+			padding-top: 15px;
+			padding-left: 15px;
+		}
+		#subtitle{
+			font-size: 18px;
+			padding-left: 15px;
+		}
+
+		img{
+			position: absolute;
+			height: 75px;
+			height: 75px;
+			left: 1035px;
+			top: 60px;
+		}
+
+	}
+
+	#bottom-bar{
+		background-color: @blue;
+		width: 100%;
+		height: 30px;
+		margin-top: 100px;
+	}
 	
 	#lock-wrapper{
 		margin: 0 auto;
-		width: 300px;
+		width: 500px;
+		height: 250px;
 		background-color: white;
-		padding: 10px;
-		.rounded(10px);
-		.box-shadow(10px 10px 5px #888);
-		margin-top: 100px;
-
-		#login-title{
-			line-height: 30px;
-			height: 30px;
-			margin-left: 40px;
-			margin-top: -33px;
-		}
+		padding: 20px 20px 10px 20px;
+		border: 2px solid black;
+		.rounded(5px);
 
 		input:not(.button){
 			width: 260px;
@@ -46,18 +81,70 @@ body{
 			border: 2px groove @light-grey;
 		}
 
-		input.button{
-			margin-left: 10px;
+		#buttons{
+			float: right;
+			margin-right: 75px;
+		}
+
+		#lables{
+			text-align: right;
+			width: 100px;
+			float: left;
+			margin-top: 7px;
+			margin-left: 30px;
 		}
 	}
 
 }
 
+#title-bar{
+	width: 960px;
+	height: 100px;
+	background-color: @red;
+	color: white;
+	margin: 0 auto;	
+	#title{
+		font-size: 30px;
+		padding-top: 15px;
+		padding-left: 15px;
+	}
+	#subtitle{
+		font-size: 18px;
+		padding-left: 15px;
+	}
+
+	img{
+		position: absolute;
+		height: 75px;
+		height: 75px;
+		left: 1035px;
+		top: 10px;
+	}
+}
+
 #inner-content{
 	margin: 0 auto;
 	width: 960px;
-	height: 800px; //for now
 	padding: 20px;
 	background-color: white;
 	.box-sizing(border-box);
+
 }
+
+#bottom-bar{
+		background-color: @blue;
+		width: 960px;
+		margin: 0 auto;
+		height: 30px;
+		text-align: right;
+		padding-right: 10px;
+		.box-sizing(border-box);
+		line-height: 30px;
+		a{
+			color: white;
+			&:hover{
+				color: @red;
+				text-decoration: none;
+			}
+		}
+	}

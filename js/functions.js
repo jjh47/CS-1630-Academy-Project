@@ -165,7 +165,7 @@ function eval_form(e, submitbutton){
 function logout(){
 	post('logout.php',function(){
 		var data = arguments[0];
-		if (data == "success"){
+		if (data.indexOf("success") != -1){
 				window.location.href = window.location.href;
 		}
 		else{
