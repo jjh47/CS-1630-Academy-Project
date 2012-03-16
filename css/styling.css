@@ -127,6 +127,7 @@ html, body, head {
   background-color: #8a0015;
   color: white;
   margin: 0 auto;
+  margin-top: 10px;
 }
 #title-bar #title {
   font-size: 30px;
@@ -142,7 +143,7 @@ html, body, head {
   height: 75px;
   height: 75px;
   left: 1035px;
-  top: 10px;
+  top: 20px;
 }
 #inner-content {
   margin: 0 auto;
