@@ -17,13 +17,21 @@
  * Make sure to capture any errors or failure so the user doesn't get stuck on a blank page.
  * 
  */
- 
+ ///////////////
+ ///Variables///
+ /////////////////////////////////////////////////////////////////////////////////////////////////
+
  	//Get variables from post and create variables needed
  	$classid = $_POST['course_id'];
  	$assigid = $_POST['assignment_id'];
  	$late = $_POST['late'];
  	$sumline = 0;
  	$summary;
+ 	
+ 	
+////////////////////
+///Main/////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
  	
  	//Parse the names of the folders to access/create
  	//These functions could cause problems but are the only way 
@@ -38,7 +46,6 @@
 		{
 			//Copy submitted files to location
 			copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name);
-		
 		}
 		else
 		{
@@ -46,22 +53,22 @@
 			if(mkdir(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name))
 			{
 				//copy grading script
-				if(!copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name))
-					addsum("Error: Could not copy grading script to new assignmenr folder");
+				if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name))
+					update_log(0, "Error: Could not copy grading script to new assignment folder");
 				
 				//copy submitted files into location
 				copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name);
 			}
 			else
 			{
-				addsum("Error: Could not create folder assignment folder");
+				addsum("WARNING: NO FILES UPLOADED. ERROR: Could not create assignment directory");
 			}
 			
 		}
 	}
 	else
 	{
-		addsum("Error: Class does not exist in directory");
+		addsum("WARNING: NO FILES UPLOADED. ERROR: Class directory does not exist.");
 	}
  	
  	//Put the summary int oa session variable to display 
@@ -74,40 +81,73 @@
  		echo $summary[$i] . "<br>";
  	}
  	
+ 	//return_to("submit_assig.php?class_id=$classid&assignment_id=$assigid"); //don't forget to specify a page
+ 	
+ 	
+ 	
+ 	
+ ///////////////
+ ///Functions///
+ /////////////////////////////////////////////////////////////////////////////////////////////////
+ 	
  	//Function to copy files to directory specified
  	//It also places a line in the late.txt file if necessary
  	function copy_files($dirpath)
  	{
  	 	global $late;
- 		$date = date_create();
+ 	 	
+ 	 	//CHECK FOR FILES NAMED "results.txt or late.txt"
+ 	 	if(file_name_error())
+ 	 	{
+ 	 		addsum("WARNING: NO FILES WERE UPLOADED DUE TO A FILE NAMED 'results.txt' OR 'late.txt',
+ 	 			   THESE FILENAMES ARE NOT ACCEPTED");
+ 	 		return;
+ 	 	}
+ 	 	
+ 	 	//Iterate through files
  		foreach ($_FILES["userfile"]["error"] as $key => $error) 
  		{
+ 			//Check error
     		if ($error == UPLOAD_ERR_OK) 
     		{
         		$tmp_name = $_FILES["userfile"]["tmp_name"][$key];
         		$name = $_FILES["userfile"]["name"][$key];
+        		
+        		//Check move uploadd error
         		if(move_uploaded_file($tmp_name, $dirpath . "/$name"))
         		{
+        			//Add to summary and update log
         			addsum("$name was uploaded successfuly.");
+        			update_log(1, "$name was uploaded successfully.");
+        			
+        			//Append to late text file if late and confirm on time if not
         			if($late == "true")
+        				append_late("$name was uploaded late.");
+        			else
         			{
-						$fh = fopen("late.txt", 'a');
-						fwrite($fh, "$name was submited late on \n");
-						fclose($fh);
+        				if(!confirm_on_time())
+        				{
+        					append_late("$name was not uploaded late but is SUSPECT as timestamps infer it actually is LATE. ");
+        				}
         			}
+        				
         		}
         		else
         		{
         			addsum("Error: $name was not moved to directory successfully");
+        			update_log(0, "Error: $name was not moved to directory successfully");
         		}
         	}
     		else
     		{
     			addsum("Error: File not uploaded successfully");
+    			update_log(0,"Error: File not uploaded successfully");
     		}
 		}
  		
  	}
+ 	
+ 	
  	
  	//Function to maintain the Summary array
  	function addsum($toadd)
@@ -116,6 +156,8 @@
  		$summary[$sumline] = $toadd;
  		$sumline++;
  	}
+ 	
+ 	
  	
  	//Parses the name of the folder that goes with the assignment
  	//Grabs the Assig title from the DB, explodes it then
@@ -147,10 +189,12 @@
  			
  			$toret = $toret . "-";
  			$toret = $toret . $assigid;
- 			addsum("Assignment folder name : " . $toret);
  			return $toret;
  		}
  	}
+ 	
+ 	
+ 	
  	
  	//Similar function to parse_assig_name() but does it for the class folder
  	//to access according to our naming conventions
@@ -178,10 +222,95 @@
  			
  			$toret = $toret . "-";
  			$toret = $toret . $classid;
- 			addsum("Class folder name : " . $toret);
  			return $toret;
  		}
  	}
+ 	
+ 	
+ 	
+ 	
+ 	//Function to update the log table with information about each file upload.
+ 	function update_log($success, $comment)
+ 	{
+ 		global $db, $assigid, $classid;
+ 		$user_id = $_SESSION['user_id'];
+ 		$username = $_SESSION['username'];
+ 		$submission_time = date("Y-m-d H:i:s");
+ 		
+ 		if(!$db->queryExec("insert into Log values (NULL, $assigid, $classid, $user_id, 
+ 		                    '$username', '$submission_time', $success, '$comment');", $err))
+		{
+			addsum("Error: Could not write to log for commented log entry: $comment. ERRMESS: $err");
+		}
+ 	}
+ 	
+ 	
+ 	
+ 	//This function is purely for testing. Shows the contents of the log table.
+ 	function show_log()
+ 	{
+ 		global $db;
+ 		$res = $db->arrayQuery("select * from Log");
+ 		if(empty($res))
+ 		{
+ 			addsum("Error displaying table information");
+ 		}
+ 		else
+ 		{
+ 			addsum("Log Table");
+ 			addsum("---------------------------------------");
+ 			for($i = 0; $i < count($res); $i++)
+ 			{
+ 				$curr = $res[$i];
+ 				addsum("$curr[submission_id] $curr[assignment_id] $curr[course_id] $curr[user_id] 
+ 				        $curr[username] $curr[submission_time] $curr[successful] $curr[comment]");
+ 			}
+ 		}
+ 	}
+ 	
+ 	
+ 	//Function to examine all files to be uploaded and check to see if one is named
+ 	//results.txt or late.txt
+ 	function file_name_error()
+ 	{
+ 		foreach ($_FILES["userfile"]["error"] as $key => $error) 
+ 		{
+    		if ($error == UPLOAD_ERR_OK) 
+    		{
+        		$name = $_FILES["userfile"]["name"][$key];
+        		if($name == "results.txt" || $name == "late.txt")
+        			return true;
+    		}
+		}
+		return false;
+ 	}
 
-	//return_to("submit_assig.php?class_id=0&assignment_id=0"); //don't forget to specify a page
+	//Function to confirm that the assignment is actually on time
+	function confirm_on_time()
+	{
+		global $assigid, $db;
+		$results = $db->arrayQuery("select * from Assignment where assignment_id = '$assigid';");
+		$assig = $results[0];
+		$duedate = $assig['due_date'];
+		$now = time();
+		
+		addsum("comparing: $now > $assig[due_date]");
+		
+		if($now > $duedate)
+		{
+			return false;
+		}
+			
+		return true;
+	}
+	
+	//Function to append to the late.txt file
+	function append_late($towrite)
+	{
+		$fh = fopen("late.txt", 'a+');
+		$d = date("Y-m-d H:i:s");;
+		fwrite($fh, "$towrite. TIMESTAMP: $d\n");
+		fclose($fh);
+	}
+
 ?>
