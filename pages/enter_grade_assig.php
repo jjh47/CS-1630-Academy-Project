@@ -14,6 +14,6 @@
 </form>
 <br/>
 <br/>
-This is an example of the entry point to grade_assign.php
+This is an example of the entry point to grade_assig.php
 </body>
 </html>
