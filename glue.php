@@ -92,16 +92,31 @@ function get_header()
 				<div id='subtitle'>Homework Grading and Submission System</div>
 				<img src="/images/PSTAlogo.png">
 			</div>	
-			<div id="inner-content">
-				<a href="<?= HOME_DIR ?>">Home</a> | 
-				<a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a>
-				<br><br>
+			<div id="content">
+				<div id="sidebar" class='nav'>
+					<div class='nav-item'>Welcome, <?= $_SESSION["username"] ?></div>
+					<? hr(); ?>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>">Home</a></div>
+					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
+					<? hr(); ?>
+					<div class='nav-item'><a href="pages/view_classes.php">View Classes</a></div>
+
+				</div>
+				<div id="inner-content">
 	<?
+}
+
+function hr()
+{
+	echo "<hr class='light'>";
+	echo "<hr class='dark'>";
 }
 
 function get_footer()
 {
 	?>
+		</div>
+		<br style="clear: both;">
 		</div>
 		<div id='bottom-bar'><a id='logout-anchor' href='javascript:logout()'>Logout</a></div>
 	</body>
