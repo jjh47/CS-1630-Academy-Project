@@ -1,9 +1,5 @@
 <?
 session_start();
-/*ini_set('display_errors', 1);
-ini_set('log_errors', 1);
-ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
-error_reporting(E_ALL);*/
 
 require("includes/defines.php");
 include("includes/Browser.php");
@@ -94,7 +90,7 @@ function get_header()
 			<div id="title-bar">
 				<div id='title'>Pittsburgh Science and Technology Academy</div>
 				<div id='subtitle'>Homework Grading and Submission System</div>
-				<img src="/images/PSTAlogo.png">
+				<img src="<?= HOME_DIR ?>images/PSTALogo.png">
 			</div>	
 			<div id="content">
 				<div id="sidebar" class='nav'>
@@ -162,7 +158,7 @@ function lock()
 				<div id="login-title">
 					<div id='title'>Pittsburgh Science and Technology Academy</div>
 					<div id='subtitle'>Homework Grading and Submission System</div>
-					<img src="/images/PSTAlogo.png">
+					<img src="<?= HOME_DIR ?>images/PSTALogo.png">
 				</div>
 				<div id="lock-wrapper">
 					<form id="login_form" method="post">

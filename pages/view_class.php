@@ -29,8 +29,8 @@
 			}
 			else
 			{
-				$assignments = $db->arrayQuery("select * from Assignment where class_id = '$selected';");
-				if (empty($assignments))
+				$assignments = $db->arrayQuery("select * from Assignment where class_id = '$selected' and is_open = 1;");
+				if (empty($assignments) && $_SESSION["usertype"] == "student")
 				{
 					echo "<em>No assignments currently available for $course_name...</em>";
 				}
@@ -97,7 +97,7 @@
 					}
 					if ($usertype == "teacher")
 					{
-						echo "<li><a href='create_assig.php?class_id=$selected'>Create New Assignment</a></li>";
+						echo "<li><a href='create_assig.php?class_id=$selected'>[+]</a></li>";
 					}
 					echo "</ol>";
 				}

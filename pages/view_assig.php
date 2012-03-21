@@ -39,7 +39,7 @@
 	$is_open = $result["is_open"];
 	$num_files = $result["num_files_required"];
 
-	if (!$is_open || strtotime($late_due_date) < time())
+	if (!$is_open && $_SESSION["usertype"] == "student")
 	{
 		error_message("This assignment is currently closed...");
 		get_footer();
@@ -82,7 +82,15 @@
 
 	$now = time();
 
-	if ($now > strtotime($due_date) && $_SESSION["usertype"] == "student")
+	//|| strtotime($late_due_date) < time() 
+
+	if ($now > strtotime($late_due_date) && $_SESSION["usertype"] == "student")
+	{
+		echo "<div class='warning message'>This assignment is closed for submission.</div>";
+		$closed = true;
+	}
+
+	elseif ($now > strtotime($due_date) && $_SESSION["usertype"] == "student")
 	{
 		echo "<div class='warning message'>This assignment was due by $due_date.  Any files submitted will now be counted as late.</div>";
 	}
@@ -108,9 +116,12 @@
 
 	elseif($_SESSION["usertype"] == "student")
 	{
-		$results = $db->arrayQuery("select * from Assignment where assignment_id = '$assignment_id' and class_id = '$class_id'");
-		$assignment = $results[0];
-		print_form($assignment, $class_id, $assignment_id); //after EVERYTHING has been checked, print out the homework submissionform and the relevant JavaScript
+		if ((isset($closed) && !$closed) || !isset($closed))
+		{
+			$results = $db->arrayQuery("select * from Assignment where assignment_id = '$assignment_id' and class_id = '$class_id'");
+			$assignment = $results[0];
+			print_form($assignment, $class_id, $assignment_id); //after EVERYTHING has been checked, print out the homework submissionform and the relevant JavaScript
+		}
 	}
 
 get_footer(); 
