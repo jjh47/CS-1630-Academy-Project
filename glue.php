@@ -1,5 +1,9 @@
 <?
 session_start();
+/*ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+ini_set('error_log', dirname(__FILE__) . '/error_log.txt');
+error_reporting(E_ALL);*/
 
 require("includes/defines.php");
 include("includes/Browser.php");
@@ -7,7 +11,7 @@ include("includes/Browser.php");
 $db = new SQLiteDatabase(DB_PATH, 0666, $dberror);
 $_SESSION["db"] = $db;
 
-if (MODE == "dev"): include("includes/database.php"); endif;
+//if (MODE == "dev"): include("includes/database.php"); endif;
 
 if (!isset($_SESSION["tokens_set"]))
 {
@@ -94,13 +98,23 @@ function get_header()
 			</div>	
 			<div id="content">
 				<div id="sidebar" class='nav'>
+					<? $usertype = $_SESSION["usertype"]; ?>
 					<div class='nav-item'>Welcome, <?= $_SESSION["username"] ?></div>
 					<? hr(); ?>
 					<div class='nav-item'><a href="<?= HOME_DIR ?>">Home</a></div>
 					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
 					<? hr(); ?>
-					<div class='nav-item'><a href="pages/view_classes.php">View Classes</a></div>
+					<!--both-->
+					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
+					<!--specific-->
+					<? if ($usertype == "student"): ?>
+					<!--student only stuff-->
+					
+					<? elseif ($usertype == "teacher"): ?>
+					<!--teacher only stuff-->
+					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/create_assig.php">Create Assignment</a></div>
 
+					<? endif; ?>
 				</div>
 				<div id="inner-content">
 	<?
@@ -159,7 +173,7 @@ function lock()
 							<br><br><br>
 							Password
 						</div>
-						<input type="email" name="email" id="email" value="rafael.colton+one@gmail.com" onkeypress="eval_form(event,'#login-submitbutton')"><br>
+						<input type="email" name="email" id="email" value="rafael.colton+ten@gmail.com" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
 						<input type="password" name="password" id="password" value="asdf" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
@@ -170,12 +184,11 @@ function lock()
 						<br>
 						<? add_token(); ?>
 					</form>
-					<div id="error-message" style="color:red"></div><br>
+					<div id="error-message" class='warning message' style='display: none;'></div><br>
 					<small><em>Please contact your system administrator with any issues regarding login.</em></small>
 				</div>
 				<script>
 				function reset_form(){
-					$('#error-message').html("");
 					$('#username').val("");	
 					$('#password').val("");	
 				}
@@ -192,7 +205,13 @@ function lock()
 								window.location.href = "<?= HOME_DIR ?>";
 							}
 							else{
-								$('#error-message').html($data);	
+								
+								if (! typeof t === undefined) clearTimeout(t);
+								$('#error-message').html($data);
+								$('#error-message').show("slow");
+								t = setTimeout(function(){
+									$('#error-message').hide("slow");
+								},2500);
 							}
 						});	
 					}
@@ -244,4 +263,9 @@ function set_tokens()
 	$_SESSION["private_token"] = $private_token;
 	$_SESSION["public_token"] = $public_token;
 	$_SESSION["tokens_set"] = true;
+}
+
+function error_message($message)
+{
+	echo "<em>$message</em>";
 }

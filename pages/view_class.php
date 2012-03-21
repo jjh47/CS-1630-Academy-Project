@@ -37,10 +37,67 @@
 				else //assignments are available
 				{
 					echo "<h1>Assignments for $course_name</h1>";
+					if ($usertype == "teacher")
+					{
+						if (isset($_SESSION["creation-message"]))
+						{
+							echo "<div id='class-creation-message' class='info message'>".$_SESSION["creation-message"]."<br></div>";
+							unset($_SESSION["creation-message"]);
+							?>
+								<script>
+									setTimeout(function(){
+										$('#class-creation-message').hide("slow");
+									}, 2000);
+								</script>
+							<?
+						}
+						elseif (isset($_SESSION["creation-message-error"]))
+						{
+							echo "<div id='class-creation-message' class='warning message'>".$_SESSION["creation-message-error"]."<br></div>";
+							unset($_SESSION["creation-message-error"]);
+							?>
+								<script>
+									setTimeout(function(){
+										$('#class-creation-message').hide("slow");
+									}, 2000);
+								</script>
+							<?	
+						}
+
+						if(isset($_SESSION["delete_success"]))
+						{
+							echo "<div id='class-deletion-message' class='info message'>".$_SESSION["delete_success"]."<br></div>";
+							unset($_SESSION["delete_success"]);
+							?>
+								<script>
+									setTimeout(function(){
+										$('#class-deletion-message').hide("slow");
+									}, 2000);
+								</script>
+							<?
+
+						}
+						elseif(isset($_SESSION["delete_failure"]))
+						{
+							echo "<div id='class-deletion-message' class='warning message'>".$_SESSION["delete_failure"]."<br></div>";
+							unset($_SESSION["delete_failure"]);
+							?>
+								<script>
+									setTimeout(function(){
+										$('#class-deletion-message').hide("slow");
+									}, 2000);
+								</script>
+							<?
+						}
+					}
 					echo "<ol id='assignment-list'>";
 					foreach ($assignments as $assignment)
 					{
 						?><li><a href="view_assig.php?class_id=<?= $assignment["class_id"] ?>&amp;assignment_id=<?= $assignment["assignment_id"] ?>"><?= $assignment["title"] ?></a></li><?
+					}
+					if ($usertype == "teacher")
+					{
+						echo "<li><a href='create_assig.php?class_id=$selected'>Create New Assignment</a></li>";
 					}
 					echo "</ol>";
 				}
@@ -50,32 +107,5 @@
 		
 	}
 	get_footer();
-
-	/*
-	else
-	{
-		foreach ($results as $row)
-		{
-			$course = $db->arrayQuery("select * from class where class_id = '".$row["class_id"]."'");
-			if (!empty($course))
-			{
-				$courses[] = $course[0];
-			}
-		}
-	}
-
-	echo "<h1>Courses for $username</h1>";
-
-	echo "<ol id='course-list'>";
-	foreach ($courses as $course)
-	{
-		?><li><a href="view_class.php?class_id=<?= $course["class_id"] ?>"><?= $course["class_name"] ?></a></li><?
-	}
-	echo "</ol>";
-?>
-
-
-<? get_footer(); ?>
-*/
 ?>
 

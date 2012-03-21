@@ -1,66 +1,218 @@
 <?
-	require("../../../glue.php");
+	require("../glue.php");
 	init("page");
-	//enqueue_script($filename)
 	get_header();
 
-	if(isset($_GET['class_id']) && isset($_GET['assignment_id'])){
-		$class_id = $_GET['class_id'];
-		$assignment_id = $_GET['assignment_id'];
+	$user_id = $_SESSION["user_id"];
+
+	if(isset($_GET['class_id']) && isset($_GET['assignment_id']))
+	{
+		$class_id = sqlite_escape_string($_GET['class_id']);
+		$assignment_id = sqlite_escape_string($_GET['assignment_id']);
 	}
-	else{
-		return_to(HOME_DIR);
+	else
+	{
+		error_message("Invalid information provided...");
+		get_footer();
+		die;
 	}
 
 	$results = $db->arrayQuery("select * from assignment where class_id = '$class_id' and assignment_id = '$assignment_id'");
 
-	$title = $results[2];
-	$date_assigned = $results[3];
-	$description = $results[4];
-	$due_date = $results[5];
-	$late_due_date = $results[6];
-	$is_open = $results[7];
-	$num_files = $results[8];
-
-	echo("<p> <b> ".$title."</b></p>");
-	echo("<p> <b> ".$date_assigned."</b></p>");
-	echo("<p> <b> ".$description."</b></p>");
-	echo("<p> <b> ".$due_date."</b></p>");
-	echo("<p> <b> ".$late_due_date."</b></p>");
-	echo("<p> <b> ".$is_open."</b></p>");
-	echo("<p> <b> ".$num_files."</b></p>");
-
-
-	if($_SESSION["usertype"] != "teacher" && $_SESSION["usertype"] != "admin"){
-		
-//**this submit button may be wrong.  Not sure exactly how you wan them.	
-	?>
-
-
-
-	<Form action="edit_assig.php">
-		<input type="submit" value="Edit Assignment" />
-	</Form>
-	<?php
-
+	if (empty($results))
+	{
+		error_message("The assignment you have selected does not exist...");
+		get_footer();
+		die;
+	}
+	else
+	{
+		$result = $results[0];
 	}
 
-/* PLEASE CAREFULLY READ THESE COMMENTS!
- *
- * FIRST: specify any $_GET variables you need to have when getting to this page.  For example, if it is the page for viewing an assignment, assume that $_GET will have a variable representing the assignment ID.  That way, you know which assignment to query from the database.  TELL ME HERE WHAT YOU WANT THE VARIABLE TO BE NAMED.  This ensures that the pages will link together correctly.
- * use $_SESSION["username"] and $_SESSION["usertype"] to segregate the components of the page (i.e. if ($username != "admin") etc.)
- * use $db to make database calls
- * make calls to get ALL relevant information on the page loaded into PHP variables
- * CAREFULLY DOCUMENT the contents of these variables (e.g. $assignments is an array and each element is an array representing an assignment.  In this array, "id" => the ID of the course, "name" => the name of the course, etc)
- * Do not worry about having too much information loaded - it is easy to show only parts of it or show it in chunks with HTML/JavaScript.  Just worry about getting it on the page.
- *
- * FORMS: If this page is a data page and requires a form, please either 1. specify the fields the form needs to have (i.e. inputs: text "name", text "email", password "password").  This includes what type of input it is and WHAT THE NAME IS.  This is critical to making sure it lines up with get/post on the next page.  If you are comfortable writing HTML, simply write the form.  If any information from your PHP variables needs to be included, please either included it or leave careful instructions.
- * MAKE ABSOLUTELY SURE you use the add_token() method in every form or your form will not work
- *
- * FINALLY: don't forget to check if things exist?  Use the (bool ? A : B) notation to accomplish this.  For example.  $result = ((isset($var) && !empty($var)) ? $var : "" )
- *
- */
+	$assignment_id = $result["assignment_id"];
+	$title = $result["title"];
+	$date_assigned = $result["date_assigned"];
+	$description = $result["description"];
+	$due_date = $result["due_date"];
+	$late_due_date = $result["late_due_date"];
+	$is_open = $result["is_open"];
+	$num_files = $result["num_files_required"];
+
+	if (!$is_open || strtotime($late_due_date) < time())
+	{
+		error_message("This assignment is currently closed...");
+		get_footer();
+		die;
+	}
+
+	$results = $db->arrayQuery("select * from enrollment where class_id='$class_id' and user_id='$user_id';");
+	if (empty($results))
+	{
+		error_message("You do not have permissions to view the assignment you have selected.");
+		get_footer();
+		die;
+	}
+
+
+	if (isset($_SESSION["edit_assignment_success"]))
+	{
+		echo "<div id='assignment-creation-message' class='info message'>".$_SESSION["edit_assignment_success"]."<br></div>";
+		?>
+			<script>
+				setTimeout(function(){
+					$("#assignment-creation-message").hide("slow");
+				}, 2500);
+			</script>
+		<?
+		unset($_SESSION["edit_assignment_success"]);
+	}
+	elseif (isset($_SESSION["edit_assignment_error"]))
+	{
+		echo "<div id='assignment-creation-message' class='warning message'>".$_SESSION["edit_assignment_error"]."<br></div>";
+		?>
+			<script>
+				setTimeout(function(){
+					$("#assignment-creation-message").hide("slow");
+				}, 2500);
+			</script>
+		<?
+		unset($_SESSION["edit_assignment_error"]);
+	}
+
+	$now = time();
+
+	if ($now > strtotime($due_date) && $_SESSION["usertype"] == "student")
+	{
+		echo "<div class='warning message'>This assignment was due by $due_date.  Any files submitted will now be counted as late.</div>";
+	}
+
+	echo("<p> Title: <b> ".$title."</b></p>");
+	echo("<p> Date Assigned: <b> ".date("l, F jS \a\\t g:ia",strtotime($date_assigned))."</b></p>");
+	echo("<p> Description: <b> ".$description."</b></p>");
+	echo("<p> Due Date: <b> ".date("l, F jS \a\\t g:ia",strtotime($due_date))."</b></p>");
+	echo("<p> Late Due Date: <b> ".date("l, F jS \a\\t g:ia",strtotime($late_due_date))."</b></p>");
+	echo("<p> Number of Files Required:<b> ".$num_files."</b></p>");
+
+	if($_SESSION["usertype"] == "teacher" || $_SESSION["usertype"] == "admin")
+	{
+		?>
+		<form action="edit_assig.php?class_id=<?= $class_id ?>&amp;assignment_id=<?= $assignment_id ?>" method='post'>
+			<input type="submit" name='selection'value="Edit Assignment" />
+			<input type="submit" name='selection'value="Delete Assignment" />
+			<? add_token(); ?>
+		</form>
+
+		<?
+	}
+
+	elseif($_SESSION["usertype"] == "student")
+	{
+		$results = $db->arrayQuery("select * from Assignment where assignment_id = '$assignment_id' and class_id = '$class_id'");
+		$assignment = $results[0];
+		print_form($assignment, $class_id, $assignment_id); //after EVERYTHING has been checked, print out the homework submissionform and the relevant JavaScript
+	}
+
+get_footer(); 
+
+function print_form($assignment, $class_id, $assignment_id)
+{
+	$num_files = (isset($assignment["num_files_required"]) && $assignment["num_files_required"] > 0) ? $assignment["num_files_required"] : 3;
+	$title = $assignment["title"];
+	global $user_id, $username;
+
+	if (false) // check for Uploadify stuff
+	{
+
+	}
+	else
+	{
+		?>
+		<form id='submission-form' enctype='multipart/form-data' action='process_submit.php' method='post'>
+			Select files to upload:<br>
+			<? for ($count=0; $count < $num_files; $count++): ?>
+				<? if ($count == $num_files - 1): ?>
+					<input type='file' name='userfile[]' id='last'>&nbsp;<input type='button' value='-' id='less'>&nbsp;<input type='button' value='+' id='more'><br>
+				<? else: ?>
+					<input type='file' name='userfile[]'><br>
+				<? endif; ?>
+			<? endfor; ?>
+			<input type='Submit' value='Submit' id='submit' disabled='disabled'>&nbsp;<input type='reset' value='Reset'>
+		</form>
+
+		<script>
+			$(document).ready(function(){
+				$('#submission-form').submit(function(){
+					var now = new Date();
+					<?
+						$due = strtotime($assignment["due_date"])*1000;
+						$late = strtotime($assignment["late_due_date"])*1000;
+					?>
+					var due = new Date(); due.setTime(<?= $due ?>);
+					var late = new Date(); late.setTime(<?= $late ?>);
+
+					if (now.getTime() > late.getTime())
+					{
+						//alert("Now: " + now.getTime() + " Late: " + late.getTime());
+						alert("Sorry, assignment submission has closed.");
+
+						submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=0&commentsubmission_time=File submission attempt logged - FAILED, ASSIGNMENT CLOSED AFTER PAGE LOAD.");
+
+						return false;
+					}
+					else if (now.getTime() > due.getTime()) //assignment is late
+					{
+						$('#submission-form').append("<? add_token(); ?>");
+						$('#submission-form').append("<input type='hidden' name='course_id' value='<?= $class_id ?>'>");
+						$('#submission-form').append("<input type='hidden' name='assignment_id' value='<?= $assignment_id ?>'>");
+						$('#submission-form').append("<input type='hidden' name='late' value='true'>");
+
+						submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=1&comment=File submission attempt logged - LATE.");
+
+						return true;
+					}
+					else //assignment is on time
+					{
+						$('#submission-form').append("<? add_token(); ?>");
+						$('#submission-form').append("<input type='hidden' name='course_id' value='<?= $class_id ?>'>");
+						$('#submission-form').append("<input type='hidden' name='assignment_id' value='<?= $assignment_id ?>'>");
+						$('#submission-form').append("<input type='hidden' name='late' value='false'>");
+
+						submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=1&comment=File submission attempt logged - ON TIME.");
+
+						return true;
+					}
+					return false;
+				});
+				
+				$('#submit').attr('disabled',false);
+				
+				$('#less').bind('click',function(){
+					var prev = $('#last').prev();
+					var prevprev = $(prev).prev();
+					if (prevprev.length != 0)
+					{
+						$(prev).remove();
+						$(prevprev).remove();
+					}
+				});
+
+				$('#more').bind('click',function(){
+					$('#last').before("<input type='file' name='userfile[]'><br>");
+				});
+			});
+
+			function submit_log_entry(data)
+			{
+				post("update_log.php",data,function(){
+					//alert(arguments[0]);
+				});
+			}
+		</script>
+		<?
+	}
+}
+
+
 
 ?>
-
-<? get_footer(); ?>

@@ -5,6 +5,9 @@
 	$email = sqlite_escape_string($_POST["email"]);
 	$password = sqlite_escape_string($_POST["password"]);
 
+	echo "got here";
+	die;
+
 	$results = $db->arrayQuery("select * from User where email = '$email'");
 
 	if (!isset($results) || empty($results))

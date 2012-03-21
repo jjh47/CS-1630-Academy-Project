@@ -1,7 +1,8 @@
 <?
 
 define("DB_PATH","academyprojectdb"); //path to the database file
-define("HOME_DIR","/var/www/CS-1630-Academy-Project/");
+define("HOME_DIR","http://vis.cs.pitt.edu/webtest/cs1630Academy/");
+define("CLASS_PATH","");
 
 
 define("MODE","dev");

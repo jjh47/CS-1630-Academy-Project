@@ -17,9 +17,25 @@ html, body, head{
 }
 
 .message{
+
 	&.warning{
-		color: red;
+		color: black;
+		display: inline-block;
+		padding: 5px;
 		font-weight: bold;
+		border: 2px solid red;
+		background-color: @light-red;
+		.rounded(5px);
+		margin-bottom: 15px;
+	}
+	&.info{
+		display: inline-block;
+		color: black;
+		padding: 5px;
+		border: 2px solid green;
+		background-color: @light-green;
+		.rounded(5px);
+		margin-bottom: 15px;
 	}
 }
 
@@ -67,7 +83,7 @@ html, body, head{
 	#lock-wrapper{
 		margin: 0 auto;
 		width: 500px;
-		height: 250px;
+		height: 275px;
 		background-color: white;
 		padding: 20px 20px 10px 20px;
 		border: 2px solid black;

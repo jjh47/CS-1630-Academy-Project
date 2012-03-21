@@ -163,7 +163,7 @@ function eval_form(e, submitbutton){
 
 //requires an element with the id "logout-anchor"
 function logout(){
-	post('logout.php',function(){
+	post('../logout.php',function(){
 		var data = arguments[0];
 		if (data.indexOf("success") != -1){
 				window.location.href = window.location.href;
