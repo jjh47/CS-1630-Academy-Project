@@ -64,6 +64,16 @@ if ($db)
                 'comment' text
             )
         ");
+    query("
+            create table 'Grade' (
+                'user_id' int not null,
+                'assignment_id' int not null,
+                'grade' int not null,
+                primary key ('user_id', 'assignment_id'),
+                foreign key ('user_id') references 'User' ('user_id') on delete cascade,
+                foreign key ('assignment_id') references 'Assignment' ('assignment_id') on delete cascade
+            )
+        ");
     insert_users();
     insert_classes();
     insert_assignments();
@@ -76,7 +86,7 @@ else
 
 function drop_tables()
 {
-   query("drop table User; drop table Class; drop table Assignment; drop table Enrollment; drop table Log;");
+   query("drop table User; drop table Class; drop table Assignment; drop table Enrollment; drop table Log; drop table Grade;");
 }
 
 function insert_users()
