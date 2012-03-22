@@ -10,7 +10,7 @@ if (false)
 
 else
 {
-	define("HOME_DIR","http://1630academy/");
+	define("HOME_DIR","http://localhost/cs1630/CS-1630-Academy-Project/");
 	define("DB_PATH","academyprojectdb");
 	define("BASE_PATH","../");
 }
