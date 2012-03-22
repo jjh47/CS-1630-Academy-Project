@@ -2,12 +2,12 @@
 session_start();
 
 require("includes/defines.php");
-include("includes/Browser.php");
+//include("includes/Browser.php");
 
 $db = new SQLiteDatabase(DB_PATH, 0666, $dberror);
 $_SESSION["db"] = $db;
 
-if (MODE == "dev"): include("includes/database.php"); endif;
+//if (MODE == "dev"): include("includes/database.php"); endif;
 
 if (!isset($_SESSION["tokens_set"]))
 {
@@ -90,20 +90,46 @@ function get_header()
 			<div id="title-bar">
 				<div id='title'>Pittsburgh Science and Technology Academy</div>
 				<div id='subtitle'>Homework Grading and Submission System</div>
-				<img src="/images/PSTAlogo.png">
+				<img src="<?= HOME_DIR ?>images/PSTALogo.png">
 			</div>	
-			<div id="inner-content">
-				<a href="<?= HOME_DIR ?>">Home</a> | 
-				<a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a>
-				<br><br>
+			<div id="content">
+				<div id="sidebar" class='nav'>
+					<? $usertype = $_SESSION["usertype"]; ?>
+					<div class='nav-item'>Welcome, <?= $_SESSION["username"] ?></div>
+					<? hr(); ?>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>">Home</a></div>
+					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
+					<? hr(); ?>
+					<!--both-->
+					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
+					<!--specific-->
+					<? if ($usertype == "student"): ?>
+					<!--student only stuff-->
+					
+					<? elseif ($usertype == "teacher"): ?>
+					<!--teacher only stuff-->
+					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/create_assig.php">Create Assignment</a></div>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/grade_assig.php">Grade Assignment</a></div>
+
+					<? endif; ?>
+				</div>
+				<div id="inner-content">
 	<?
+}
+
+function hr()
+{
+	echo "<hr class='light'>";
+	echo "<hr class='dark'>";
 }
 
 function get_footer()
 {
 	?>
 		</div>
-		<div id='bottom-bar'><a id='logout-anchor' href='javascript:logout()'>Logout</a></div>
+		<br style="clear: both;">
+		</div>
+		<div id='bottom-bar'><a href="<?= HOME_DIR ?>logout.php">Logout</a></div>
 	</body>
 	</html>
 	<?
@@ -133,7 +159,7 @@ function lock()
 				<div id="login-title">
 					<div id='title'>Pittsburgh Science and Technology Academy</div>
 					<div id='subtitle'>Homework Grading and Submission System</div>
-					<img src="/images/PSTAlogo.png">
+					<img src="<?= HOME_DIR ?>images/PSTALogo.png">
 				</div>
 				<div id="lock-wrapper">
 					<form id="login_form" method="post">
@@ -144,7 +170,7 @@ function lock()
 							<br><br><br>
 							Password
 						</div>
-						<input type="email" name="email" id="email" value="rafael.colton+one@gmail.com" onkeypress="eval_form(event,'#login-submitbutton')"><br>
+						<input type="email" name="email" id="email" value="rafael.colton+ten@gmail.com" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
 						<input type="password" name="password" id="password" value="asdf" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
@@ -155,12 +181,11 @@ function lock()
 						<br>
 						<? add_token(); ?>
 					</form>
-					<div id="error-message" style="color:red"></div><br>
+					<div id="error-message" class='warning message' style='display: none;'></div><br>
 					<small><em>Please contact your system administrator with any issues regarding login.</em></small>
 				</div>
 				<script>
 				function reset_form(){
-					$('#error-message').html("");
 					$('#username').val("");	
 					$('#password').val("");	
 				}
@@ -177,7 +202,13 @@ function lock()
 								window.location.href = "<?= HOME_DIR ?>";
 							}
 							else{
-								$('#error-message').html($data);	
+								
+								if (! typeof t === undefined) clearTimeout(t);
+								$('#error-message').html($data);
+								$('#error-message').show("slow");
+								t = setTimeout(function(){
+									$('#error-message').hide("slow");
+								},2500);
 							}
 						});	
 					}
@@ -229,4 +260,9 @@ function set_tokens()
 	$_SESSION["private_token"] = $private_token;
 	$_SESSION["public_token"] = $public_token;
 	$_SESSION["tokens_set"] = true;
+}
+
+function error_message($message)
+{
+	echo "<em>$message</em>";
 }

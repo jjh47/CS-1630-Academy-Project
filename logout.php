@@ -9,5 +9,5 @@
 
 	$_SESSION["logged_in"] = false;
 
-	echo "success";
+	return_to(HOME_DIR);
 ?>

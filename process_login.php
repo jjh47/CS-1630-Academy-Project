@@ -1,4 +1,5 @@
 <?
+
 	require("glue.php");
 	init("form_process");
 

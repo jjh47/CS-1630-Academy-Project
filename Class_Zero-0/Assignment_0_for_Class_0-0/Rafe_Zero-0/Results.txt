@@ -1,0 +1,11 @@
+Compiled successfully.
+Output:
+Hello! What is your name?
+Alex
+Well, Alex, I am thinking of a number between 1 and 20.
+Take a guess: 5
+Your guess is too high.
+Take a guess: 2
+Your guess is too high.
+Take a guess: 1
+Good job, Alex! You guessed my number in 3 guesses!
