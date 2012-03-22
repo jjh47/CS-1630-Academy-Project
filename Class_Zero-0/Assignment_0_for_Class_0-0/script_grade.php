@@ -140,7 +140,7 @@ if($args[1] == "-t"){
 							
 						}
 						else{
-							$process = proc_open('python '.$className, $Spec, $handles);
+							$process = proc_open('python '.$className, $Spec, $handles, getcwd());
 						}
 
 
@@ -187,7 +187,7 @@ if($args[1] == "-t"){
 							$output = shell_exec("java ".$className." 2>&1 ");
 						}
 						else{
-							$output = shell_exec("python ".$className." 2>&1 1> /dev/null");
+							$output = shell_exec("python ".$className." 2>&1 ");
 						}
 						$fp = fopen('Results.txt', 'a+');
 						
