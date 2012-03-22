@@ -1,4 +1,5 @@
  <?
+//session_start();
 
 $db = $_SESSION["db"];
 

@@ -190,6 +190,66 @@ html, body, head {
   margin-left: 200px;
   min-height: 200px;
 }
+#content #inner-content .code-block {
+  width: 650px;
+  border: 1px solid black;
+  padding: 5px;
+  margin-top: 5px;
+  max-height: 500px;
+  overflow: auto;
+}
+#content #inner-content .code-block pre {
+  width: 640px;
+  white-space: pre-wrap;
+  /* css-3 */
+
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+
+}
+#content #inner-content ul#student-files {
+  list-style-type: none;
+}
+#content #inner-content ul.pager {
+  list-style-type: none;
+}
+#content #inner-content ul.pager li {
+  display: inline;
+  padding: 0 5px;
+}
+#content #inner-content ul.pager li.prev a {
+  color: #8a0015;
+  text-decoration: none;
+}
+#content #inner-content ul.pager li.prev a:hover {
+  text-decoration: underline;
+  color: black;
+}
+#content #inner-content ul.pager li.next a {
+  color: #8a0015;
+  text-decoration: none;
+}
+#content #inner-content ul.pager li.next a:hover {
+  text-decoration: underline;
+  color: black;
+}
+#content #inner-content ul.pager li.disabled a {
+  color: gray;
+  text-decoration: none;
+}
+#content #inner-content ul.pager li.disabled a:hover {
+  text-decoration: none;
+  color: gray;
+}
 #content #sidebar {
   width: 200px;
   height: 100%;

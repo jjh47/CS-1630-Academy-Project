@@ -36,6 +36,7 @@
 				}
 				else //assignments are available
 				{
+					$assignments = $db->arrayQuery("select * from Assignment where class_id = '$selected';");
 					echo "<h1>Assignments for $course_name</h1>";
 					if ($usertype == "teacher")
 					{
@@ -93,7 +94,15 @@
 					echo "<ol id='assignment-list'>";
 					foreach ($assignments as $assignment)
 					{
-						?><li><a href="view_assig.php?class_id=<?= $assignment["class_id"] ?>&amp;assignment_id=<?= $assignment["assignment_id"] ?>"><?= $assignment["title"] ?></a></li><?
+						if ($assignment["is_open"] == 1)
+						{
+							?><li><a href="view_assig.php?class_id=<?= $assignment["class_id"] ?>&amp;assignment_id=<?= $assignment["assignment_id"] ?>"><?= $assignment["title"] ?></a></li><?	
+						}
+						if ($_SESSION["usertype"] == "teacher" && $assignment["is_open"] == 0)
+						{
+							?><li><em>(<a href="view_assig.php?class_id=<?= $assignment["class_id"] ?>&amp;assignment_id=<?= $assignment["assignment_id"] ?>"><?= $assignment["title"] ?></a>)</em></li><?		
+						}
+						
 					}
 					if ($usertype == "teacher")
 					{

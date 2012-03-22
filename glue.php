@@ -2,7 +2,7 @@
 session_start();
 
 require("includes/defines.php");
-include("includes/Browser.php");
+//include("includes/Browser.php");
 
 $db = new SQLiteDatabase(DB_PATH, 0666, $dberror);
 $_SESSION["db"] = $db;
@@ -109,6 +109,7 @@ function get_header()
 					<? elseif ($usertype == "teacher"): ?>
 					<!--teacher only stuff-->
 					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/create_assig.php">Create Assignment</a></div>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/grade_assig.php">Grade Assignment</a></div>
 
 					<? endif; ?>
 				</div>
@@ -128,7 +129,7 @@ function get_footer()
 		</div>
 		<br style="clear: both;">
 		</div>
-		<div id='bottom-bar'><a id='logout-anchor' href='javascript:logout()'>Logout</a></div>
+		<div id='bottom-bar'><a href="<?= HOME_DIR ?>logout.php">Logout</a></div>
 	</body>
 	</html>
 	<?
