@@ -94,11 +94,11 @@ function insert_users()
     $pass = crypt("asdf",'$5$thisisthesalt!!!'); //IMPORTANT: $5$ indicates that SHA-256 is to be used.  Salt MUST be in single quotes.
     query("
         insert into User values ('0', 'Rafe Zero', 'rhc8@pitt.edu', 'student', '$pass', 'thisisthesalt!!!');
-        insert into User values ('1', 'Rafe One', 'rafael.colton+one@gmail.com', 'student', '$pass', 'thisisthesalt!!!');
+        insert into User values ('1', 'Generic Student', 'rafael.colton+student@gmail.com', 'student', '$pass', 'thisisthesalt!!!');
         insert into User values ('2', 'Rafe Two', 'rafael.colton+two@gmail.com', 'student', '$pass', 'thisisthesalt!!!');
         insert into User values ('3', 'Rafe Three', 'rafael.colton+three@gmail.com', 'student', '$pass', 'thisisthesalt!!!');
         insert into User values ('4', 'Rafe Four', 'rafael.colton+four@gmail.com', 'student', '$pass', 'thisisthesalt!!!');
-        insert into User values ('10', 'Rafe Ten', 'rafael.colton+ten@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
+        insert into User values ('10', 'Generic Teacher', 'rafael.colton+teacher@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
         insert into User values ('11', 'Rafe Eleven', 'rafael.colton+eleven@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
         insert into User values ('12', 'Rafe Twelve', 'rafael.colton+twelve@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
         insert into User values ('13', 'Rafe Thirteen', 'rafael.colton+thirteen@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');

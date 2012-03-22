@@ -51,4 +51,6 @@
 
 	return_to(HOME_DIR."/pages/view_assig.php?class_id=$class_id&assignment_id=$assignment_id");
 
+
 	?>
+

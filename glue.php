@@ -109,7 +109,7 @@ function get_header()
 					<? elseif ($usertype == "teacher"): ?>
 					<!--teacher only stuff-->
 					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/create_assig.php">Create Assignment</a></div>
-					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/grade_assig.php">Grade Assignment</a></div>
+					<!--<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/grade_assig.php">Grade Assignment</a></div>-->
 
 					<? endif; ?>
 				</div>
@@ -170,9 +170,9 @@ function lock()
 							<br><br><br>
 							Password
 						</div>
-						<input type="email" name="email" id="email" value="rafael.colton+ten@gmail.com" onkeypress="eval_form(event,'#login-submitbutton')"><br>
+						<input type="email" name="email" id="email" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
-						<input type="password" name="password" id="password" value="asdf" onkeypress="eval_form(event,'#login-submitbutton')"><br>
+						<input type="password" name="password" id="password" onkeypress="eval_form(event,'#login-submitbutton')"><br>
 						<br>
 						<div id='buttons'>
 							<input type="button" class="button" value="Submit" id = "login-submitbutton" onclick = "submit_unlock_request()">&nbsp;
