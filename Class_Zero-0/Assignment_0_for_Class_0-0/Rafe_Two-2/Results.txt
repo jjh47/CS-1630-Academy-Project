@@ -1,11 +1,35 @@
-Compiled successfully.
-Output:
-Hello! What is your name?
-Alex
-Well, Alex, I am thinking of a number between 1 and 20.
-Take a guess: 5
-Your guess is too high.
-Take a guess: 2
-Your guess is too high.
-Take a guess: 1
-Good job, Alex! You guessed my number in 3 guesses!
+
+Compilation of Print.java
+--------------------------------------------------
+
+
+
+
+Output of running 
+--------------------------------------------------
+
+Hello2
+
+Compilation of Prime.java
+--------------------------------------------------
+
+Prime.java:4: ';' expected
+		Scanner scan = new Scanner(System.in)
+		                                     ^
+1 error
+
+
+
+Output of running 
+--------------------------------------------------
+
+java.lang.NoClassDefFoundError: Prime
+Caused by: java.lang.ClassNotFoundException: Prime
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+Could not find the main class: Prime.  Program will exit.
+Exception in thread "main" 

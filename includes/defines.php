@@ -1,6 +1,14 @@
 <?
+$testing = "web";
 
-if (true)
+if($testing == "Ping"){
+	define("DB_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/pages/academyprojectdb"); //path to the database file
+	define("HOME_DIR","http://localhost/cs1630/CS-1630-Academy-Project/");
+	define("BASE_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/");
+	define("CLASS_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/");
+	define("GSCRIPT_PATH", "C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/pages/script_grade.php");
+}
+else if ($testing == "web")
 {
 	define("DB_PATH","/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/db/academyprojectdb"); //path to the database file
 	define("HOME_DIR","http://vis.cs.pitt.edu/webtest/cs1630Academy/");
