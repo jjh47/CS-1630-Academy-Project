@@ -23,27 +23,75 @@
  	//I see to deal with naming contraints we agreed too.
  	$assig_folder_name = parse_assig_name();
  	$class_folder_name = parse_class_name();
+ 	$student_folder_name = parse_student_name();
  	
  	//Check to see if class folder exists
  	if(chdir(CLASS_PATH . $class_folder_name))
  	{
 		if(is_dir($assig_folder_name))
 		{
-			//Copy submitted files to location
-			copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name);
+			if(is_dir($assig_folder_name . "/" . $student_folder_name))
+			{
+
+				//copy grading script
+				if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+				update_log(0, "Error: Could not copy grading script to new assignment folder");
+
+				//Copy submitted files to location
+				copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name);
+			}
+			else
+			{
+				//create student folder
+				if(mkdir(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+				{
+					//copy grading script
+					if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+					update_log(0, "Error: Could not copy grading script to new assignment folder");
+				
+					//copy submitted files into location
+					copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name);
+				}
+				else
+				{
+					addsum("WARNING: NO FILES UPLOADED. ERROR: Could not create student directory");
+				}
+			}
 		}
 		else
 		{
 			//create folder
 			if(mkdir(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name))
 			{
-				//copy grading script
-				if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name))
-					update_log(0, "Error: Could not copy grading script to new assignment folder");
 				
-				//copy submitted files into location
-				copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name);
+				if(is_dir($assig_folder_name . "/" . $student_folder_name))
+				{
+
+					//copy grading script
+					if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+						update_log(0, "Error: Could not copy grading script to new assignment folder");
+
+					//Copy submitted files to location
+					copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name);
+				}
+				else
+				{
+					//create student folder
+					if(mkdir(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+					{
+						//copy grading script
+						if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+						update_log(0, "Error: Could not copy grading script to new assignment folder");
+				
+						//copy submitted files into location
+						copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name);
+					}
+				else
+				{
+					addsum("WARNING: NO FILES UPLOADED. ERROR: Could not create student directory");
+				}
 			}
+		}
 			else
 			{
 				addsum("WARNING: NO FILES UPLOADED. ERROR: Could not create assignment directory");
@@ -207,6 +255,35 @@
  			
  			$toret = $toret . "-";
  			$toret = $toret . $classid;
+ 			return $toret;
+ 		}
+ 	}
+
+ 	function parse_student_name()
+ 	{
+ 		global $db;
+ 		$user_id = $_SESSION['user_id'];
+ 		$toret = "";
+ 		$results = $db->arrayQuery("select * from User where user_id = '$user_id';");
+ 		if(empty($results))
+ 		{
+ 			addsum("Error: Could not retrieve student information to parse folder name");
+ 			return "";
+ 		}
+ 		else
+ 		{
+ 			$user = $results[0];
+ 			$name = $user['username'];
+ 			$name_explode = explode(" ", $name);
+ 			for($i = 0; $i < count($name_explode); $i++)
+ 			{
+ 				$toret = $toret . $name_explode[$i];
+ 				if($i != count($name_explode)-1)
+ 					$toret = $toret . "_";
+ 			}
+ 			
+ 			$toret = $toret . "-";
+ 			$toret = $toret . $user_id;
  			return $toret;
  		}
  	}

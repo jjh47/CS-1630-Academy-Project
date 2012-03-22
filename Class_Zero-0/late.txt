@@ -10,3 +10,7 @@ Freezer1.JPG was not uploaded late but is SUSPECT as timestamps infer it actuall
 Freezer2.JPG was not uploaded late but is SUSPECT as timestamps infer it actually is LATE. . TIMESTAMP: 2012-03-21 19:17:01
 Freezer1.JPG was not uploaded late but is SUSPECT as timestamps infer it actually is LATE. . TIMESTAMP: 2012-03-21 19:17:49
 Freezer2.JPG was not uploaded late but is SUSPECT as timestamps infer it actually is LATE. . TIMESTAMP: 2012-03-21 19:17:49
+Freezer1.JPG was not uploaded late but is SUSPECT as timestamps infer it actually is LATE. . TIMESTAMP: 2012-03-21 22:20:37
+Freezer2.JPG was not uploaded late but is SUSPECT as timestamps infer it actually is LATE. . TIMESTAMP: 2012-03-21 22:20:37
+Freezer1.JPG was not uploaded late but is SUSPECT as timestamps infer it actually is LATE. . TIMESTAMP: 2012-03-21 22:21:10
+Freezer2.JPG was not uploaded late but is SUSPECT as timestamps infer it actually is LATE. . TIMESTAMP: 2012-03-21 22:21:10
