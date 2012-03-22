@@ -104,7 +104,19 @@
 	if ($is_open)
 	{
 		echo "<p> Assignment is <strong>open";
-		if (isset($closed) && $closed): echo "</strong> (but closed for submission).";
+		if (isset($closed) && $closed): 
+			echo "</strong> (but closed for submission).<br><br>";
+			$results = $db->arrayQuery("select grade from Grade where user_id='$user_id' and assignment_id='$assignment_id'");
+			if (!empty($results))
+			{
+				$grade = $results[0]["grade"];
+				echo "Your grade for this assignment is <strong>$grade/70</strong>.";
+			}
+			else
+			{
+				echo "You have not yet received a grade for this assignment.";
+			}
+
 		else: "</strong>.</p>";
 		endif;
 	}
@@ -116,6 +128,11 @@
 	if($_SESSION["usertype"] == "teacher" || $_SESSION["usertype"] == "admin")
 	{
 		?>
+		<form action="grade_assig.php?class_id=<?= $class_id ?>&amp;assignment_id=<?= $assignment_id ?>" method='post'>
+			<input type="submit" value="Grade Assignment">
+			<? add_token(); ?>
+		</form>
+		<br><br>
 		<form action="edit_assig.php?class_id=<?= $class_id ?>&amp;assignment_id=<?= $assignment_id ?>" method='post'>
 			<input type="submit" name='selection'value="Edit Assignment" />
 			<input type="submit" name='selection'value="Delete Assignment" />

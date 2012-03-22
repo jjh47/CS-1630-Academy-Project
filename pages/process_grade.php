@@ -1,7 +1,6 @@
 <?
 	require("../glue.php");
 	init("form_process");
-	get_header();
 
 	if($_SESSION["usertype"] != "teacher" && $_SESSION["usertype"] != "admin")
 	{
@@ -26,22 +25,22 @@
 			$accountable = sqlite_escape_string($_POST['gr6']);
 			$lab_Report = sqlite_escape_string($_POST['gr7']);
 			$timeliness = sqlite_escape_string($_POST['gr8']);
-			$Total = $program_Execution+$program_Specification+$radability+$reusability+$documentation+$accountable+$lab_Report+$timeliness;
+			$Total = $program_Execution+$program_Specification+$readability+$reusability+$documentation+$accountable+$lab_Report+$timeliness;
 			
-			$results = $db->array_query("select * from User where user_id = '".$user_id."'");
+			$results = $db->arrayQuery("select * from User where user_id = '".$user_id."'");
 			if(empty($results)){
 				echo("error");
 				die;
 			}
-			$username = $results["username"];
-			$email = $results["email"];
+			$username = $results[0]["username"];
+			$email = $results[0]["email"];
 
-			$results = $db->array_query("select * from Assignment where assignment_id = '".$assignment_id."'");
+			$results = $db->arrayQuery("select * from Assignment where assignment_id = '".$assignment_id."'");
 			if(empty($results)){
 				echo("error");
 				die;
 			}
-			$title = $results["title"];
+			$title = $results[0]["title"];
 			
 
 			$subject = "Grade for ".$title;
@@ -56,11 +55,14 @@
 				die;
 			}
 
-			$results = $db->array_query("select * from grade where user_id = '".$user_id."' and assignment_id = '".$assignment_id."'");
+			$results = $db->arrayQuery("select * from grade where user_id = '".$user_id."' and assignment_id = '".$assignment_id."'");
 			//grade has not been submitted yet so insert
 			if(empty($results)){
-				$result = queryExec("insert into grade values(".$user_id.", ".$assignment_id.", ".$Total.")");
-				if(empty($result)){
+				$result = $db->queryExec("insert into grade values(".$user_id.", ".$assignment_id.", ".$Total.")");
+
+				$success = $db->changes();
+
+				if(!$success){
 					echo("error");
 					die;
 				}
@@ -71,23 +73,22 @@
 			//grade has been inserted before so update
 			else{
 
-				$result = queryExec("Update grade set grade = ".$Total." where user_id = ".$user_id." and assignment_id = ".$assignment_id);
+				$result = $db->queryExec("Update grade set grade = ".$Total." where user_id = ".$user_id." and assignment_id = ".$assignment_id);
+
+				$success = $db->changes();
+
+				if(!$success){
+					echo("error");
+					die;
+				}
+				else{
+					echo("success");
+				}
 				
 			}
 
 		}	
 
 	}
-
-
-
-
-
-
-
-
-
-
-	get_footer();
 
 	?>

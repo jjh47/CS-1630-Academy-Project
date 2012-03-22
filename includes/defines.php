@@ -1,9 +1,6 @@
 <?
 
-
-
-
-if (false)
+if (true)
 {
 	define("DB_PATH","/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/db/academyprojectdb"); //path to the database file
 	define("HOME_DIR","http://vis.cs.pitt.edu/webtest/cs1630Academy/");

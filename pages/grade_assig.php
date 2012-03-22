@@ -207,7 +207,6 @@
 			}
 			else{
 				$data = $(id).serialize();
-				alert($data);
 				post("process_grade.php",$data,function(data){
 					if (data.indexOf("error") != -1){
 						$('#failure-message').show("slow");
