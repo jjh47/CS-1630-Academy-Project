@@ -101,6 +101,17 @@
 	echo("<p> Due Date: <b> ".date("l, F jS \a\\t g:ia",strtotime($due_date))."</b></p>");
 	echo("<p> Late Due Date: <b> ".date("l, F jS \a\\t g:ia",strtotime($late_due_date))."</b></p>");
 	echo("<p> Number of Files Required:<b> ".$num_files."</b></p>");
+	if ($is_open)
+	{
+		echo "<p> Assignment is <strong>open";
+		if (isset($closed) && $closed): echo "</strong> (but closed for submission).";
+		else: "</strong>.</p>";
+		endif;
+	}
+	else
+	{
+		echo "<p> Assignment is <strong>closed</strong>.</p>";	
+	}
 
 	if($_SESSION["usertype"] == "teacher" || $_SESSION["usertype"] == "admin")
 	{
