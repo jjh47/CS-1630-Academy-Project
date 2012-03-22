@@ -1,4 +1,5 @@
  <?
+//session_start();
 
 $db = $_SESSION["db"];
 
@@ -30,7 +31,7 @@ if ($db)
         ");
     query("
             create table 'Assignment' (
-                'assignment_id' int not null,
+                'assignment_id' integer primary key,
                 'class_id' int not null,
                 'title' text not null,
                 'date_assigned' text not null,
@@ -39,7 +40,6 @@ if ($db)
                 'late_due_date' text not null,
                 'is_open' int(1) default 1,
                 'num_files_required' int,
-                primary key ('assignment_id'),
                 foreign key ('class_id') references 'Class' ('class_id') on delete cascade
             )
         ");
@@ -109,15 +109,16 @@ function insert_classes()
 
 function insert_assignments()
 {
-    $due = 1331595000;
-    $late = 1332243000;
+    $due = "2012-03-25 23:45:00";
+    $late = "2012-03-25 23:59:59";
+    $assigned = "2012-03-11 12:00:00";
     query("
-        insert into Assignment values (0, 0, 'Assignment 0 for Class 0', '3/11/2012', 'no description', '$due', '$late', 1, 3);
-        insert into Assignment values (5, 0, 'Assignment 5 for Class 0', '3/11/2012', 'no description', '$due', '$late', 1, 3);
-        insert into Assignment values (1, 1, 'Assignment 1 for Class 1', '3/11/2012', 'no description', '$due', '$late', 1, 3);
-        insert into Assignment values (2, 2, 'Assignment 2 for Class 2', '3/11/2012', 'no description', '$due', '$late', 1, 3);
-        insert into Assignment values (3, 3, 'Assignment 3 for Class 3', '3/11/2012', 'no description', '$due', '$late', 1, 3);
-        insert into Assignment values (4, 4, 'Assignment 4 for Class 4', '3/11/2012', 'no description', '$due', '$late', 1, 3);
+        insert into Assignment values (0, 0, 'Assignment 0 for Class 0', '$assigned', 'no description', '$due', '$late', 1, 3);
+        insert into Assignment values (5, 0, 'Assignment 5 for Class 0', '$assigned', 'no description', '$due', '$late', 1, 3);
+        insert into Assignment values (1, 1, 'Assignment 1 for Class 1', '$assigned', 'no description', '$due', '$late', 1, 3);
+        insert into Assignment values (2, 2, 'Assignment 2 for Class 2', '$assigned', 'no description', '$due', '$late', 1, 3);
+        insert into Assignment values (3, 3, 'Assignment 3 for Class 3', '$assigned', 'no description', '$due', '$late', 1, 3);
+        insert into Assignment values (4, 4, 'Assignment 4 for Class 4', '$assigned', 'no description', '$due', '$late', 1, 3);
         ");
 }
 
@@ -133,6 +134,10 @@ function enroll()
         insert into Enrollment values (2, 2);
         insert into Enrollment values (3, 3);
         insert into Enrollment values (4, 4);
+        insert into Enrollment values (0, 10);
+        insert into Enrollment values (1, 10);
+        insert into Enrollment values (3, 10);
+        insert into Enrollment values (4, 10);
         ");
 }
 
@@ -142,7 +147,8 @@ function query($query)
     $result = $db->queryExec($query, $error);
     if (!$result || $error)
     {
-        die("Query error: $error");
+        return false;
+        //die("Query error: $error");
     }
     else
     {

@@ -43,8 +43,33 @@ html, body, head {
   padding: 0;
 }
 .message.warning {
-  color: red;
+  color: black;
+  display: inline-block;
+  padding: 5px;
   font-weight: bold;
+  border: 2px solid red;
+  background-color: #cc3333;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  margin-bottom: 15px;
+}
+.message.info {
+  display: inline-block;
+  color: black;
+  padding: 5px;
+  border: 2px solid green;
+  background-color: #00ff00;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  margin-bottom: 15px;
 }
 #lock-inner-contents {
   margin: 0 auto;
@@ -87,7 +112,7 @@ html, body, head {
 #lock-inner-contents #lock-wrapper {
   margin: 0 auto;
   width: 500px;
-  height: 250px;
+  height: 275px;
   background-color: white;
   padding: 20px 20px 10px 20px;
   border: 2px solid black;
@@ -145,14 +170,117 @@ html, body, head {
   left: 1035px;
   top: 20px;
 }
-#inner-content {
+#content {
   margin: 0 auto;
   width: 960px;
-  padding: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
   background-color: white;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+  position: relative;
+}
+#content #inner-content {
+  float: left;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 10px;
+  margin-left: 200px;
+  min-height: 200px;
+}
+#content #inner-content .code-block {
+  width: 650px;
+  border: 1px solid black;
+  padding: 5px;
+  margin-top: 5px;
+  max-height: 500px;
+  overflow: auto;
+}
+#content #inner-content .code-block pre {
+  width: 640px;
+  white-space: pre-wrap;
+  /* css-3 */
+
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+
+}
+#content #inner-content ul#student-files {
+  list-style-type: none;
+}
+#content #inner-content ul.pager {
+  list-style-type: none;
+}
+#content #inner-content ul.pager li {
+  display: inline;
+  padding: 0 5px;
+}
+#content #inner-content ul.pager li.prev a {
+  color: #8a0015;
+  text-decoration: none;
+}
+#content #inner-content ul.pager li.prev a:hover {
+  text-decoration: underline;
+  color: black;
+}
+#content #inner-content ul.pager li.next a {
+  color: #8a0015;
+  text-decoration: none;
+}
+#content #inner-content ul.pager li.next a:hover {
+  text-decoration: underline;
+  color: black;
+}
+#content #inner-content ul.pager li.disabled a {
+  color: gray;
+  text-decoration: none;
+}
+#content #inner-content ul.pager li.disabled a:hover {
+  text-decoration: none;
+  color: gray;
+}
+#content #sidebar {
+  width: 200px;
+  height: 100%;
+  position: absolute;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 20px;
+  background-color: #cde3ff;
+}
+#content #sidebar :not(a) {
+  color: #8a0015;
+}
+#content #sidebar a {
+  color: #5880b7;
+  text-decoration: none;
+}
+#content #sidebar a:hover {
+  color: #8a0015;
+  text-decoration: underline;
+}
+#content #sidebar hr {
+  margin: 0;
+}
+#content #sidebar hr.light {
+  border: 2px solid #5880b7;
+  margin-top: 5px;
+}
+#content #sidebar hr.dark {
+  border: 2px solid #08357d;
+  margin-bottom: 5px;
 }
 #bottom-bar {
   background-color: #08357d;

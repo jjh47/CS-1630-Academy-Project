@@ -26,16 +26,16 @@
 				$courses[] = $course[0];
 			}
 		}
-	}
 
-	echo "<h1>Courses for $username</h1>";
+		echo "<h1>Courses for $username</h1>";
 
-	echo "<ol id='course-list'>";
-	foreach ($courses as $course)
-	{
-		?><li><a href="view_class.php?class_id=<?= $course["class_id"] ?>"><?= $course["class_name"] ?></a></li><?
+		echo "<ol id='course-list'>";
+		foreach ($courses as $course)
+		{
+			?><li><a href="view_class.php?class_id=<?= $course["class_id"] ?>"><?= $course["class_name"] ?></a></li><?
+		}
+		echo "</ol>";
 	}
-	echo "</ol>";
 ?>
 
 

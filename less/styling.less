@@ -17,9 +17,25 @@ html, body, head{
 }
 
 .message{
+
 	&.warning{
-		color: red;
+		color: black;
+		display: inline-block;
+		padding: 5px;
 		font-weight: bold;
+		border: 2px solid red;
+		background-color: @light-red;
+		.rounded(5px);
+		margin-bottom: 15px;
+	}
+	&.info{
+		display: inline-block;
+		color: black;
+		padding: 5px;
+		border: 2px solid green;
+		background-color: @light-green;
+		.rounded(5px);
+		margin-bottom: 15px;
 	}
 }
 
@@ -67,7 +83,7 @@ html, body, head{
 	#lock-wrapper{
 		margin: 0 auto;
 		width: 500px;
-		height: 250px;
+		height: 275px;
 		background-color: white;
 		padding: 20px 20px 10px 20px;
 		border: 2px solid black;
@@ -123,29 +139,132 @@ html, body, head{
 	}
 }
 
-#inner-content{
+#content{
 	margin: 0 auto;
 	width: 960px;
-	padding: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
 	background-color: white;
 	.box-sizing(border-box);
+	position: relative;
 
-}
-
-#bottom-bar{
-		background-color: @blue;
-		width: 960px;
-		margin: 0 auto;
-		height: 30px;
-		text-align: right;
-		padding-right: 10px;
+	#inner-content{
+		float: left;
 		.box-sizing(border-box);
-		line-height: 30px;
-		a{
-			color: white;
-			&:hover{
-				color: @red;
-				text-decoration: none;
+		padding: 10px;
+		margin-left: 200px;
+		min-height: 200px;
+
+		.code-block{
+			width: 650px;
+			border: 1px solid black;
+			padding: 5px;
+			margin-top: 5px;
+			max-height: 500px;
+			overflow: auto;
+			pre{
+				width: 640px;
+				white-space: pre-wrap;       /* css-3 */
+ 				white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ 				white-space: -pre-wrap;      /* Opera 4-6 */
+ 				white-space: -o-pre-wrap;    /* Opera 7 */
+ 				word-wrap: break-word;       /* Internet Explorer 5.5+ */
+			}
+		}
+
+		ul#student-files{
+			list-style-type: none;
+		}
+		ul.pager{
+			list-style-type: none;
+			li{
+				display: inline;
+				padding: 0 5px;
+				&.prev{
+					a{
+						color: @red;
+						text-decoration: none;
+						&:hover{
+							text-decoration: underline;
+							color: black;
+						}
+					}
+				}
+
+				&.next{
+					a{
+						color: @red;
+						text-decoration: none;
+						&:hover{
+							text-decoration: underline;
+							color: black;
+						}
+					}
+				}
+
+				&.disabled{
+					a{
+						color: gray;
+						text-decoration: none;
+						&:hover{
+							text-decoration: none;
+							color: gray;
+						}
+					}
+				}
 			}
 		}
 	}
+
+	#sidebar{
+		width: 200px;
+		height: 100%;
+		position: absolute;
+		.box-sizing(border-box);
+		padding: 20px;
+		background-color: @light-blue;
+		:not(a){
+			color: @red;
+		}
+		a{
+			color: @medium-blue;
+			text-decoration: none;
+			&:hover{
+				color: @red;
+				text-decoration: underline;
+			}
+		}
+		hr{
+			margin: 0;
+
+			&.light{
+				border: 2px solid @medium-blue;
+				margin-top: 5px;
+			}
+			&.dark{
+				border: 2px solid @blue;
+				margin-bottom: 5px;
+			}
+		}
+	}
+}
+
+#bottom-bar{
+	background-color: @blue;
+	width: 960px;
+	margin: 0 auto;
+	height: 30px;
+	text-align: right;
+	padding-right: 10px;
+	.box-sizing(border-box);
+	line-height: 30px;
+	a{
+		color: white;
+		&:hover{
+			color: @red;
+			text-decoration: none;
+		}
+	}
+}
+
+
