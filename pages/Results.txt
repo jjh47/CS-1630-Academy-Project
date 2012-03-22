@@ -1,0 +1,45 @@
+Compilation of test.java
+--------------------------------------------------
+
+test.java:23: class HelloJni is public, should be declared in a file named HelloJni.java
+public class HelloJni extends Activity
+       ^
+test.java:18: package android.app does not exist
+import android.app.Activity;
+                  ^
+test.java:19: package android.widget does not exist
+import android.widget.TextView;
+                     ^
+test.java:20: package android.os does not exist
+import android.os.Bundle;
+                 ^
+test.java:23: cannot find symbol
+symbol: class Activity
+public class HelloJni extends Activity
+                              ^
+test.java:27: cannot find symbol
+symbol  : class Bundle
+location: class com.example.hellojni.HelloJni
+    public void onCreate(Bundle savedInstanceState)
+                         ^
+test.java:29: cannot find symbol
+symbol  : variable super
+location: class com.example.hellojni.HelloJni
+        super.onCreate(savedInstanceState);
+        ^
+test.java:35: cannot find symbol
+symbol  : class TextView
+location: class com.example.hellojni.HelloJni
+        TextView  tv = new TextView(this);
+        ^
+test.java:35: cannot find symbol
+symbol  : class TextView
+location: class com.example.hellojni.HelloJni
+        TextView  tv = new TextView(this);
+                           ^
+test.java:26: method does not override or implement a method from a supertype
+    @Override
+    ^
+10 errors
+
+
