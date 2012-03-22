@@ -71,6 +71,20 @@ html, body, head {
   background-clip: padding-box;
   margin-bottom: 15px;
 }
+.message.caution {
+  display: inline-block;
+  color: black;
+  padding: 5px;
+  border: 2px solid yellow;
+  background-color: yellow;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  margin-bottom: 15px;
+}
 #lock-inner-contents {
   margin: 0 auto;
   width: 960px;

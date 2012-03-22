@@ -48,6 +48,9 @@
 	$assig_path = preg_replace("/\ /", '_', $assignment_title)."-".$assignment["assignment_id"];	
 
 	echo "<h1>Grading $assignment_title</h1>";
+	echo "<div id='success-message' class='info message' style='display: none;'>Grade Successfully Submitted</div>";
+	echo "<div id='failure-message' class='warning message' style='display: none;'>Error Submitting Grade</div>";
+	echo "<div id='caution-message' class='caution message' style='display: none;'>Grade May Not Have Been Submitted</div>";
 
 
 	if(!is_dir(BASE_PATH.$class_path))
@@ -116,11 +119,6 @@
 		}
 		echo "</select>";
 
-		/**
-			register onchage event for options
-			*/
-
-
 		$count = 0;
 		foreach ($file_list as $file)
 		{
@@ -143,7 +141,7 @@
 		?>
 		<br><br>
 		<b>Grading Rubric: </b>
-		<form id="grading_rubric" method="post" action="process_grade.php?user_id=<?= $user_id ?>&amp;assignment_id=<?= $assignment_id ?>" onsubmit='return submit_grading_form()'>
+		<form id="grading_rubric" method="post" action="process_grade.php" onsubmit='return submit_grading_form()'>
 			<table>
 				<tr><td>Program Execution:</td><td><input type="text" name="gr1" id="gr1" onkeyup="calculateTotal()" size="2" maxlength="2" /></td></tr>
 				<tr><td>Program Specification:</td><td><input type="text" name="gr2" id="gr2" onkeyup="calculateTotal()" size="2" maxlength="2" /></td></tr>
@@ -200,9 +198,28 @@
 				return false;
 			}
 			else{
-
-				//ajax function;
-				//callback indicate that score has been submitted
+				$data = $('#grading_rubric').serialize();
+				$data += "&user_id=<?= $user_id ?>&assignment_id=<?= $assignment_id ?>";
+				post("process_grade.php",$data,function(data){
+					if (data.indexOf("error") != -1){
+						$('#failure-message').show("slow");
+						setTimeout(function(){
+							$('#failure-message').hide("slow");
+						},2500);
+					}
+					else if (data.indexOf("success") != -1){
+						$('#success-message').show("slow");
+						setTimeout(function(){
+							$('#success-message').hide("slow");
+						},2500);
+					}
+					else{
+						$('#caution-message').show("slow");
+						setTimeout(function(){
+							$('#caution-message').hide("slow");
+						},2500);	
+					}
+				});
 				return false;
 			}
 		}
