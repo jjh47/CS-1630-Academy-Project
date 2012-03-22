@@ -11,6 +11,7 @@ if (false)
 
 else
 {
+
 	define("HOME_DIR","http://1630academy/");
 	define("DB_PATH","academyprojectdb");
 	define("BASE_PATH","../");
