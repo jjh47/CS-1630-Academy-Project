@@ -143,7 +143,7 @@
 		?>
 		<br><br>
 		<b>Grading Rubric: </b>
-		<form id="grading_rubric" method="post" action='google.com' onsubmit='return submit_grading_form()'>
+		<form id="grading_rubric" method="post" action="process_grade.php?user_id=<?= $user_id ?>&amp;assignment_id=<?= $assignment_id ?>" onsubmit='return submit_grading_form()'>
 			<table>
 				<tr><td>Program Execution:</td><td><input type="text" name="gr1" id="gr1" onkeyup="calculateTotal()" size="2" maxlength="2" /></td></tr>
 				<tr><td>Program Specification:</td><td><input type="text" name="gr2" id="gr2" onkeyup="calculateTotal()" size="2" maxlength="2" /></td></tr>
