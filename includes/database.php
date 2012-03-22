@@ -86,7 +86,7 @@ else
 
 function drop_tables()
 {
-   query("drop table User; drop table Class; drop table Assignment; drop table Enrollment; drop table Log;");
+   query("drop table User; drop table Class; drop table Assignment; drop table Enrollment; drop table Log; drop table Grade;");
 }
 
 function insert_users()
