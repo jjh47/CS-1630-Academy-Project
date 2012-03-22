@@ -1,5 +1,9 @@
 <?
 
+define("DB_PATH","academyprojectdb"); //path to the database file
+define("HOME_DIR","http://localhost:8888/");
+define("CLASS_PATH","/Users/jjh47/Documents/CS-1630-Academy-Project/");
+define("GSCRIPT_PATH", "");
 
 if (false)
 {
@@ -12,6 +16,8 @@ else
 {
 	define("HOME_DIR","http://localhost/cs1630/CS-1630-Academy-Project/");
 	define("DB_PATH","academyprojectdb");
+	//define("HOME_DIR","http://1630academy/");
+	//define("DB_PATH","academyprojectdb");
 	define("BASE_PATH","../");
 }
 
