@@ -1,7 +1,7 @@
 <?
 
 define("DB_PATH","academyprojectdb"); //path to the database file
-define("HOME_DIR","/var/www/CS-1630-Academy-Project/");
+define("HOME_DIR","/var/www/cs_1630/");
 
 
 define("MODE","dev");

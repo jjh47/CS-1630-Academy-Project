@@ -24,7 +24,7 @@
 	$is_open = $_POST[7];
 	$num_files = $_POST[8];
 
-	$results = query("update assignment set title='".$title.
+	$results = $db->query("UPDATE assignment set title='".$title.
 					"', date_assigned ='".$date_assigned.
 					"', description = '".$description.
 					"', due_date = '".$due_date.
