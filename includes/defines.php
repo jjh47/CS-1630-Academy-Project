@@ -1,11 +1,14 @@
 <?
+$testing = "Ping";
 
-define("DB_PATH","academyprojectdb"); //path to the database file
-define("HOME_DIR","http://localhost:8888/");
-define("CLASS_PATH","/Users/jjh47/Documents/CS-1630-Academy-Project/");
-define("GSCRIPT_PATH", "");
-
-if (false)
+if($testing == "Ping"){
+	define("DB_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/academyprojectdb"); //path to the database file
+	define("HOME_DIR","http://cs1630/CS-1630-Academy-Project/");
+	define("BASE_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/");
+	define("CLASS_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/");
+	define("GSCRIPT_PATH", "C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/pages/script_grade.php");
+}
+else if ($testing == "web")
 {
 	define("DB_PATH","/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/db/academyprojectdb"); //path to the database file
 	define("HOME_DIR","http://vis.cs.pitt.edu/webtest/cs1630Academy/");
@@ -16,8 +19,6 @@ else
 {
 	define("HOME_DIR","http://localhost/cs1630/CS-1630-Academy-Project/");
 	define("DB_PATH","academyprojectdb");
-	//define("HOME_DIR","http://1630academy/");
-	//define("DB_PATH","academyprojectdb");
 	define("BASE_PATH","../");
 }
 
