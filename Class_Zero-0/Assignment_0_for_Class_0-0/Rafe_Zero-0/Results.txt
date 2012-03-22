@@ -1,11 +1,43 @@
-Compiled successfully.
-Output:
-Hello! What is your name?
-Alex
-Well, Alex, I am thinking of a number between 1 and 20.
-Take a guess: 5
-Your guess is too high.
-Take a guess: 2
-Your guess is too high.
-Take a guess: 1
-Good job, Alex! You guessed my number in 3 guesses!
+
+Compilation of Print.java
+--------------------------------------------------
+
+Print.java:4: ';' expected
+		System.out.print("Hello0\n")
+		                            ^
+1 error
+
+
+
+Output of running 
+--------------------------------------------------
+
+java.lang.NoClassDefFoundError: Print
+Caused by: java.lang.ClassNotFoundException: Print
+	at java.net.URLClassLoader$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+Could not find the main class: Print.  Program will exit.
+Exception in thread "main" 
+Compilation of Prime.java
+--------------------------------------------------
+
+
+
+
+Output of running 
+--------------------------------------------------
+
+Enter the starting number > Enter the ending number > the prime numbers between 10 and 40 is:
+11
+13
+17
+19
+23
+25
+29
+31
+37

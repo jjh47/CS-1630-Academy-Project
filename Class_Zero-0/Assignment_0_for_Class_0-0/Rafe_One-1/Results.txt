@@ -1,11 +1,30 @@
-Compiled successfully.
-Output:
-Hello! What is your name?
-Alex
-Well, Alex, I am thinking of a number between 1 and 20.
-Take a guess: 5
-Your guess is too high.
-Take a guess: 2
-Your guess is too high.
-Take a guess: 1
-Good job, Alex! You guessed my number in 3 guesses!
+
+Compilation of Print.java
+--------------------------------------------------
+
+
+
+
+Output of running 
+--------------------------------------------------
+
+Hello1
+
+Compilation of Prime.java
+--------------------------------------------------
+
+
+
+
+Output of running 
+--------------------------------------------------
+
+Enter the starting number > Enter the ending number > the prime numbers between 10 and 40 is:
+11
+13
+17
+19
+23
+29
+31
+37
