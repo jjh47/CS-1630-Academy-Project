@@ -3,7 +3,7 @@ $testing = "Ping";
 
 if($testing == "Ping"){
 	define("DB_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/academyprojectdb"); //path to the database file
-	define("HOME_DIR","http://cs1630/CS-1630-Academy-Project/");
+	define("HOME_DIR","http://localhost/cs1630/CS-1630-Academy-Project/");
 	define("BASE_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/");
 	define("CLASS_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/");
 	define("GSCRIPT_PATH", "C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/pages/script_grade.php");
