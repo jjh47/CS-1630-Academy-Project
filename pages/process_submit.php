@@ -279,8 +279,6 @@
 		$duedate = $assig['due_date'];
 		$now = time();
 		
-		addsum("comparing: $now > $assig[due_date]");
-		
 		if($now > $duedate)
 		{
 			return false;
