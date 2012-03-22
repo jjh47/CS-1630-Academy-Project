@@ -54,6 +54,24 @@
 		die;
 	}
 
+	if (isset($_SESSION['upload_summary']))
+	{
+		echo "<div id='upload-summary' class='info message'><ol>";
+		foreach ($_SESSION['upload_summary'] as $item)
+		{
+			echo "<li>$item</li>";
+		}
+		echo "</ol></div>";
+		?>
+		<script>
+			setTimeout(function(){
+				$('#upload-summary').hide("slow");
+			}, 3000);
+		</script>
+		<?
+		unset($_SESSION["upload_summary"]);
+	}
+
 
 	if (isset($_SESSION["edit_assignment_success"]))
 	{

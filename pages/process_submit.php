@@ -26,8 +26,15 @@
  	$student_folder_name = parse_student_name();
  	
  	//Check to see if class folder exists
- 	if(chdir(CLASS_PATH . $class_folder_name))
+
+	if(!is_dir(CLASS_PATH . $class_folder_name)) 
+	{
+		mkdir(CLASS_PATH . $class_folder_name);	
+	}
+
+ 	if(is_dir(CLASS_PATH . $class_folder_name))
  	{
+ 		chdir(CLASS_PATH . $class_folder_name);
 		if(is_dir($assig_folder_name))
 		{
 			if(is_dir($assig_folder_name . "/" . $student_folder_name))
@@ -86,12 +93,12 @@
 						//copy submitted files into location
 						copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name);
 					}
-				else
-				{
-					addsum("WARNING: NO FILES UPLOADED. ERROR: Could not create student directory");
+					else
+					{
+						addsum("WARNING: NO FILES UPLOADED. ERROR: Could not create student directory");
+					}
 				}
 			}
-		}
 			else
 			{
 				addsum("WARNING: NO FILES UPLOADED. ERROR: Could not create assignment directory");
@@ -101,7 +108,7 @@
 	}
 	else
 	{
-		addsum("WARNING: NO FILES UPLOADED. ERROR: Class directory does not exist.");
+		addsum("WARNING: NO FILES UPLOADED. ERROR: Could not create class directory.");
 	}
  	
  	//Put the summary int oa session variable to display 
@@ -109,12 +116,12 @@
  	$_SESSION['upload_summary'] = $summary;
  
  	//Print summary for debugging purposes.
- 	for($i = 0; $i < $sumline;$i++)
+ 	/*for($i = 0; $i < $sumline;$i++)
  	{
  		echo $summary[$i] . "<br>";
- 	}
+ 	}*/
  	
- 	//return_to("submit_assig.php?class_id=$classid&assignment_id=$assigid"); //don't forget to specify a page
+ 	return_to("view_assig.php?class_id=$classid&assignment_id=$assigid"); //don't forget to specify a page
  	
  	
  	

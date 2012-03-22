@@ -12,8 +12,10 @@ else if ($testing == "web")
 {
 	define("DB_PATH","/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/db/academyprojectdb"); //path to the database file
 	define("HOME_DIR","http://vis.cs.pitt.edu/webtest/cs1630Academy/");
-	define("BASE_PATH","/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/db/");
-	define("CLASS_PATH","/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/db/");
+	//define("BASE_PATH","/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/db/");
+	//define("CLASS_PATH","/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/db/");
+	define("BASE_PATH","/afs/cs.pitt.edu/projects/marai/gfx3d/cs1630/2012/Academy/incoming/");
+	define("CLASS_PATH","/afs/cs.pitt.edu/projects/marai/gfx3d/cs1630/2012/Academy/incoming/");
 	define("GSCRIPT_PATH", "/afs/cs.pitt.edu/projects/vis/visweb/webtest/cs1630Academy/pages/script_grade.php");
 }
 
