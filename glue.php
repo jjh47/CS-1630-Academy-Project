@@ -7,7 +7,7 @@ require("includes/defines.php");
 $db = new SQLiteDatabase(DB_PATH, 0666, $dberror);
 $_SESSION["db"] = $db;
 
-if (MODE == "dev"): include("includes/database.php"); endif;
+//if (MODE == "dev"): include("includes/database.php"); endif;
 
 if (!isset($_SESSION["tokens_set"]))
 {
