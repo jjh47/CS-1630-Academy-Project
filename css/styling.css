@@ -19,7 +19,8 @@ OTHERWISE, YOUR CHANGES MAY DISAPPEAR.
   /* for IE < 8 */
 
 }
-.clearfix:before, .clearfix:after {
+.clearfix:before,
+.clearfix:after {
   content: ".";
   display: block;
   height: 0;
@@ -38,7 +39,9 @@ body {
   font-family: "Trebuchet MS", sans-serif;
   background-color: #d2d2d2;
 }
-html, body, head {
+html,
+body,
+head {
   margin: 0;
   padding: 0;
 }
