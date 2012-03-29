@@ -3,10 +3,9 @@
 	init("page");
 	get_header();
 ?>
-This is the homepage. Do things here.
-<ul>
-<li><a href="pages/grade_assig.php?class_id=0&assignment_id=0">Sample Grading Page</a></li>
-</ul>
+
+<h1>CS 1630 Homework Grading System</h1>
+This is the homepage. Insert welcome message here.
 
 <? get_footer(); ?>
 

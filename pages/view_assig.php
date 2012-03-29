@@ -114,10 +114,10 @@
 	}
 
 	echo("<p> Title: <b> ".$title."</b></p>");
-	echo("<p> Date Assigned: <b> ".date("l, F jS \a\\t g:ia",strtotime($date_assigned))."</b></p>");
+	echo("<p> Date Assigned: <b> ".date("l, F j, Y \a\\t g:ia",strtotime($date_assigned))."</b></p>");
 	echo("<p> Description: <b> ".$description."</b></p>");
-	echo("<p> Due Date: <b> ".date("l, F jS \a\\t g:ia",strtotime($due_date))."</b></p>");
-	echo("<p> Late Due Date: <b> ".date("l, F jS \a\\t g:ia",strtotime($late_due_date))."</b></p>");
+	echo("<p> Due Date: <b> ".date("l, F j, Y \a\\t g:ia",strtotime($due_date))."</b></p>");
+	echo("<p> Late Due Date: <b> ".date("l, F j, Y \a\\t g:ia",strtotime($late_due_date))."</b></p>");
 	echo("<p> Number of Files Required:<b> ".$num_files."</b></p>");
 	if ($is_open)
 	{
@@ -146,16 +146,30 @@
 	if($_SESSION["usertype"] == "teacher" || $_SESSION["usertype"] == "admin")
 	{
 		?>
-		<form action="grade_assig.php?class_id=<?= $class_id ?>&amp;assignment_id=<?= $assignment_id ?>" method='post'>
+		<form action="grade_assig.php?class_id=<?= $class_id ?>&amp;assignment_id=<?= $assignment_id ?>" class='single-button' method='post'>
 			<input type="submit" value="Grade Assignment">
 			<? add_token(); ?>
 		</form>
-		<br><br>
-		<form action="edit_assig.php?class_id=<?= $class_id ?>&amp;assignment_id=<?= $assignment_id ?>" method='post'>
-			<input type="submit" name='selection'value="Edit Assignment" />
-			<input type="submit" name='selection'value="Delete Assignment" />
+		&nbsp;
+		<form action="edit_assig.php?class_id=<?= $class_id ?>&amp;assignment_id=<?= $assignment_id ?>" class='single-button' method='post' onsubmit='return checkEdit()'>
+			<input type="submit" name='selection'value="Edit Assignment" id="edit"/>
 			<? add_token(); ?>
 		</form>
+		&nbsp;
+		<form action="edit_assig.php?class_id=<?= $class_id ?>&amp;assignment_id=<?= $assignment_id ?>" class='single-button' method='post' onsubmit='return checkDelete()'>
+			<input type="submit" name='selection'value="Delete Assignment" id="delete"/>
+			<? add_token(); ?>
+		</form>
+		<script>
+			function checkEdit(){
+				return confirm("Are you sure you want to edit this assignment?");
+			}
+
+			function checkDelete(){
+				return confirm("Are you sure you want to delete this assignment?");
+			}	
+
+		</script>
 
 		<?
 	}
@@ -185,13 +199,13 @@ function print_form($assignment, $class_id, $assignment_id)
 	else
 	{
 		?>
+		<br><br>Select files to upload:<br>
 		<form id='submission-form' enctype='multipart/form-data' action='process_submit.php' method='post'>
-			Select files to upload:<br>
 			<? for ($count=0; $count < $num_files; $count++): ?>
 				<? if ($count == $num_files - 1): ?>
-					<input type='file' name='userfile[]' id='last'>&nbsp;<input type='button' value='-' id='less'>&nbsp;<input type='button' value='+' id='more'><br>
+					<input type='file' name='userfile[]' id='last' style="display: inline;">&nbsp;<input type='button' value='-' id='less'>&nbsp;<input type='button' value='+' id='more'><br>
 				<? else: ?>
-					<input type='file' name='userfile[]'><br>
+					<input type='file' name='userfile[]' style="display: block;">
 				<? endif; ?>
 			<? endfor; ?>
 			<input type='Submit' value='Submit' id='submit' disabled='disabled'>&nbsp;<input type='reset' value='Reset'>
@@ -246,16 +260,20 @@ function print_form($assignment, $class_id, $assignment_id)
 				
 				$('#less').bind('click',function(){
 					var prev = $('#last').prev();
-					var prevprev = $(prev).prev();
-					if (prevprev.length != 0)
+					var last = $('#last');
+					if ($(prev).is("input"))
 					{
-						$(prev).remove();
-						$(prevprev).remove();
+						$(prev).css("display","inline");
+						$(prev).attr("id","last");
+						$(last).remove();
 					}
 				});
 
 				$('#more').bind('click',function(){
-					$('#last').before("<input type='file' name='userfile[]'><br>");
+					var last = $('#last');
+					$(last).attr("id","");
+					$(last).css("display","block");
+					$(last).after("<input type='file' name='userfile[]' id='last' style='display: inline;'>");
 				});
 			});
 

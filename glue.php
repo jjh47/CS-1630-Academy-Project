@@ -7,7 +7,7 @@ require("includes/defines.php");
 $db = new SQLiteDatabase(DB_PATH, 0666, $dberror);
 $_SESSION["db"] = $db;
 
-//if (MODE == "dev"): include("includes/database.php"); endif;
+//include("includes/database.php");
 
 if (!isset($_SESSION["tokens_set"]))
 {
@@ -39,6 +39,8 @@ function init($type = "page")
 			break;
 
 		case "page":
+			check_private_token();
+			break;
 		default:
 			break;
 	}
@@ -53,7 +55,7 @@ function check_env()
 {
 	if (empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']))
 	{
-		header("Location: /");
+		header("Location: ".HOME_DIR);
 		die;
 	}
 }
@@ -62,7 +64,7 @@ function check_private_token()
 {
 	if (!isset($_SESSION["private_token"]) || !isset($_SESSION["public_token"]))
 	{
-		header("Location: /");
+		header("Location: ".HOME_DIR);
 		die;
 	}
 }
@@ -71,7 +73,7 @@ function check_public_token()
 {
 	if (!isset($_POST["token"]) || $_POST["token"] != $_SESSION["public_token"])
 	{
-		header("Location: /");
+		header("Location: ".HOME_DIR);
 		die;
 	}
 }
@@ -109,9 +111,12 @@ function get_header()
 					<? elseif ($usertype == "teacher"): ?>
 					<!--teacher only stuff-->
 					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/create_assig.php">Create Assignment</a></div>
-					<!--<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/grade_assig.php">Grade Assignment</a></div>-->
+					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/grade_assig.php">Grade Assignment</a></div>
 
 					<? endif; ?>
+					<? hr(); ?>
+					<div class='nav-item'><a href="">Contact Us</a></div>
+
 				</div>
 				<div id="inner-content">
 	<?

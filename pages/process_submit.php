@@ -41,7 +41,7 @@
 			{
 
 				//copy grading script
-				if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+				if(!copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/script_grade.php"))
 				update_log(0, "Error: Could not copy grading script to new assignment folder");
 
 				//Copy submitted files to location
@@ -53,7 +53,7 @@
 				if(mkdir(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
 				{
 					//copy grading script
-					if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+					if(!copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name. "/script_grade.php"))
 					update_log(0, "Error: Could not copy grading script to new assignment folder");
 				
 					//copy submitted files into location
@@ -75,7 +75,7 @@
 				{
 
 					//copy grading script
-					if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+					if(!copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name. "/script_grade.php"))
 						update_log(0, "Error: Could not copy grading script to new assignment folder");
 
 					//Copy submitted files to location
@@ -87,7 +87,7 @@
 					if(mkdir(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
 					{
 						//copy grading script
-						if(!@copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name))
+						if(!copy(GSCRIPT_PATH, CLASS_PATH . $class_folder_name . "/" . $assig_folder_name. "/script_grade.php"))
 						update_log(0, "Error: Could not copy grading script to new assignment folder");
 				
 						//copy submitted files into location
@@ -363,7 +363,7 @@
 		$duedate = $assig['due_date'];
 		$now = time();
 		
-		if($now > $duedate)
+		if($now < $duedate)
 		{
 			return false;
 		}
@@ -374,7 +374,8 @@
 	//Function to append to the late.txt file
 	function append_late($towrite)
 	{
-		$fh = fopen("late.txt", 'a+');
+		global $class_folder_name, $assig_folder_name, $student_folder_name;
+		$fh = fopen(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name .'/late.txt', 'a+');
 		$d = date("Y-m-d H:i:s");;
 		fwrite($fh, "$towrite. TIMESTAMP: $d\n");
 		fclose($fh);
