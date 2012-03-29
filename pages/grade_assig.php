@@ -18,11 +18,71 @@
 	}
 	else
 	{
-		$assignment_id = 0;
-		$class_id = 0;
-		/**
-			show drop downs for selecting classes
-		*/
+		echo "<h1>Grade Assignment</h1>";
+		echo "<h2>Select Course & Assignment to Grade</h2>";
+		$user_id = $_SESSION["user_id"];
+		$results = $db->arrayQuery("select class_id from enrollment where user_id='$user_id'");
+		echo "Course: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select id='course_id' name='course_id' class='drop-down'>\n";
+		echo "<option value=''>--</option>\n";
+		foreach ($results as $course)
+		{
+			$id = $course["class_id"];
+			$courseinfo = $db->arrayQuery("select * from class where class_id = '$id'");
+			if (!empty($courseinfo))
+			{
+				$name = $courseinfo[0]["class_name"];
+				echo "<option value='$id'>$name</option>\n";
+			}
+		}
+		echo "</select><br>\n";
+		echo "Assignment: &nbsp;&nbsp;&nbsp; <select id='assignment_id' name='assignment_id' class='drop-down'>\n";
+		echo "<option value=''>--</option>\n";
+		echo "</select><br>\n";
+		echo "<button name='select' id='select' disabled='disabled' onclick='goToGradingPage()'>Select Assignment</button>"
+		?>
+		<script>
+			$(document).ready(function(){
+				$("#course_id").change(function(){
+					var course_id = $(this).val();
+					if (course_id == ""){
+						$('#select').attr("disabled","disabled");
+						$('#assignment_id').find('option').remove().end().append("<option value=''>--</option>\n");
+					}
+					else{
+						$data = "token=<?= $_SESSION['public_token'] ?>&course_id=" + course_id;
+						post("get_assig_list.php",$data, function(mylist){
+							if (mylist.indexOf("error") != -1){
+								alert("Unable to retrieve courses. Please try again.");
+							}
+							else{
+								$('#assignment_id').find('option').remove().end().append("<option value=''>--</option>\n");
+								var list = JSON.parse(mylist);
+								for (x in list){
+									var title = list[x].title;
+									var id = list[x].assignment_id;
+									$("#assignment_id").append("<option value='" + id + "'>" + title + "</option>");
+								}
+							}
+						});
+					}
+				});
+				$('#assignment_id').change(function(){
+					var id = $(this).val();
+					if (id != ""){
+						$('#select').removeAttr("disabled");
+					}
+					else{
+						$("#select").attr("disabled","disabled");
+					}
+				});
+			});
+			function goToGradingPage(){
+				window.location = "<?= HOME_DIR ?>pages/grade_assig.php?class_id=" + $("#course_id").val() + "&assignment_id=" + $('#assignment_id').val();
+			}
+		</script>
+		<?
+		get_footer();
+		die;
 	}
 
 	$results = $db->arrayQuery("select * from class where class_id='$class_id'");
@@ -108,7 +168,7 @@
 		array_shift($file_list);
 
 		echo "Select a file:<br>";
-		echo "<select>\n";
+		echo "<select id='$user_id'>\n";
 		echo "<option value='none'>--</option>\n";
 		
 		$count = 0;
@@ -183,7 +243,8 @@
 		}
 		function submit_grading_form(user_id){
 
-			var amt = $('#total').html();
+			var id = "#total" + user_id;
+			var amt = $(id).val();
 			var total = parseInt(amt);
 
 			var allFilled = true;
@@ -240,9 +301,16 @@
 					var code = "#" + id + "-code";
 					if (current_file != ""){
 						$(current_file).hide("slow");
+						$(current_file).css("display","none");
 					}
 					$(code).show("slow");
 					current_file = code;
+					var current_id = $(this).attr("id");
+					$("select").each(function(){
+						if ($(this).attr("id") != current_id){
+							$(this).val("none");
+						}
+					});
 				});
 			});
 
