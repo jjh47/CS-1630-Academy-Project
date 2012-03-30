@@ -71,6 +71,7 @@ if ($db && $testing)
                 'user_id' int not null,
                 'assignment_id' int not null,
                 'grade' int not null,
+                'comment' text,
                 primary key ('user_id', 'assignment_id'),
                 foreign key ('user_id') references 'User' ('user_id') on delete cascade,
                 foreign key ('assignment_id') references 'Assignment' ('assignment_id') on delete cascade

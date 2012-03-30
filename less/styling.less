@@ -5,6 +5,7 @@ OTHERWISE, YOUR CHANGES MAY DISAPPEAR.
 @import "elements";
 @import "variables";
 @import "mixins";
+@import "jquery"; 
 
 body{
 	font-family: @font;
@@ -23,7 +24,7 @@ html, body, head{
 		display: inline-block;
 		padding: 5px;
 		font-weight: bold;
-		border: 2px solid red;
+		border: 1px solid red;
 		background-color: @light-red;
 		.rounded(5px);
 		margin-bottom: 15px;
@@ -32,7 +33,7 @@ html, body, head{
 		display: inline-block;
 		color: black;
 		padding: 5px;
-		border: 2px solid green;
+		border: 1px solid green;
 		background-color: @light-green;
 		.rounded(5px);
 		margin-bottom: 15px;
@@ -41,8 +42,8 @@ html, body, head{
 		display: inline-block;
 		color: black;
 		padding: 5px;
-		border: 2px solid yellow;
-		background-color: yellow;
+		border: 1px solid yellow;
+		background-color: @light-yellow;
 		.rounded(5px);
 		margin-bottom: 15px;	
 	}
@@ -162,7 +163,7 @@ html, body, head{
 		.box-sizing(border-box);
 		padding: 10px;
 		margin-left: 200px;
-		min-height: 250px;
+		min-height: 300px;
 
 		.code-block{
 			width: 650px;
@@ -171,6 +172,7 @@ html, body, head{
 			margin-top: 5px;
 			max-height: 500px;
 			overflow: auto;
+			font-weight: 400;
 			pre{
 				width: 640px;
 				white-space: pre-wrap;       /* css-3 */

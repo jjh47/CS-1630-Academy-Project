@@ -229,6 +229,10 @@ function print_current_files()
 	$course_title = $results[0]["class_name"];
 
 	echo "<h2>View Files:</h2>";
+	echo "<div id='success-message' class='info message' style='display: none;'>File Successfully Deleted</div>";
+	echo "<div id='failure-message' class='warning message' style='display: none;'>Error Deleting File</div>";
+	echo "<div id='caution-message' class='caution message' style='display: none;'>File may not have been deleted.  Please reload page.</div>";
+	echo "<br>";
 	$student_path = BASE_PATH.preg_replace("/ /", "_", $course_title)."-".$class_id."/".preg_replace("/ /", "_", $title)."-".$assignment_id."/".preg_replace("/ /", "_", $_SESSION["username"])."-".$user_id."/";
 	if (!is_dir($student_path))
 	{
@@ -241,17 +245,38 @@ function print_current_files()
 		array_shift($file_list);
 		echo "<select id='file-list' style='display: inline;'>";
 		echo "<option value='none'>--</option>";
+		$count = 0;
 		foreach ($file_list as $file)
 		{
 			if (!((strcasecmp($file, "late.txt") == 0) || (strcasecmp($file, "results.txt") == 0)))
 			{
-				echo "<option value=$file>$file</option>";
+				echo "<option value='file$count' id='file$count'>$file</option>";
+				$count++;
 			}
 		}
-		echo "<select> &nbsp; <button>Delete File</button>";
+		echo "</select> &nbsp; <button id='delete-file'>Delete File</button>";
+
+		$count = 0;
 		foreach ($file_list as $file)
 		{
-			//like grade assignment
+			if (!((strcasecmp($file, "late.txt") == 0) || (strcasecmp($file, "results.txt") == 0)))
+			{
+				$file_path = $student_path."/".$file;
+				echo "<div class='code-block' style='display: none;' id='file$count-code'>";
+				echo "<pre>";
+				$lines = file($file_path);
+				$linenum = 0;
+				foreach ($lines as $line)
+				{
+					echo "$linenum: &nbsp;&nbsp;&nbsp;".strip_tags($line);
+					$linenum++;
+				}
+
+				echo "</pre>";
+				echo "</div>";
+
+				$count++;
+			}
 		}
 		echo "<div id='viewport' style='display: none'></div>";
 	}
@@ -266,6 +291,63 @@ function print_student_js()
 	?>
 	<script>
 		$(document).ready(function(){
+			
+			var current_file = "";
+
+			$('#delete-file').click(function(){
+				var filename = $('#file-list').find("option:selected").html();
+				option_id = $('#file-list').find("option:selected").attr("id");
+				if (filename != "--"){
+					$data = "filename=" + filename + "&token=<?= $_SESSION['public_token'] ?>&user_id=<?= $user_id ?>&assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>";
+					post("delete_student_file.php",$data,function(data){
+						//there was a problem
+						if (data.indexOf("error") != -1){
+							$('#failure-message').show("slow");
+							setTimeout(function(){
+								$('#failure-message').hide("slow");
+							},2500);
+						}
+						//success
+						else if (data.indexOf("success") != -1){
+							var previous = $('#file-list').find("option:selected");
+							var list = $('#file-list').val("none");
+							var id = $(list).find("option:selected").val();
+							var code = "#" + id + "-code";
+							if (current_file != ""){
+								$(current_file).hide("slow");
+								$(current_file).css("display","none");
+							}
+							$(code).show("slow");
+							current_file = code;
+							$(previous).remove();
+							$('#success-message').show("slow");
+							setTimeout(function(){
+								$('#success-message').hide("slow");
+							},2500);
+						}
+						//wtf
+						else{
+							$('#caution-message').show("slow");
+							setTimeout(function(){
+								$('#caution-message').hide("slow");
+							},2500);
+						}
+					});
+				}
+			});
+			
+			//for viewing student files
+			$('#file-list').change(function(){
+				var id = $(this).find("option:selected").val();
+				var code = "#" + id + "-code";
+				if (current_file != ""){
+					$(current_file).hide("slow");
+					$(current_file).css("display","none");
+				}
+				$(code).show("slow");
+				current_file = code;
+			});
+
 			$('#submission-form').submit(function(){
 				var now = new Date();
 				<?

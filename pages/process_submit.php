@@ -57,7 +57,7 @@
 					update_log(0, "Error: Could not copy grading script to new assignment folder");
 				
 					//copy submitted files into location
-					copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name);
+					copy_files(CLASS_PATH . $class_folder_name . "/" . $assig_folder_name . "/" . $student_folder_name);
 				}
 				else
 				{
@@ -177,6 +177,10 @@
         			addsum("Error: $name was not moved to directory successfully");
         			update_log(0, "Error: $name was not moved to directory successfully");
         		}
+        	}
+        	elseif ($error == UPLOAD_ERR_NO_FILE)
+        	{
+        		
         	}
     		else
     		{

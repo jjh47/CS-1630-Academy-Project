@@ -13,7 +13,7 @@
 		if (isset($_POST["assignment_id"]) && isset($_POST["user_id"]) && isset($_POST["gr1"]) 
 			&& isset($_POST["gr2"]) && isset($_POST["gr3"]) && isset($_POST["gr4"])
 			&& isset($_POST["gr5"]) && isset($_POST["gr6"]) && isset($_POST["gr7"])
-			&& isset($_POST["gr8"]))
+			&& isset($_POST["gr8"]) && isset($_POST["comment"]))
 		{
 			$user_id = sqlite_escape_string($_POST['user_id']);
 			$assignment_id = sqlite_escape_string($_POST['assignment_id']);
@@ -25,6 +25,8 @@
 			$accountable = sqlite_escape_string($_POST['gr6']);
 			$lab_Report = sqlite_escape_string($_POST['gr7']);
 			$timeliness = sqlite_escape_string($_POST['gr8']);
+			$comment = sqlite_escape_string($_POST["comment"]);
+
 			$Total = $program_Execution+$program_Specification+$readability+$reusability+$documentation+$accountable+$lab_Report+$timeliness;
 			
 			$results = $db->arrayQuery("select * from User where user_id = '".$user_id."'");
@@ -58,7 +60,7 @@
 			$results = $db->arrayQuery("select * from grade where user_id = '".$user_id."' and assignment_id = '".$assignment_id."'");
 			//grade has not been submitted yet so insert
 			if(empty($results)){
-				$result = $db->queryExec("insert into grade values(".$user_id.", ".$assignment_id.", ".$Total.")");
+				$result = $db->queryExec("insert into grade values('$user_id', '$assignment_id', '$Total', '$comment')");
 
 				$success = $db->changes();
 
@@ -73,7 +75,7 @@
 			//grade has been inserted before so update
 			else{
 
-				$result = $db->queryExec("Update grade set grade = ".$Total." where user_id = ".$user_id." and assignment_id = ".$assignment_id);
+				$result = $db->queryExec("Update grade set grade = '$Total', comment = '$comment' where user_id = '$user_id' and assignment_id = '$assignment_id'");
 
 				$success = $db->changes();
 
@@ -86,7 +88,6 @@
 				}
 				
 			}
-
 		}	
 
 	}

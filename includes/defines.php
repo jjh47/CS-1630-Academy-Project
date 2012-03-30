@@ -24,8 +24,8 @@ else if ($testing == "Rafe")
 {
 	define("HOME_DIR","http://cs1630academy/");
 	define("DB_PATH","academyprojectdb");
-	define("BASE_PATH","http://cs1630academy/");
-	define("CLASS_PATH","http://cs1630academy/");
+	define("BASE_PATH","/Users/rabbits1756/Documents/Classes/Current/CS 1630/CS-1630-Academy-Project/");
+	define("CLASS_PATH","/Users/rabbits1756/Documents/Classes/Current/CS 1630/CS-1630-Academy-Project/");
 	define("GSCRIPT_PATH", "http://cs1630academy/pages/script_grade.php");
 }
 
