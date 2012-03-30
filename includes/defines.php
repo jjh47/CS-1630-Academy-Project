@@ -22,10 +22,11 @@ else if ($testing == "web")
 
 else if ($testing == "Rafe")
 {
-//BASE_PATH and CLASS_PATH
 	define("HOME_DIR","http://cs1630academy/");
 	define("DB_PATH","academyprojectdb");
-	define("BASE_PATH","../");
+	define("BASE_PATH","http://cs1630academy/");
+	define("CLASS_PATH","http://cs1630academy/");
+	define("GSCRIPT_PATH", "http://cs1630academy/pages/script_grade.php");
 }
 
 

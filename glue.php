@@ -92,7 +92,7 @@ function get_header()
 			<div id="title-bar">
 				<div id='title'>Pittsburgh Science and Technology Academy</div>
 				<div id='subtitle'>Homework Grading and Submission System</div>
-				<img src="<?= HOME_DIR ?>images/PSTALogo.png">
+				<a href="<?= HOME_DIR ?>"><img src="<?= HOME_DIR ?>images/PSTALogo.png"></a>
 			</div>	
 			<div id="content">
 				<div id="sidebar" class='nav'>
@@ -110,12 +110,13 @@ function get_header()
 					
 					<? elseif ($usertype == "teacher"): ?>
 					<!--teacher only stuff-->
-					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/create_assig.php">Create Assignment</a></div>
-					<div class='nav-item'><a href="<?= HOME_DIR ?>/pages/grade_assig.php">Grade Assignment</a></div>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_assig.php">Create Assignment</a></div>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/grade_assig.php">Grade Assignment</a></div>
 
 					<? endif; ?>
 					<? hr(); ?>
 					<div class='nav-item'><a href="">Contact Us</a></div>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>logout.php">Logout</a></div>
 
 				</div>
 				<div id="inner-content">
@@ -186,7 +187,8 @@ function lock()
 						<br>
 						<? add_token(); ?>
 					</form>
-					<div id="error-message" class='warning message' style='display: none;'></div><br>
+					<div id="error-message" class='warning message' style='display: none;'></div>
+					<div id='loading-bar' style="display: none; margin-top: -17.5px; margin-left: 60px;"><img src="<?= HOME_DIR ?>images/loading.gif"></div><br>
 					<small><em>Please contact your system administrator with any issues regarding login.</em></small>
 				</div>
 				<script>
@@ -200,6 +202,7 @@ function lock()
 						alert("Both fields required.");
 					}
 					else{
+						$("#loading-bar").css("display","block");
 						var $formdata = $("#login_form").serialize();
 						post('<?= $validation_url ?>', $formdata, function(){
 							var $data = arguments[0];
@@ -207,7 +210,7 @@ function lock()
 								window.location.href = "<?= HOME_DIR ?>";
 							}
 							else{
-								
+								$('#loading-bar').css("display","none");
 								if (! typeof t === undefined) clearTimeout(t);
 								$('#error-message').html($data);
 								$('#error-message').show("slow");

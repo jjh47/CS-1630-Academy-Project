@@ -205,7 +205,7 @@ head {
   -webkit-box-sizing: border-box;
   padding: 10px;
   margin-left: 200px;
-  min-height: 220px;
+  min-height: 250px;
 }
 #content #inner-content .code-block {
   width: 650px;

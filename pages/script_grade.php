@@ -1,29 +1,11 @@
 <?
-
-	//require("../../../glue.php");
-	//init("script");
-
-
-/* PLEASE CAREFULLY READ THESE COMMENTS!
- * 
- * On script pages, you should not need to reference a lot of other pages.  You WILL need
- * to reference data though.
- * 
- * use $_SESSION["username"] and $_SESSION["usertype"] to segregate the components of the page (i.e. if ($username != "admin") etc.)
- * use $db to make database calls
- *
- * CAREFULLY use the defines.php file (includes/definies.php) to define any important information like file paths - specifically anything that may chance from one person's machine to another or on the production server.  This makes sure we can just change things here and they won't break elsewhere.  Please name your defines carefully.
- *
- *
- */
-//$db_handle = sqlite_open();
-//$user_name = $_SESSION["username"];
-
-
-//$user_type = sqlite_array_query($db_handle, "select user_type from users where user_name = '".$username."'");
-//$user_type = $user_type[1];
-
-//$num_args = func_num_args();
+//check to make sure this is being run from teh command line
+if (!empty($_SERVER['REMOTE_ADDR']) && isset($_SERVER['HTTP_USER_AGENT']) && !count($_SERVER['argv']))
+{
+	include("../glue.php");
+	header("Location: ".HOME_DIR);
+	die;
+}
 $args = $argv;
 $dir = getcwd();
 $python = false;

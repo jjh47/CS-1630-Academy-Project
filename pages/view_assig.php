@@ -100,8 +100,6 @@
 
 	$now = time();
 
-	//|| strtotime($late_due_date) < time() 
-
 	if ($now > strtotime($late_due_date) && $_SESSION["usertype"] == "student")
 	{
 		echo "<div class='warning message'>This assignment is closed for submission.</div>";
@@ -110,8 +108,11 @@
 
 	elseif ($now > strtotime($due_date) && $_SESSION["usertype"] == "student")
 	{
-		echo "<div class='warning message'>This assignment was due by $due_date.  Any files submitted will now be counted as late.</div>";
+
+		echo "<div class='warning message'>This assignment was due by ".date("l, F j, Y \a\\t g:ia",strtotime($due_date)).".  Any files submitted will be counted as late.</div>";
 	}
+
+	echo "<h1>View Assignment</h1>";
 
 	echo("<p> Title: <b> ".$title."</b></p>");
 	echo("<p> Date Assigned: <b> ".date("l, F j, Y \a\\t g:ia",strtotime($date_assigned))."</b></p>");
@@ -178,6 +179,7 @@
 	{
 		if ((isset($closed) && !$closed) || !isset($closed))
 		{
+			echo "<h2>Submit Files:</h2>";
 			$results = $db->arrayQuery("select * from Assignment where assignment_id = '$assignment_id' and class_id = '$class_id'");
 			$assignment = $results[0];
 			print_form($assignment, $class_id, $assignment_id); //after EVERYTHING has been checked, print out the homework submissionform and the relevant JavaScript
@@ -199,7 +201,7 @@ function print_form($assignment, $class_id, $assignment_id)
 	else
 	{
 		?>
-		<br><br>Select files to upload:<br>
+		Select files to upload:<br>
 		<form id='submission-form' enctype='multipart/form-data' action='process_submit.php' method='post'>
 			<? for ($count=0; $count < $num_files; $count++): ?>
 				<? if ($count == $num_files - 1): ?>
@@ -211,81 +213,131 @@ function print_form($assignment, $class_id, $assignment_id)
 			<input type='Submit' value='Submit' id='submit' disabled='disabled'>&nbsp;<input type='reset' value='Reset'>
 		</form>
 
-		<script>
-			$(document).ready(function(){
-				$('#submission-form').submit(function(){
-					var now = new Date();
-					<?
-						$due = strtotime($assignment["due_date"])*1000;
-						$late = strtotime($assignment["late_due_date"])*1000;
-					?>
-					var due = new Date(); due.setTime(<?= $due ?>);
-					var late = new Date(); late.setTime(<?= $late ?>);
+		<? 
+		print_current_files(); 
 
-					if (now.getTime() > late.getTime())
-					{
-						//alert("Now: " + now.getTime() + " Late: " + late.getTime());
-						alert("Sorry, assignment submission has closed.");
+		print_student_js();
 
-						submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=0&commentsubmission_time=File submission attempt logged - FAILED, ASSIGNMENT CLOSED AFTER PAGE LOAD.");
+	}
+}
 
-						return false;
-					}
-					else if (now.getTime() > due.getTime()) //assignment is late
-					{
-						$('#submission-form').append("<? add_token(); ?>");
-						$('#submission-form').append("<input type='hidden' name='course_id' value='<?= $class_id ?>'>");
-						$('#submission-form').append("<input type='hidden' name='assignment_id' value='<?= $assignment_id ?>'>");
-						$('#submission-form').append("<input type='hidden' name='late' value='true'>");
+//function prints all files that students have uploaded with ability to delete those files
+function print_current_files()
+{
+	global $user_id, $assignment_id, $class_id, $title, $db;
+	$results = $db->arrayQuery("select class_name from class where class_id='$class_id'");
+	$course_title = $results[0]["class_name"];
 
-						submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=1&comment=File submission attempt logged - LATE.");
+	echo "<h2>View Files:</h2>";
+	$student_path = BASE_PATH.preg_replace("/ /", "_", $course_title)."-".$class_id."/".preg_replace("/ /", "_", $title)."-".$assignment_id."/".preg_replace("/ /", "_", $_SESSION["username"])."-".$user_id."/";
+	if (!is_dir($student_path))
+	{
+		error_message("No files currently uploaded.");
+	}
+	else
+	{
+		$file_list = scandir($student_path);
+		array_shift($file_list);
+		array_shift($file_list);
+		echo "<select id='file-list' style='display: inline;'>";
+		echo "<option value='none'>--</option>";
+		foreach ($file_list as $file)
+		{
+			if (!((strcasecmp($file, "late.txt") == 0) || (strcasecmp($file, "results.txt") == 0)))
+			{
+				echo "<option value=$file>$file</option>";
+			}
+		}
+		echo "<select> &nbsp; <button>Delete File</button>";
+		foreach ($file_list as $file)
+		{
+			//like grade assignment
+		}
+		echo "<div id='viewport' style='display: none'></div>";
+	}
+	//if no files present, indicate message
+	//otherwise, print file names with trash can icon
+}
 
-						return true;
-					}
-					else //assignment is on time
-					{
-						$('#submission-form').append("<? add_token(); ?>");
-						$('#submission-form').append("<input type='hidden' name='course_id' value='<?= $class_id ?>'>");
-						$('#submission-form').append("<input type='hidden' name='assignment_id' value='<?= $assignment_id ?>'>");
-						$('#submission-form').append("<input type='hidden' name='late' value='false'>");
+//all javascript necessary for student uploading form
+function print_student_js()
+{
+	global $user_id, $class_id, $username, $assignment_id, $assignment;
+	?>
+	<script>
+		$(document).ready(function(){
+			$('#submission-form').submit(function(){
+				var now = new Date();
+				<?
+					$due = strtotime($assignment["due_date"])*1000;
+					$late = strtotime($assignment["late_due_date"])*1000;
+				?>
+				var due = new Date(); due.setTime(<?= $due ?>);
+				var late = new Date(); late.setTime(<?= $late ?>);
 
-						submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=1&comment=File submission attempt logged - ON TIME.");
+				if (now.getTime() > late.getTime())
+				{
+					//alert("Now: " + now.getTime() + " Late: " + late.getTime());
+					alert("Sorry, assignment submission has closed.");
 
-						return true;
-					}
+					submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=0&commentsubmission_time=File submission attempt logged - FAILED, ASSIGNMENT CLOSED AFTER PAGE LOAD.");
+
 					return false;
-				});
-				
-				$('#submit').attr('disabled',false);
-				
-				$('#less').bind('click',function(){
-					var prev = $('#last').prev();
-					var last = $('#last');
-					if ($(prev).is("input"))
-					{
-						$(prev).css("display","inline");
-						$(prev).attr("id","last");
-						$(last).remove();
-					}
-				});
+				}
+				else if (now.getTime() > due.getTime()) //assignment is late
+				{
+					$('#submission-form').append("<? add_token(); ?>");
+					$('#submission-form').append("<input type='hidden' name='course_id' value='<?= $class_id ?>'>");
+					$('#submission-form').append("<input type='hidden' name='assignment_id' value='<?= $assignment_id ?>'>");
+					$('#submission-form').append("<input type='hidden' name='late' value='true'>");
 
-				$('#more').bind('click',function(){
-					var last = $('#last');
-					$(last).attr("id","");
-					$(last).css("display","block");
-					$(last).after("<input type='file' name='userfile[]' id='last' style='display: inline;'>");
-				});
+					submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=1&comment=File submission attempt logged - LATE.");
+
+					return true;
+				}
+				else //assignment is on time
+				{
+					$('#submission-form').append("<? add_token(); ?>");
+					$('#submission-form').append("<input type='hidden' name='course_id' value='<?= $class_id ?>'>");
+					$('#submission-form').append("<input type='hidden' name='assignment_id' value='<?= $assignment_id ?>'>");
+					$('#submission-form').append("<input type='hidden' name='late' value='false'>");
+
+					submit_log_entry("assignment_id=<?= $assignment_id ?>&class_id=<?= $class_id ?>&user_id=<?= $user_id ?>&username=<?= $username ?>&submission_time=" + now.getTime() + "&successful=1&comment=File submission attempt logged - ON TIME.");
+
+					return true;
+				}
+				return false;
+			});
+			
+			$('#submit').attr('disabled',false);
+			
+			$('#less').bind('click',function(){
+				var prev = $('#last').prev();
+				var last = $('#last');
+				if ($(prev).is("input"))
+				{
+					$(prev).css("display","inline");
+					$(prev).attr("id","last");
+					$(last).remove();
+				}
 			});
 
-			function submit_log_entry(data)
-			{
-				post("update_log.php",data,function(){
-					//alert(arguments[0]);
-				});
-			}
-		</script>
-		<?
-	}
+			$('#more').bind('click',function(){
+				var last = $('#last');
+				$(last).attr("id","");
+				$(last).css("display","block");
+				$(last).after("<input type='file' name='userfile[]' id='last' style='display: inline;'>");
+			});
+		});
+
+		function submit_log_entry(data)
+		{
+			post("update_log.php",data,function(){
+				//alert(arguments[0]);
+			});
+		}
+	</script>
+	<?
 }
 
 
