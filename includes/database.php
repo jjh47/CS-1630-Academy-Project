@@ -2,8 +2,10 @@
 //session_start();
 
 $db = $_SESSION["db"];
+$testing = true;
 
-if ($db)
+
+if ($db && $testing)
 {
     drop_tables();
     query("
@@ -81,7 +83,7 @@ if ($db)
 }
 else
 {
-    die($dberror);
+    //die($dberror);
 }
 
 function drop_tables()
@@ -120,7 +122,7 @@ function insert_classes()
 function insert_assignments()
 {
     $due = "2012-03-25 23:45:00";
-    $late = "2012-03-25 23:59:59";
+    $late = "2012-07-25 23:59:59";
     $assigned = "2012-03-11 12:00:00";
     query("
         insert into Assignment values (0, 0, 'Assignment 0 for Class 0', '$assigned', 'no description', '$due', '$late', 1, 3);

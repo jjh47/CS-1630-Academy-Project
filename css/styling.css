@@ -19,7 +19,8 @@ OTHERWISE, YOUR CHANGES MAY DISAPPEAR.
   /* for IE < 8 */
 
 }
-.clearfix:before, .clearfix:after {
+.clearfix:before,
+.clearfix:after {
   content: ".";
   display: block;
   height: 0;
@@ -38,7 +39,9 @@ body {
   font-family: "Trebuchet MS", sans-serif;
   background-color: #d2d2d2;
 }
-html, body, head {
+html,
+body,
+head {
   margin: 0;
   padding: 0;
 }
@@ -111,11 +114,11 @@ html, body, head {
   padding-left: 15px;
 }
 #lock-inner-contents #login-title img {
-  position: absolute;
   height: 75px;
-  height: 75px;
-  left: 1035px;
-  top: 60px;
+  width: 75px;
+  display: inline;
+  margin-top: -60px;
+  margin-left: 875px;
 }
 #lock-inner-contents #bottom-bar {
   background-color: #08357d;
@@ -178,11 +181,11 @@ html, body, head {
   padding-left: 15px;
 }
 #title-bar img {
-  position: absolute;
   height: 75px;
-  height: 75px;
-  left: 1035px;
-  top: 20px;
+  width: 75px;
+  display: inline;
+  margin-top: -60px;
+  margin-left: 875px;
 }
 #content {
   margin: 0 auto;
@@ -202,7 +205,7 @@ html, body, head {
   -webkit-box-sizing: border-box;
   padding: 10px;
   margin-left: 200px;
-  min-height: 200px;
+  min-height: 220px;
 }
 #content #inner-content .code-block {
   width: 650px;
@@ -263,6 +266,12 @@ html, body, head {
 #content #inner-content ul.pager li.disabled a:hover {
   text-decoration: none;
   color: gray;
+}
+#content form.single-button {
+  display: inline;
+}
+#content select.drop-down {
+  min-width: 100px;
 }
 #content #sidebar {
   width: 200px;
