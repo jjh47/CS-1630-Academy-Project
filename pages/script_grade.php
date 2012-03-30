@@ -40,7 +40,7 @@ if($args[1] == "-c"){
 				if($fp == false){
 					print("error occured while opening/creating ".$folder."'s Results.txt\n");
 				}
-				$return = fwrite($fp, "Compilation of ".$javaFile."\n--------------------------------------------------\n\n");
+				$return = fwrite($fp, "\nCompilation of ".$javaFile."\n--------------------------------------------------\n\n");
 				if($return == false){	
 					print("Unable to write to ".$folder."'s Results.txt");	
 				}
@@ -86,7 +86,7 @@ if($args[1] == "-d"){
 
 if($args[1] == "-t"){
 	if($args[2] != null){
-		if($args[3] == "-f"){
+		if(isset($args[3]) && $args[3] == "-f"){
 			//if the teacher wants to run the files with command line arguments she would do this:
 			//php grade.php -t "test 1 2 3" -f test1.txt
 			//this will run test with 1 2 3 as command line arguments and then use test1.txt as the input for the program
@@ -106,7 +106,7 @@ if($args[1] == "-t"){
 						chdir($folder);
 						//write title for the output results
 						$fp = fopen("Results.txt", 'a+');
-						fwrite($fp, "\nOutput of running ".$testFile."\n--------------------------------------------------\n\n");
+						fwrite($fp, "\nOutput of running \n--------------------------------------------------\n\n");
 						fclose($fp);
 						//this is a discriptor for the proc_open command that specifies how stdin, stdout, and stderr should be handled
 						$Spec = array (
@@ -118,10 +118,10 @@ if($args[1] == "-t"){
 
 						//start the process	
 						if($python == false){
-							$process = proc_open('java '.$className, $Spec, $handles);
+							$process = proc_open('java '.$className, $Spec, $handles, getcwd());
 						}
 						else{
-							$process = proc_open('python '.$className, $Spec, $handles);
+							$process = proc_open('python '.$className, $Spec, $handles, getcwd());
 						}
 
 
@@ -159,16 +159,16 @@ if($args[1] == "-t"){
 					if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
 						chdir($folder);
 						$fp = fopen("Results.txt", 'a+');
-						$return = fwrite($fp, "\nOutput of running ".$testFile."\n--------------------------------------------------\n\n");
+						$return = fwrite($fp, "\nOutput of running \n--------------------------------------------------\n\n");
 						if($return == false){	
 							print("Unable to write to ".$folder."'s Results.txt");	
 						}
 						fclose($fp);
 						if($python == false){
-							$output = shell_exec("javac ".$className." 2>&1 1> /dev/null");
+							$output = shell_exec("java ".$className." 2>&1 ");
 						}
 						else{
-							$output = shell_exec("python ".$className." 2>&1 1> /dev/null");
+							$output = shell_exec("python ".$className." 2>&1 ");
 						}
 						$fp = fopen('Results.txt', 'a+');
 						
@@ -178,6 +178,7 @@ if($args[1] == "-t"){
 						}
 
 						$return = fclose($fp);
+						chdir("..");
 					}
 				}
 			}
