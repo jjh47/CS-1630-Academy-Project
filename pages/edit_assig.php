@@ -78,7 +78,6 @@
 //This form probably needs looked at.  Not sure if it works.
 	?>
 	<h1>Edit <?= $title ?></h1>
-	<?= date("m/d/Y g:i a",strtotime($due_date)) ?>
 	<form method='post' action='process_edit.php'>
 		<table>
 			<tr><td>Title:</td>
