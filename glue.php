@@ -23,6 +23,7 @@ function init($type = "page")
 		$_SESSION["script_list"][] = "functions.js";
 		$_SESSION["script_list"][] = "jquery.ui.core.js";
 		$_SESSION["script_list"][] = "jquery.ui.datepicker.js";
+		$_SESSION["script_list"][] = "jquery-ui-timepicker-addon.js";
 	}
 
 	switch($type)
