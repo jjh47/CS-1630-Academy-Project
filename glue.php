@@ -105,22 +105,27 @@ function get_header()
 					<div class='nav-item'><a href="<?= HOME_DIR ?>">Home</a></div>
 					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
 					<? if ($usertype == "student" || $usertype == "teacher"): ?>
-					<? hr(); ?>
-					<!--both-->
-					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
-					<!--specific-->
-					<? elseif ($usertype == "student"): ?>
-					<!--student only stuff-->
+						<? hr(); ?>
+						<!--both-->
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
+						<!--end both -->
+					<? endif; ?>
 					
+					<? if ($usertype == "student"): ?>
+						<!--student only stuff-->
+
+						<!--end student only stuff-->
 					<? elseif ($usertype == "teacher"): ?>
-					<!--teacher only stuff-->
-					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_assig.php">Create Assignment</a></div>
-					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/grade_assig.php">Grade Assignment</a></div>
-
+						<!--teacher only stuff-->
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_assig.php">Create Assignment</a></div>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/grade_assig.php">Grade Assignment</a></div>
+						<!--end teacher only stuff-->
 					<? elseif ($usertype == "admin"): ?>
-					<? hr(); ?>
-					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/add_user.php">Add User</a></div>
-
+						<!--admin only stuff-->
+						<? hr(); ?>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/add_user.php">Add User</a></div>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Class</a></div>
+					<!--end admin only stuff-->
 					<? endif; ?>
 					<? hr(); ?>
 					<div class='nav-item'><a href="">Contact Us</a></div>
