@@ -21,13 +21,12 @@ if ($db && $testing)
         ");
     query("
             create table 'Class' (
-                'class_id' int not null,
+                'class_id' integer primary key,
                 'class_name' int not null,
                 'instructor_id' int not null,
                 'instructor_email' text not null,
                 'room' text,
-                'description' text,
-                primary key ('class_id')
+                'description' text
             )
         ");
     query("
