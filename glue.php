@@ -264,7 +264,6 @@ function set_tokens()
 
 	for ($x=0; $x<50; $x++)
 	{
-
 		$private_token .= $characters[rand(0,$length-1)];
 		$public_token .= $characters[rand(0,$length-1)];
 	}
