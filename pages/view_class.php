@@ -6,7 +6,7 @@
 	$username = $_SESSION["username"];
 	$user_id = $_SESSION["user_id"];
 	$usertype = $_SESSION["usertype"];
-
+	
 	if (!isset($_GET["class_id"]))
 	{
 		echo "<em>No course selected...</em>";
@@ -22,6 +22,9 @@
 		else
 		{
 			$course_name = isset($results[0]["class_name"]) ? $results[0]["class_name"] : "selected course";
+			$instructor_email = isset($results[0]["instructor_email"]) ? $results[0]["instructor_email"] : "N.A.";
+			$room = isset($results[0]["room"]) ? $results[0]["room"] : "N.A.";
+			$description = isset($results[0]["description"]) ? $results[0]["description"] : "N.A.";
 			$results = $db->arrayQuery("select * from Enrollment where user_id = '$user_id' and class_id = '$selected';");
 			if (!isset($results) || empty($results)) //user is not in the course
 			{
@@ -38,6 +41,9 @@
 				{
 					$assignments = $db->arrayQuery("select * from Assignment where class_id = '$selected';");
 					echo "<h1>Assignments for $course_name</h1>";
+					echo "Instructor Email: $instructor_email<br>" ;
+					echo "Room: $room<br>";
+					echo "Description: $description<br>";
 					if ($usertype == "teacher")
 					{
 						if (isset($_SESSION["creation-message"]))

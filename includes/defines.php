@@ -1,5 +1,5 @@
 <?
-$testing = "Rafe";
+$testing = "Ping";
 
 if($testing == "Ping"){
 	define("DB_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/pages/academyprojectdb"); //path to the database file
