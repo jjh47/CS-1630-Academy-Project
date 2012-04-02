@@ -10,13 +10,12 @@ if ($db && $testing)
     drop_tables();
     query("
             create table 'User' (
-                'user_id' int not null,
+                'user_id' integer primary key,
                 'username' text not null,
                 'email' text not null,
                 'usertype' text not null,
                 'password' text not null,
                 'salt' text not null,
-                primary key ('user_id'),
                 unique (email)
             )
         ");
