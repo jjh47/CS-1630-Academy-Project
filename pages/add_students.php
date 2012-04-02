@@ -1,5 +1,5 @@
 <?
-	require("../../glue.php");
+	require("../glue.php");
 	init("page");
 	//enqueue_script($filename)
 	get_header();
@@ -22,19 +22,30 @@
  */
 
 ?>
-	<label>Add Teacher</label>
-	<br>
-	<br>
-
-	<form>
-		Username: <input type="text" id="username"/>
-		Email: 
-		Password: 
-
-
-	</form>
 	
 
+
+	<label>Add User</label>
+	<br>
+	<br>
+	<form name="adduserform" method="POST" action="process_add_students.php">
+		Username: <input type="text" name="username"/><br>
+		Email: <input type="text" name="email"/><br>
+		Password: <input type="text" name="password"/><br>
+		<input type="radio" name="usertype" value="student" checked="true"/>Student<br>
+		<input type="radio" name="usertype" value="teacher"/>Teacher<br>
+		<input type="submit" Value="Add User" name="adduser"/>
+
+	</form>
+	<br><br>
+
+
+	<label>Add User via CSV</label><br><br>
+	<form enctype="multipart/form-data" action="process_add_students.php" method="POST" name="csvform">
+		<input type="hidden" name="MAX_FILE_SIZE" value="300000000"/>
+		Choose a file to upload: <input name="uploadedfile" type="file" /><br />
+		<input type="submit" value="Upload File" name="uploadcsv" />
+	</form>
 
 
 <?
