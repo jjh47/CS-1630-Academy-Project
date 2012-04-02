@@ -7,7 +7,7 @@ require("includes/defines.php");
 $db = new SQLiteDatabase(DB_PATH, 0666, $dberror);
 $_SESSION["db"] = $db;
 
-include("includes/database.php");
+//include("includes/database.php");
 
 if (!isset($_SESSION["tokens_set"]))
 {
@@ -104,17 +104,22 @@ function get_header()
 					<? hr(); ?>
 					<div class='nav-item'><a href="<?= HOME_DIR ?>">Home</a></div>
 					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
+					<? if ($usertype == "student" || $usertype == "teacher"): ?>
 					<? hr(); ?>
 					<!--both-->
 					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
 					<!--specific-->
-					<? if ($usertype == "student"): ?>
+					<? elseif ($usertype == "student"): ?>
 					<!--student only stuff-->
 					
 					<? elseif ($usertype == "teacher"): ?>
 					<!--teacher only stuff-->
 					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_assig.php">Create Assignment</a></div>
 					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/grade_assig.php">Grade Assignment</a></div>
+
+					<? elseif ($usertype == "admin"): ?>
+					<? hr(); ?>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/add_user.php">Add User</a></div>
 
 					<? endif; ?>
 					<? hr(); ?>

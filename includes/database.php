@@ -104,6 +104,7 @@ function insert_users()
         insert into User values ('12', 'Rafe Twelve', 'rafael.colton+twelve@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
         insert into User values ('13', 'Rafe Thirteen', 'rafael.colton+thirteen@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
         insert into User values ('14', 'Rafe Fourteen', 'rafael.colton+fourteen@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
+        insert into User values ('15', 'Generic Admin', 'rafael.colton+admin@gmail.com', 'admin', '$pass', 'thisisthesalt!!!');
         ");
 }
 
