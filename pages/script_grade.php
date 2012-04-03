@@ -16,17 +16,20 @@ if($args[1] == "-c"){
 		$javaFile = $args[2];
 		if(substr($javaFile, -3)==".py"){$python = true;}
 		$folders = scandir($dir);
+		print("->Compiling Student Projects and Recording output\n");
 		//for each student folder in the assignment folder
 		foreach($folders as $folder){
 			if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
 				//change directory to a student's submission folder
 				$return = chdir($folder);
+				print("");
 				if($return == false){
-					print("unable to change directory into ".$folder."\n");
+					print("Unable to change directory into ".$folder."\n");
 				}
 
 				//compile the java program and record output
 				if($python == false){
+					print("->Compiling ".$folder."'s project\n");
 					//The suffix on this command is so that the output of each of these compilations are not displayed on the console
 					$output = shell_exec("javac ".$javaFile." 2>&1 1> /dev/null");
 				}
@@ -38,7 +41,7 @@ if($args[1] == "-c"){
 				//open/create the results file and write the output to it.
 				$fp = fopen('Results.txt', 'a+');
 				if($fp == false){
-					print("error occured while opening/creating ".$folder."'s Results.txt\n");
+					print("Error occured while opening/creating ".$folder."'s Results.txt\n");
 				}
 				$return = fwrite($fp, "\nCompilation of ".$javaFile."\n--------------------------------------------------\n\n");
 				if($return == false){	
@@ -64,10 +67,11 @@ if($args[1] == "-d"){
 			if($folder != ".." && $folder != "." && $folder != "script_grade.php" && substr($folder, -4) != ".txt" && substr($folder, -4) != ".dat" && substr($folder, -1) != "~"){
 				//navigate to student's submission folder
 				$return = chdir($folder);
-				if($return == false){print("unable to change directory into ".$folder."\n");}
+				if($return == false){print("Unable to change directory into ".$folder."\n");}
 				//delete the Results.txt file
 				$return = unlink("Results.txt");
-				if($return == false){print("unable to delete ".$folder."'s Results.txt\n");}
+				if($return == false){print("Unable to delete ".$folder."'s Results.txt\n");}
+				else {print("->Deleted ".$folder."'s Results\n");}
 				//change directory back to assignment folder
 				chdir("..");		
 			}	
@@ -77,11 +81,12 @@ if($args[1] == "-d"){
 	//delete a single student's results.txt file
 	else if($args[2] != null){
 		$return = chdir($args[2]);
-		if($return == false){print("unable to change directory into ".$args[2]."\n");}
+		if($return == false){print("Unable to change directory into ".$args[2]."\n");}
 		$return = unlink("Results.txt");
-		if($return == false){print("unable to delete ".$args[2]."'s Results.txt\n");}
+		if($return == false){print("Unable to delete ".$args[2]."'s Results.txt\n");}
+		else{print("->Deleted ".$args[2]."'s Results\n");}
 	}
-	else{print("please specify which results files you would like to delete, 'all' or a specific user name\n");}
+	else{print("Please specify which results files you would like to delete, 'all' or a specific user name\n");}
 }	
 
 if($args[1] == "-t"){
@@ -118,9 +123,11 @@ if($args[1] == "-t"){
 
 						//start the process	
 						if($python == false){
+							print("->Testing ".$folder."'s project\n");
 							$process = proc_open('java '.$className, $Spec, $handles, getcwd());
 						}
 						else{
+							print("->Testing ".$folder."'s project\n");
 							$process = proc_open('python '.$className, $Spec, $handles, getcwd());
 						}
 
@@ -165,9 +172,11 @@ if($args[1] == "-t"){
 						}
 						fclose($fp);
 						if($python == false){
+							print("\n->Recording output from ".$folder."'s project");
 							$output = shell_exec("java ".$className." 2>&1 ");
 						}
 						else{
+							print("\n->Recording output from ".$folder."'s project");
 							$output = shell_exec("python ".$className." 2>&1 ");
 						}
 						$fp = fopen('Results.txt', 'a+');
@@ -183,7 +192,7 @@ if($args[1] == "-t"){
 				}
 			}
 	}
-	else{print("please indicate the name of the compiled project file to be run");}
+	else{print("Please indicate the name of the compiled project file to be run");}
 	
 
 }
