@@ -99,7 +99,7 @@
 			<html>
 				<body>
 				<table style='border-spacing: 0px; border-collapse: collapse;'>
-					<tr style='width: 601px; height: 100px; background-color: #8a0015; color: white; padding: 10px; border-right: 1px solid #8a0015;'>
+					<tr style='width: 601px; height: 100px; background-color: #495caf; color: white; padding: 10px; border-right: 1px solid #495caf;'>
 							<td style='padding: 10px'><div style='font-size: 30px; padding-top: 15px; padding-left: 15px;'>Pittsburgh Science and Technology Academy</div><br><div style='font-size: 18px; padding-left: 15px'>Homework Grading and Submission System</div></td>
 							<td style='padding: 10px'><div style='width: 75px;'></div></td>
 					</tr>
@@ -154,7 +154,7 @@
 						</td>
 						<td><div></div></td>
 					</tr>
-					<tr style='background-color: #08357d; color: #08357d; width: 601px; margin: 0 auto; height: 30px; line-height: 30px; border-right: 1px solid #08357d'><td style='height: 30px; color: #08357d;'>footer</td><td style='height: 30px;'></td></tr>	
+					<tr style='background-color: #495caf; color: #495caf; width: 601px; margin: 0 auto; height: 30px; line-height: 30px; border-right: 1px solid #495caf'><td style='height: 30px; color: #495caf;'>footer</td><td style='height: 30px;'></td></tr>	
 				</table>
 				</body>
 			</html>
