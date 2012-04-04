@@ -125,6 +125,7 @@ function get_header()
 						<? hr(); ?>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/add_user.php">Add User</a></div>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Class</a></div>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/modify_users.php">Modify Users</a></div>
 					<!--end admin only stuff-->
 					<? endif; ?>
 					<? hr(); ?>
@@ -144,6 +145,21 @@ function hr()
 
 function get_footer()
 {
+	//The following may fit better in a get_body() function, but it fits here for now.
+	//Based on the user type, display a homepage
+	$usertype = $_SESSION["usertype"];
+	if($usertype == "admin")
+	{
+		
+	}
+	elseif($usertype == "student")
+	{
+	
+	}
+	elseif($usertype == "teacher")
+	{
+	
+	}
 	?>
 		</div>
 		<br style="clear: both;">
