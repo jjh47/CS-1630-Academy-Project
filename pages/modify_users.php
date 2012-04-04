@@ -1,10 +1,22 @@
 <?
 	require("../glue.php");
+	
 	init("page");
 	//enqueue_script($filename)
 	get_header();
+	
+?>
+<!-- Using the copy of DataTables hosted on Microsoft CDN to simplify file structure. -->
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/css/jquery.dataTables.css">
+ 
+<!-- jQuery -->
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+ 
+<!-- DataTables -->
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/jquery.dataTables.min.js"></script>
 
-
+<?
 /* PLEASE CAREFULLY READ THESE COMMENTS!
  *
  * FIRST: specify any $_GET variables you need to have when getting to this page.  For example, if it is the page for viewing an assignment, assume that $_GET will have a variable representing the assignment ID.  That way, you know which assignment to query from the database.  TELL ME HERE WHAT YOU WANT THE VARIABLE TO BE NAMED.  This ensures that the pages will link together correctly.
@@ -20,6 +32,8 @@
  * FINALLY: don't forget to check if things exist?  Use the (bool ? A : B) notation to accomplish this.  For example.  $result = ((isset($var) && !empty($var)) ? $var : "" )
  *
  */
+ 
+ 
 
  $usertype = $_SESSION["usertype"];
 //We start out with checking that the user is an admin and rejecting them if they are not.
@@ -71,6 +85,7 @@ if ($usertype == "admin")
 <h1>Modify Users</h1>
 <!-- TODO: create page process_modify_users.php (or do it another way, inline?) and function (below) submit_modify_users -->
 <!-- onsubmit="return submit_modify_users()" -->
+
 <form id="modify_users" method="post" action="process_modify_users.php" >
 	<select name="class_name" id="class_name" style='width: 130px;'>
 		<option value="">Classes...</option>
@@ -85,7 +100,8 @@ if ($usertype == "admin")
 	<input type="submit" name="modifySubmit" onclick="return clickPassword()" value="Change Passwords"/>&nbsp;
 	<input type="reset" value="Reset">
 	<? add_token(); ?>
-
+	<br />
+	<br />
 	<table id="users_table">
 		<thead>
 			<tr>
@@ -123,6 +139,18 @@ if ($usertype == "admin")
 	
 
 <script type="text/javascript">
+	//This bit here starts up DataTables
+	$(document).ready(function(){
+	  $('#users_table').dataTable({
+		"aoColumnDefs": [
+		  { "asSorting": [ "asc", "desc" ], "aTargets": [ 0, 1 ] },
+		  { "asSorting": [ ], "aTargets": [ 2, 3 ] },
+		  { "sWidth": "35%", "aTargets": [ 0 ] },
+		   { "sWidth": "25%", "aTargets": [ 1 ] }
+		]
+	  });
+	});
+
 	var checkedCount = 0;
 	
 	//Keeps track of how many checkboxes are checked, so that we can refuse to submit a page with none checked.
