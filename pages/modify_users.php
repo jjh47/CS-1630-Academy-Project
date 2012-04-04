@@ -22,21 +22,48 @@
  */
 
  $usertype = $_SESSION["usertype"];
-	//We start out with checking that the user is an admin and rejecting them if they are not.
-	if($_SESSION["usertype"] != "admin")
+//We start out with checking that the user is an admin and rejecting them if they are not.
+if($usertype != "admin")
+{
+	error_message("User does not have access to this feature...");
+	get_footer();
+	die;
+}
+else{ //Now we pull the data for the table from the database.
+	//This should be enough to initially populate the table.
+	$results = $db->arrayQuery("select user_id, username, email, usertype from User");
+	$classes = $db->arrayQuery("select class_id, class_name from Class");
+	//Change needed:
+	//May need another request to verify changes, such as having the enrollment table to approve/deny enrollment changes
+	
+}
+if ($usertype == "admin")
+{
+	if (isset($_SESSION["modify-message"]))
 	{
-		error_message("User does not have access to this feature...");
-		get_footer();
-		die;
+		echo "<div id='class-modify-message' class='info message'>".$_SESSION["modify-message"]."<br></div>";
+		unset($_SESSION["modify-message"]);
+		?>
+			<script>
+				setTimeout(function(){
+					$('#class-modify-message').hide("slow");
+				}, 2000);
+			</script>
+		<?
 	}
-	else{ //Now we pull the data for the table from the database.
-		//This should be enough to initially populate the table.
-		$results = $db->arrayQuery("select user_id, username, email, usertype from User");
-		$classes = $db->arrayQuery("select class_id, class_name from Class");
-		//Change needed:
-		//May need another request to verify changes, such as having the enrollment table to approve/deny enrollment changes
-		
+	elseif (isset($_SESSION["modify-message-error"]))
+	{
+		echo "<div id='class-modify-message' class='warning message'>".$_SESSION["modify-message-error"]."<br></div>";
+		unset($_SESSION["modify-message-error"]);
+		?>
+			<script>
+				setTimeout(function(){
+					$('#class-modify-message').hide("slow");
+				}, 2000);
+			</script>
+		<?	
 	}
+}	
 
 ?>
 
@@ -81,9 +108,9 @@
 		  //First we have the particular user's name and usertype.
 		  echo "<td>{$entry['username']}</td><td>{$entry['usertype']}</td>";
 		  //Now we get a text input box for inputing a new password. 
-		  echo "<td><input type='text' name='password_$id' id='password_$id' style='width: 100px;'/></td>";
+		  echo "<td><input type='text' name='password[]' id='password_$id' style='width: 100px;'/></td>";
 		  //Now a checkbox for applying the given action to this person.
-		  echo "<td><input type='checkbox' name='check_$id' id='check_$id' onclick='checkClick($id)' /></td>"; 
+		  echo "<td><input type='checkbox' name='check[]' id='check_$id' value='$id' onclick='checkClick($id)' /></td>"; 
 		  echo "</tr>";     
 		} 
 		?>
@@ -148,6 +175,11 @@
 	function clickPassword()
 	{
 		//I'll get back to this.
+		if(checkedCount <= 0)
+		{
+			alert("Please select the users who's passwords you are changing.")
+			return false;
+		}
 		return true;
 	}
 	
