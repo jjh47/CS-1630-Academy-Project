@@ -99,7 +99,7 @@
 			<html>
 				<body>
 				<table style='border-spacing: 0px; border-collapse: collapse;'>
-					<tr style='width: 601px; height: 100px; background-color: #495caf; color: white; padding: 10px; border-right: 1px solid #495caf;'>
+					<tr style='width: 601px; height: 100px; background-color: #414A6C; color: white; padding: 10px; border-right: 1px solid #414A6C;'>
 							<td style='padding: 10px'><div style='font-size: 30px; padding-top: 15px; padding-left: 15px;'>Pittsburgh Science and Technology Academy</div><br><div style='font-size: 18px; padding-left: 15px'>Homework Grading and Submission System</div></td>
 							<td style='padding: 10px'><div style='width: 75px;'></div></td>
 					</tr>
@@ -145,7 +145,7 @@
 									<td>$timeliness</td>
 								</tr>
 								<tr>
-									<td style='width: 250px;'><b>Comments:</b></td>
+									<td style='width: 250px; vertical-align: top;'><b>Comments:</b></td>
 									<td>$comment</td>
 								</tr>
 								</table>
