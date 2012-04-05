@@ -4,17 +4,12 @@
 	enqueue_script("jquery.dataTables.min.js");
 	get_header();
 
-	if(isset($_POST['delete']))
-	{
-		delete_selected();
-	}
-
-
 	$results = $db->arrayQuery("select * from Log");
 
 	?>
 	<div id='log-table-container'>
-	<form method="POST" name="logform" action="view_log.php">
+	<form method="POST" name="logform" action="process_view_log.php">
+	<? add_token(); ?>
 	<table id="logtable">	
 		<thead>
 			<tr>
@@ -33,13 +28,21 @@
 	{
 		$res = $results[$i];
 		$loaded[$i] = $res['submission_id'];
+		$res_class_name = $db->arrayQuery("select class_name from Class where class_id=$res[course_id]");
+		$res_assig_name = $db->arrayQuery("select title from Assignment where assignment_id=$res[assignment_id]");
+		$class_name = $res_class_name[0]['class_name'];
+		$assig_name = $res_assig_name[0]['title'];
+		if($res['successful'])
+			$success = "True";
+		else
+			$success = "False";
 		echo "<tr>";
 		echo "<td><input type='checkbox' name='LogId_$loaded[$i]'/>";
-		echo "<td>$res[course_id]</td>";
-		echo "<td>$res[assignment_id]</td>";
+		echo "<td>$class_name</td>";
+		echo "<td>$assig_name</td>";
 		echo "<td>$res[username]</td>";
 		echo "<td>$res[submission_time]</td>";
-		echo "<td>$res[successful]</td>";
+		echo "<td>$success</td>";
 		echo "<td>$res[comment]</td>";
 		echo "</tr>";
 	}
@@ -49,25 +52,13 @@
 	?>
 		</tbody>
 	</table><br><br>
-	<input type="submit" Value="Delete Selected" Name="delete"/>
+	<input type="submit" Value="Delete Selected" Name="delete"/>&nbsp;
 	<input type="button" Value="Toggle All" name="toggle" onclick="toggle_all()"/>
+	<br><br>
 	</form>
 	</div>
 <?
 
-	function delete_selected()
-	{	
-		global $db;
-		$loaded = $_SESSION['logloaded'];
-		for($i=0;$i<count($loaded);$i++)
-		{
-			if(isset($_POST['LogId_' . $loaded[$i]]))
-			{
-				$db->queryExec("DELETE FROM Log WHERE submission_id=$loaded[$i]");
-			}
-		}
-		unset($_POST["delete"]);
-	}
 
 ?>
 	<script type="text/javascript">
