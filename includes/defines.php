@@ -38,6 +38,13 @@ else if($testing == "James")
 	define("CLASS_PATH","/Users/jjh47/Documents/CS-1630-Academy-Project/");
 	define("GSCRIPT_PATH", "/Users/jjh47/Documents/CS-1630-Academy-Project/pages/");	
 }
+else if($testing == "Brian"){
+	define("DB_PATH","D:/xampp/htdocs/CS-1630-Academy-Project/pages/academyprojectdb"); //path to the database file
+	define("HOME_DIR","http://localhost/CS-1630-Academy-Project/");
+	define("BASE_PATH","D:/xampp/htdocs/CS-1630-Academy-Project/");
+	define("CLASS_PATH","D:/xampp/htdocs/CS-1630-Academy-Project/");
+	define("GSCRIPT_PATH", "D:/xampp/htdocs/CS-1630-Academy-Project/pages/script_grade.php");
+}
 
 
 
