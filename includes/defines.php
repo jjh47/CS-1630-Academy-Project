@@ -1,11 +1,6 @@
 <?
 
-<<<<<<< HEAD
-
-$testing = "James";
-=======
 $testing = "Rafe";
->>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 
 if($testing == "Ping"){
 	define("DB_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/pages/academyprojectdb"); //path to the database file

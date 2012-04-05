@@ -106,15 +106,9 @@ function get_header()
 					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
 					<? if ($usertype == "student" || $usertype == "teacher"): ?>
 						<? hr(); ?>
-<<<<<<< HEAD
 						<!--both-->
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
 						<!--end both -->
-=======
-						<!--all-->
-						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
-						<!--end all -->
->>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 					<? endif; ?>
 					
 					<? if ($usertype == "student"): ?>
@@ -130,13 +124,11 @@ function get_header()
 						<!--admin only stuff-->
 						<? hr(); ?>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/add_user.php">Add User</a></div>
-<<<<<<< HEAD
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Class</a></div>
-=======
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Classes</a></div>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">Delete Classes</a></div>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/modify_users.php">Modify Users</a></div>
->>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_log.php">View Log</a></div>
 					<!--end admin only stuff-->
 					<? endif; ?>
 					<? hr(); ?>
@@ -251,7 +243,7 @@ function lock()
 							}
 							else{
 								$('#loading-bar').css("display","none");
-								if (typeof t !== undefined) clearTimeout(t);
+								if (!(typeof t == "undefined")) clearTimeout(t);
 								$('#error-message').html($data);
 								$('#error-message').show("slow");
 								t = setTimeout(function(){

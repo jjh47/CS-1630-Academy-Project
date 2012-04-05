@@ -1519,7 +1519,12 @@ tr th {
   padding-right: 15px;
   padding-top: 10px;
   margin-left: 200px;
-  min-height: 300px;
+  min-height: 325px;
+}
+#content #inner-content #log-table-container {
+  width: 660px;
+  padding: 5px;
+  overflow: auto;
 }
 #content #inner-content .code-block {
   width: 640px;
