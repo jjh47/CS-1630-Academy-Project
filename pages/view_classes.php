@@ -1,6 +1,7 @@
 <?
 	require("../glue.php");
 	init("page");
+	enqueue_script("jquery.dataTables.min.js");
 	get_header();
 
 	$username = $_SESSION["username"];
@@ -38,19 +39,7 @@
 	
 	//If the user is an admin, they get all classes, with delete buttons instead of the user's own classes.
 	if ($usertype == "admin")
-	{
-		//a quick dash out of php to pull in the JQuery plugin DataTables
-		?>
-		<!-- Using the copy of DataTables hosted on Microsoft CDN to simplify file structure. -->
-		<!-- DataTables CSS -->
-		<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/css/jquery.dataTables.css">
-		 
-		<!-- jQuery -->
-		<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
-		 
-		<!-- DataTables -->
-		<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/jquery.dataTables.min.js"></script>
-		<?		
+	{		
 		$results = $db->arrayQuery("select class_id, class_name, instructor_id, username, instructor_email from Class, User where User.user_id = Class.instructor_id");
 		//The above SQL query is long, but it essentially justs takes the Class table but with the instructor's name added to each row.
 		?>
@@ -98,6 +87,7 @@
 			  { "sWidth": "35%", "aTargets": [ 0 ] },
 			   { "sWidth": "40%", "aTargets": [ 1 ] }
 			] //the sizes might need to be changed. These percentages looked good when I tested it.
+
 		  });
 		});
 

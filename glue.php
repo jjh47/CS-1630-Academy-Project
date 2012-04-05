@@ -95,7 +95,7 @@ function get_header()
 			<div id="title-bar">
 				<div id='title'>Pittsburgh Science and Technology Academy</div>
 				<div id='subtitle'>Homework Grading and Submission System</div>
-				<a href="<?= HOME_DIR ?>"><img src="<?= HOME_DIR ?>images/PSTALogo.png"></a>
+				<a href="<?= HOME_DIR ?>"><img src="<?= HOME_DIR ?>images/PSTALogo.png" alt="PSTA Logo"></a>
 			</div>	
 			<div id="content">
 				<div id="sidebar" class='nav'>
@@ -179,7 +179,6 @@ function add_token()
 function lock()
 {
 	$validation_url = HOME_DIR."process_login.php";
-
 	//if not logged in
 	if (!isset($_SESSION["logged_in"]) || empty($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false)
 	{
@@ -195,7 +194,7 @@ function lock()
 				<div id="login-title">
 					<div id='title'>Pittsburgh Science and Technology Academy</div>
 					<div id='subtitle'>Homework Grading and Submission System</div>
-					<img src="<?= HOME_DIR ?>images/PSTALogo.png">
+					<img src="<?= HOME_DIR ?>images/PSTALogo.png" alt="PSTA Logo">
 				</div>
 				<div id="lock-wrapper">
 					<form id="login_form" method="post">

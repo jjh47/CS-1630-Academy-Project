@@ -1508,7 +1508,7 @@ head {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   padding-left: 55px;
-  padding-right: 55px;
+  padding-right: 15px;
   margin-left: 200px;
   min-height: 300px;
 }
