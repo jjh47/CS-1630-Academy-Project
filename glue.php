@@ -129,6 +129,7 @@ function get_header()
 					<? endif; ?>
 					<? hr(); ?>
 					<div class='nav-item'><a href="">Contact Us</a></div>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/help.php">Help</a></div>
 					<div class='nav-item'><a href="<?= HOME_DIR ?>logout.php">Logout</a></div>
 
 				</div>
