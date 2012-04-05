@@ -1517,6 +1517,7 @@ tr th {
   -webkit-box-sizing: border-box;
   padding-left: 55px;
   padding-right: 15px;
+  padding-top: 10px;
   margin-left: 200px;
   min-height: 300px;
 }

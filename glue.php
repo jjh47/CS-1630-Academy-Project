@@ -124,9 +124,9 @@ function get_header()
 						<!--admin only stuff-->
 						<? hr(); ?>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/add_user.php">Add User</a></div>
-						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Class</a></div>
-						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/modify_users.php">Modify Users</a></div>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Classes</a></div>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">Delete Classes</a></div>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/modify_users.php">Modify Users</a></div>
 					<!--end admin only stuff-->
 					<? endif; ?>
 					<? hr(); ?>
@@ -241,7 +241,7 @@ function lock()
 							}
 							else{
 								$('#loading-bar').css("display","none");
-								if (! typeof t === undefined) clearTimeout(t);
+								if (typeof t !== undefined) clearTimeout(t);
 								$('#error-message').html($data);
 								$('#error-message').show("slow");
 								t = setTimeout(function(){
