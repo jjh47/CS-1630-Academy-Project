@@ -5,6 +5,7 @@
 	get_header();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 /* PLEASE CAREFULLY READ THESE COMMENTS!
  *
@@ -56,6 +57,8 @@
 
 ?>
 =======
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 	if ($_SESSION["usertype"] != "admin")
 	{
 		error_message("Invalid access.");
@@ -165,6 +168,9 @@
 		}
 	?>
 </script>
+<<<<<<< HEAD
 >>>>>>> afbcc726e6b69e129803f2d4f723b6fee3b742e4
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 
 <? get_footer(); ?>

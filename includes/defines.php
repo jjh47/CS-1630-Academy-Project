@@ -1,7 +1,11 @@
 <?
 
+<<<<<<< HEAD
 
 $testing = "James";
+=======
+$testing = "Rafe";
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 
 if($testing == "Ping"){
 	define("DB_PATH","C:/xampp/htdocs/CS1630/CS-1630-Academy-Project/pages/academyprojectdb"); //path to the database file
@@ -38,6 +42,13 @@ else if($testing == "James")
 	define("BASE_PATH","/Users/jjh47/Documents/CS-1630-Academy-Project/");
 	define("CLASS_PATH","/Users/jjh47/Documents/CS-1630-Academy-Project/");
 	define("GSCRIPT_PATH", "/Users/jjh47/Documents/CS-1630-Academy-Project/pages/");	
+}
+else if($testing == "Brian"){
+	define("DB_PATH","D:/xampp/htdocs/CS-1630-Academy-Project/pages/academyprojectdb"); //path to the database file
+	define("HOME_DIR","http://localhost/CS-1630-Academy-Project/");
+	define("BASE_PATH","D:/xampp/htdocs/CS-1630-Academy-Project/");
+	define("CLASS_PATH","D:/xampp/htdocs/CS-1630-Academy-Project/");
+	define("GSCRIPT_PATH", "D:/xampp/htdocs/CS-1630-Academy-Project/pages/script_grade.php");
 }
 
 

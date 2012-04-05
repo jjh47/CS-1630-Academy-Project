@@ -212,7 +212,7 @@
 				<tr><td>Lab Report:</td><td><input type="text" name="gr7" id="gr7" onkeyup="calculateTotal(<?= $user_id ?>)" size="2" maxlength="2" /></td></tr>
 				<tr><td>Timeliness:</td><td><input type="text" name="gr8" id="gr8" onkeyup="calculateTotal(<?= $user_id ?>)" size="2" maxlength="1" /></td></tr>
 				<tr><td>Total:</td><td><input type='text' id='total<?= $user_id ?>' value = '0' disabled='disabled' size='2' /></td><td><input type='hidden' name='user_id' value='<?= $user_id ?>'><input type='hidden' name='assignment_id' value='<?= $assignment_id ?>'></td></tr>
-				<tr><td>Comments:</td><td><textarea name='comment' id='comment' rows=10 cols=40 style="resize: vertical;"></textarea></td></tr>
+				<tr><td style='vertical-align: top;'>Comments:</td><td><textarea name='comment' id='comment' rows=10 cols=40 style="resize: vertical;"></textarea></td></tr>
 			</table>
 			<input type="submit" class="button" value="Submit" id ="submit_grading_rubric"/>&nbsp;
 			<input type="reset" class="button" value="Reset" id="reset_grading_rubric" onclick='reset_grading_form(<?= $user_id ?>)'/><br/>

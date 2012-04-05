@@ -1,6 +1,7 @@
 <?
 	require("../glue.php");
 <<<<<<< HEAD
+<<<<<<< HEAD
 	init("page");
 
 /* PLEASE CAREFULLY READ THESE COMMENTS!
@@ -19,6 +20,10 @@
 	init("form_process");
 
 >>>>>>> afbcc726e6b69e129803f2d4f723b6fee3b742e4
+=======
+	init("form_process");
+
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 	if(isset($_POST['adduser']))
 	{
 		add_user_form();
@@ -32,16 +37,21 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//return_to("add_students.php"); //don't forget to specify a page
 =======
 	return_to(HOME_DIR."pages/add_user.php"); //don't forget to specify a page
 >>>>>>> afbcc726e6b69e129803f2d4f723b6fee3b742e4
+=======
+	return_to(HOME_DIR."pages/add_user.php"); //don't forget to specify a page
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 
 
 	function add_user_form()
 	{
 		global $db;
 		//get vars
+<<<<<<< HEAD
 <<<<<<< HEAD
 		$username = $_POST['username'];
 		$email = $_POST['email'];
@@ -75,6 +85,8 @@
 
 
 =======
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 		$username = sqlite_escape_string($_POST['username']);
 		$email = sqlite_escape_string($_POST['email']);
 		$salt = make_salt();
@@ -118,7 +130,10 @@
         	$_SESSION["aur"]["message"] = "User $username successfully added.";
         	return true;
     	}
+<<<<<<< HEAD
 >>>>>>> afbcc726e6b69e129803f2d4f723b6fee3b742e4
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 	}
 
 	function add_user_csv()
@@ -126,6 +141,7 @@
 
 		$filename = basename($_FILES['uploadedfile']['name']);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 		if(!move_uploaded_file($_FILES['uploadedfile']['tmp_name'], CLASS_PATH . "CSVUploads/" . $filename))
 		{
@@ -148,6 +164,8 @@
 
 	function insert_student($linesplit)
 =======
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 		if (!is_dir(CLASS_PATH."CSVUploads"))
 		{
 			mkdir(CLASS_PATH."CSVUploads");
@@ -200,26 +218,36 @@
 	}
 
 	function insert_user($linesplit)
+<<<<<<< HEAD
 >>>>>>> afbcc726e6b69e129803f2d4f723b6fee3b742e4
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 	{
 		global $db;
 		$username = $linesplit[0];
 		$email = $linesplit[1];
 		$usertype = $linesplit[2];
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 		if (!($usertype == "teacher" || $usertype == "student" || $usertype == "admin"))
 		{
 			$_SESSION["aur"]["success"] = false;
         	$_SESSION["aur"]["message"] = "Data format in .csv file is invalid.";
 			return false;
 		}
+<<<<<<< HEAD
 >>>>>>> afbcc726e6b69e129803f2d4f723b6fee3b742e4
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 		$salt = make_salt();
 		$password = crypt($linesplit[3], "$5$" . $salt);
 
 		$query = "INSERT INTO User VALUES (NULL,'$username','$email','$usertype','$password','$salt');";
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 		echo $query . "<br>";
 
@@ -230,12 +258,17 @@
         	return false;
         	die("Query error: $error");
 =======
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 		//add to db
 		@$result = $db->queryExec($query, $error);
     	if (empty($result) || $error)
    	 	{
         	return false;
+<<<<<<< HEAD
 >>>>>>> afbcc726e6b69e129803f2d4f723b6fee3b742e4
+=======
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
     	}
     	else
     	{

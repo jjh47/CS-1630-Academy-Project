@@ -49,7 +49,7 @@ function init($type = "page")
 	}
 }
 
-function return_to($pagename = "/")
+function return_to($pagename = HOME_DIR)
 {
 	header("Location: $pagename");
 }
@@ -95,7 +95,7 @@ function get_header()
 			<div id="title-bar">
 				<div id='title'>Pittsburgh Science and Technology Academy</div>
 				<div id='subtitle'>Homework Grading and Submission System</div>
-				<a href="<?= HOME_DIR ?>"><img src="<?= HOME_DIR ?>images/PSTALogo.png"></a>
+				<a href="<?= HOME_DIR ?>"><img src="<?= HOME_DIR ?>images/PSTALogo.png" alt="PSTA Logo"></a>
 			</div>	
 			<div id="content">
 				<div id="sidebar" class='nav'>
@@ -106,9 +106,15 @@ function get_header()
 					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
 					<? if ($usertype == "student" || $usertype == "teacher"): ?>
 						<? hr(); ?>
+<<<<<<< HEAD
 						<!--both-->
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
 						<!--end both -->
+=======
+						<!--all-->
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
+						<!--end all -->
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 					<? endif; ?>
 					
 					<? if ($usertype == "student"): ?>
@@ -124,11 +130,18 @@ function get_header()
 						<!--admin only stuff-->
 						<? hr(); ?>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/add_user.php">Add User</a></div>
+<<<<<<< HEAD
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Class</a></div>
+=======
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Classes</a></div>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">Delete Classes</a></div>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/modify_users.php">Modify Users</a></div>
+>>>>>>> 299dd286e3904af43a9f7a77406bfcba0757146e
 					<!--end admin only stuff-->
 					<? endif; ?>
 					<? hr(); ?>
 					<div class='nav-item'><a href="">Contact Us</a></div>
+					<div class='nav-item'><a href="<?= HOME_DIR ?>pages/help.php">Help</a></div>
 					<div class='nav-item'><a href="<?= HOME_DIR ?>logout.php">Logout</a></div>
 
 				</div>
@@ -144,6 +157,21 @@ function hr()
 
 function get_footer()
 {
+	//The following may fit better in a get_body() function, but it fits here for now.
+	//Based on the user type, display a homepage
+	$usertype = $_SESSION["usertype"];
+	if($usertype == "admin")
+	{
+		
+	}
+	elseif($usertype == "student")
+	{
+	
+	}
+	elseif($usertype == "teacher")
+	{
+	
+	}
 	?>
 		</div>
 		<br style="clear: both;">
@@ -162,7 +190,6 @@ function add_token()
 function lock()
 {
 	$validation_url = HOME_DIR."process_login.php";
-
 	//if not logged in
 	if (!isset($_SESSION["logged_in"]) || empty($_SESSION["logged_in"]) || $_SESSION["logged_in"] == false)
 	{
@@ -178,7 +205,7 @@ function lock()
 				<div id="login-title">
 					<div id='title'>Pittsburgh Science and Technology Academy</div>
 					<div id='subtitle'>Homework Grading and Submission System</div>
-					<img src="<?= HOME_DIR ?>images/PSTALogo.png">
+					<img src="<?= HOME_DIR ?>images/PSTALogo.png" alt="PSTA Logo">
 				</div>
 				<div id="lock-wrapper">
 					<form id="login_form" method="post">
@@ -224,7 +251,7 @@ function lock()
 							}
 							else{
 								$('#loading-bar').css("display","none");
-								if (! typeof t === undefined) clearTimeout(t);
+								if (typeof t !== undefined) clearTimeout(t);
 								$('#error-message').html($data);
 								$('#error-message').show("slow");
 								t = setTimeout(function(){
