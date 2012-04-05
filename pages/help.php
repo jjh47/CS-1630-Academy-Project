@@ -16,11 +16,13 @@
 
 		case "admin":
 			?>
-				<p><h1>Table of Contents</h1></p>
-			   <p><a href="#CreateUser">Creating Users</a></p>
-			   <p><a href="#CreateClass">Creating Classes</a></p>
-			  <?// <p><a href="#AddStudent">Adding Students to Classes</a></p> ?>
-			   
+				<h1>Admin Help Page</h1>
+				<ol>
+					<li><a href="#CreateUser">Creating Users</a></li>
+					<li><a href="#CreateClass">Creating Classes</a></li>
+					<li><a href="#ModifyUsers">Modifying Users</a></li>
+				</ol>
+
 			   <h2 id="CreateUser">Creating Users</h2>
 			   <p>In order to create a new user you must first navigate to the "Add User" section
 			   of the webpage. From there you have the option of adding different kinds of users to the system.
@@ -37,16 +39,16 @@
 			   here you will be provided a form that takes in all necessary information such as teacher email, room 
 			   number, description, etc. Once the appropriate information has been filled in, click the submit button to process
 			   the form. A success or failure message will be displayed at the top of the screen.
-			   Once created, you can now <a href="#AddStudent">add students to the class</a>.</p>
+			   Once created, you can now add students to the class using the "Modify Users" page.</p>
 			   
-			   <?/*<h2 id="AddStudent">Adding Students to Classes</h2>
-			   <p>First, navigate to the class for which you want to add students to. From here you have two options; 
-			   either you can add a single student to the class or you can add multiple students by supplying a .csv file
-			   that has all of the student information in it. You must supply the username of the student in order to add
-			   an individual. Alternatively, you can use the file browser to select a .csv file from your computer that is
-			   properly formatted with all of the students information. Hitting submit will add all the given students to 
-			   that particular class. Students will now be able to access that class and any information you or the teacher
-			   has provided.</p>*/?>
+			   <h2 id="ModifyUsers">Modify Users</h2>
+			   <p>First, navigate to the "Modify Users" page in the navigation. From here you can select any number of users
+			   	and perform either individual or bulk actions on those users.  Those actions include deleting users, changing
+			   	user passwords by providing a password in the blank field, or enrolling users in courses.  In order to enroll
+			   	a user in a course, you must first select that course from the drop-down list.  Enrolling a teacher in a course
+			   	means giving that teacher administrative privileges over that course.  That teacher may now create, edit, delete,
+			   	and grade assignments for that course.  Enrolling a student in a course means giving that student permission to view
+			   	assignments for that course and submit files when the assignment is available for submission.</p>
 			<?
 			break;
 	}

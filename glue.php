@@ -104,7 +104,7 @@ function get_header()
 					<? hr(); ?>
 					<div class='nav-item'><a href="<?= HOME_DIR ?>">Home</a></div>
 					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
-					<? if ($usertype == "student" || $usertype == "teacher" || $usertype == "admin"): ?>
+					<? if ($usertype == "student" || $usertype == "teacher"): ?>
 						<? hr(); ?>
 						<!--all-->
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
@@ -126,6 +126,7 @@ function get_header()
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/add_user.php">Add User</a></div>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/create_class.php">Create Class</a></div>
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/modify_users.php">Modify Users</a></div>
+						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">Delete Classes</a></div>
 					<!--end admin only stuff-->
 					<? endif; ?>
 					<? hr(); ?>

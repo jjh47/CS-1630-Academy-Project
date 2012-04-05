@@ -82,15 +82,17 @@
 		$(document).ready(function(){
 		  $('#classes_table').dataTable({
 			"aoColumnDefs": [
-			  { "asSorting": [ "asc", "desc" ], "aTargets": [ 0, 1, 2 ] },
-			  { "asSorting": [ ], "aTargets": [ 3 ] },
-			  { "sWidth": "35%", "aTargets": [ 0 ] },
-			   { "sWidth": "40%", "aTargets": [ 1 ] }
-			] //the sizes might need to be changed. These percentages looked good when I tested it.
+				  { "asSorting": [ "asc", "desc" ], "aTargets": [ 0, 1, 2 ] },
+				  { "asSorting": [ ], "aTargets": [ 3 ] },
+				  { "sWidth": "35%", "aTargets": [ 0 ] },
+				  { "sWidth": "40%", "aTargets": [ 1 ] }
+				] //the sizes might need to be changed. These percentages looked good when I tested it.
+			});
+
+		  $('#classes_table_filter').after("<br>");
 
 		  });
-		});
-
+		  
 		var checkedCount = 0;
 		
 		//Keeps track of how many checkboxes are checked, so that we can refuse to submit a page with none checked.

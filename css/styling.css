@@ -1346,6 +1346,14 @@ head {
   margin: 0;
   padding: 0;
 }
+table td,
+tr td,
+table th,
+tr th {
+  white-space: nowrap;
+  padding: 5px 20px 5px 10px;
+  text-align: left;
+}
 .message.warning {
   color: black;
   display: inline-block;

@@ -123,6 +123,7 @@ if ($usertype == "admin")
 		  { "sWidth": "25%", "aTargets": [ 1 ] }
 		]
 	  });
+	  $('#users_table_filter').after("<br>");
 	});
 
 	var checkedCount = 0;
