@@ -104,11 +104,11 @@ function get_header()
 					<? hr(); ?>
 					<div class='nav-item'><a href="<?= HOME_DIR ?>">Home</a></div>
 					<div class='nav-item'><a href="<?= $_SERVER["HTTP_REFERER"] ?>">Back</a></div>
-					<? if ($usertype == "student" || $usertype == "teacher"): ?>
+					<? if ($usertype == "student" || $usertype == "teacher" || $usertype == "admin"): ?>
 						<? hr(); ?>
-						<!--both-->
+						<!--all-->
 						<div class='nav-item'><a href="<?= HOME_DIR ?>pages/view_classes.php">View Classes</a></div>
-						<!--end both -->
+						<!--end all -->
 					<? endif; ?>
 					
 					<? if ($usertype == "student"): ?>
