@@ -32,7 +32,7 @@
 
 	?>
 	<form method="POST" name="logform" action="view_log.php">
-	<table border="1" style="text-align:center">	
+	<table id="logtable">	
 		<tr>
 		<th>Select</th>
 		<th>Submission ID</th>
@@ -87,6 +87,12 @@
 
 ?>
 	<script type="text/javascript">
+
+
+		$(document).ready(function() {
+    		$('#logtable').dataTable();
+		} );
+
 		var onoff=false;
 
 

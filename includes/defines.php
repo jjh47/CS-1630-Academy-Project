@@ -1,5 +1,6 @@
 <?
 
+
 $testing = "James";
 
 if($testing == "Ping"){

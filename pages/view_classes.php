@@ -7,33 +7,6 @@
 	$user_id = $_SESSION["user_id"];
 	$usertype = $_SESSION["usertype"];
 	
-	if ($usertype == "teacher" || $usertype == "admin")
-	{
-		if (isset($_SESSION["creation-message"]))
-		{
-			echo "<div id='class-creation-message' class='info message'>".$_SESSION["creation-message"]."<br></div>";
-			unset($_SESSION["creation-message"]);
-			?>
-				<script>
-					setTimeout(function(){
-						$('#class-creation-message').hide("slow");
-					}, 2000);
-				</script>
-			<?
-		}
-		elseif (isset($_SESSION["creation-message-error"]))
-		{
-			echo "<div id='class-creation-message' class='warning message'>".$_SESSION["creation-message-error"]."<br></div>";
-			unset($_SESSION["creation-message-error"]);
-			?>
-				<script>
-					setTimeout(function(){
-						$('#class-creation-message').hide("slow");
-					}, 2000);
-				</script>
-			<?	
-		}
-	}
 	$results = $db->arrayQuery("select class_id from Enrollment where user_id = '$user_id'");
 	if (!isset($results) || empty($results)) //user has no classes
 	{

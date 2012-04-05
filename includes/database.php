@@ -93,6 +93,7 @@ function drop_tables()
 function insert_users()
 {
     $pass = crypt("asdf",'$5$thisisthesalt!!!'); //IMPORTANT: $5$ indicates that SHA-256 is to be used.  Salt MUST be in single quotes.
+    $pass2 = crypt("cs1630", '$5$thisisthesalt!!!');
     query("
         insert into User values ('0', 'Rafe Zero', 'rhc8@pitt.edu', 'student', '$pass', 'thisisthesalt!!!');
         insert into User values ('1', 'Generic Student', 'rafael.colton+student@gmail.com', 'student', '$pass', 'thisisthesalt!!!');
@@ -104,6 +105,8 @@ function insert_users()
         insert into User values ('12', 'Rafe Twelve', 'rafael.colton+twelve@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
         insert into User values ('13', 'Rafe Thirteen', 'rafael.colton+thirteen@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
         insert into User values ('14', 'Rafe Fourteen', 'rafael.colton+fourteen@gmail.com', 'teacher', '$pass', 'thisisthesalt!!!');
+        insert into User values ('15', 'Generic Admin', 'rafael.colton+admin@gmail.com', 'admin', '$pass', 'thisisthesalt!!!');
+        insert into User values ('16', 'Admin', 'cs1630_academy_project@googlegroups.com', 'admin', '$pass2','thisisthesalt!!!');
         ");
 }
 
