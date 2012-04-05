@@ -49,7 +49,7 @@ function init($type = "page")
 	}
 }
 
-function return_to($pagename = "/")
+function return_to($pagename = HOME_DIR)
 {
 	header("Location: $pagename");
 }
